@@ -17,17 +17,29 @@ knit        : slidify::knit2slides
 1. R 소개
 2. R과 통계
 3. R의 현재위치
+4. 기초 함수 및 변수 다루기
+5. 데이터 핸들링
+6. R Graphics
+7. 기초 통계
+8. 추론 통계
 
 ---
 
 ## 적절한 code editor 고르기
-- 1. R Studio  
+- 예) R Studio  
 
 ![alt text](rstudio.png)
 
 ---
 
-## Getting started
+## R
+
+* R 언어는 통계 <U>계산</U>과 <U>그래픽</U>을 위한 프로그래밍 언어  
+* S-PLUS -> R (1997, GUN PROJECT)  
+
+* 한계 : R’s biggest challenge is that most R users are not programmers  
+* 극복 : Solving the “Two-Language” Problem  
+
 설치 :
  
 * Install [R](http://www.r-project.org/)
@@ -36,8 +48,15 @@ knit        : slidify::knit2slides
 ---
 
 
+
+
 --- 
 ## Interactive Chart
+
+
+```
+## Loading required package: rCharts
+```
 
 
 <div id = 'chart1' class = 'rChart nvd3'></div>
@@ -210,19 +229,41 @@ knit        : slidify::knit2slides
 
 ```r
 require(googleVis)
+```
+
+```
+## Loading required package: googleVis
+## 
+## Welcome to googleVis version 0.5.5
+## 
+## Please read the Google API Terms of Use
+## before you start using the package:
+## https://developers.google.com/terms/
+## 
+## Note, the plot method of googleVis will by default use
+## the standard browser to display its output.
+## 
+## See the googleVis package vignettes for more details,
+## or visit http://github.com/mages/googleVis.
+## 
+## To suppress this message use:
+## suppressPackageStartupMessages(library(googleVis))
+```
+
+```r
 M1 <- gvisMotionChart(Fruits, idvar = 'Fruit', timevar = 'Year')
 print(M1, tag = 'chart')
 ```
 
 <!-- MotionChart generated in R 3.1.1 by googleVis 0.5.5 package -->
-<!-- Sun Mar  8 04:01:20 2015 -->
+<!-- Sun Mar  8 23:14:46 2015 -->
 
 
 <!-- jsHeader -->
 <script type="text/javascript">
  
 // jsData 
-function gvisDataMotionChartID6c4438ec3e02 () {
+function gvisDataMotionChartID779850e5d725 () {
 var data = new google.visualization.DataTable();
 var datajson =
 [
@@ -320,14 +361,14 @@ return(data);
 }
  
 // jsDrawChart
-function drawChartMotionChartID6c4438ec3e02() {
-var data = gvisDataMotionChartID6c4438ec3e02();
+function drawChartMotionChartID779850e5d725() {
+var data = gvisDataMotionChartID779850e5d725();
 var options = {};
 options["width"] =    600;
 options["height"] =    500;
 
     var chart = new google.visualization.MotionChart(
-    document.getElementById('MotionChartID6c4438ec3e02')
+    document.getElementById('MotionChartID779850e5d725')
     );
     chart.draw(data,options);
     
@@ -351,9 +392,9 @@ if (newPackage)
   pkgs.push(chartid);
   
 // Add the drawChart function to the global list of callbacks
-callbacks.push(drawChartMotionChartID6c4438ec3e02);
+callbacks.push(drawChartMotionChartID779850e5d725);
 })();
-function displayChartMotionChartID6c4438ec3e02() {
+function displayChartMotionChartID779850e5d725() {
   var pkgs = window.__gvisPackages = window.__gvisPackages || [];
   var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
   window.clearTimeout(window.__gvisLoad);
@@ -377,11 +418,11 @@ callbacks.shift()();
 </script>
  
 <!-- jsChart -->  
-<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartMotionChartID6c4438ec3e02"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartMotionChartID779850e5d725"></script>
  
 <!-- divChart -->
   
-<div id="MotionChartID6c4438ec3e02" 
+<div id="MotionChartID779850e5d725" 
   style="width: 600; height: 500;">
 </div>
 
