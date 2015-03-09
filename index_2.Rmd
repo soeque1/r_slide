@@ -1,0 +1,76 @@
+---
+title       : "R 강의"
+subtitle    : "두번째 시간"
+author      : "김형준"
+job         : "Data Analyst"
+fframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets    : [mathjax]
+#ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Contents
+
+1. R 소개  
+2. 기초 함수 및 변수 다루기  
+3. 데이터 핸들링  
+
+--- .class #id
+
+### filter: Keep rows Matching Criteria
+
+```{r}
+suppressMessages(library(dplyr))
+library(hflights)
+flights <- tbl_df(hflights)
+flights %>% filter(Month==1, DayofMonth==1)
+```
+
+---
+
+### select: Pick columns by name
+
+```{r, eval=F}
+flights %>% select(DepTime, ArrTime, FlightNum)
+```
+
+### arrange: Reorder Rows
+
+```{r}
+flights %>% 
+    select(UniqueCarrier, DepDelay) %>%
+        arrange(DepDelay) # arrange(desc(DepDelay))
+```
+
+---
+
+### mutate: Add New Variables
+```{r}
+flights %>%
+    group_by(Dest) %>%
+    summarise(avg_delay = mean(ArrDelay, na.rm=TRUE))%>%slice(1:2)
+```
+
+---
+    
+```{r}
+a = flights %>%
+    group_by(UniqueCarrier) %>%
+    summarise(mean_Cancelled = mean(Cancelled),mean_Diverted = mean(Diverted))
+a%>%slice(1:3)
+```
+
+```{r}
+b = flights %>%
+    group_by(UniqueCarrier) %>%
+    summarise_each(funs(mean), Cancelled, Diverted)
+colnames(a) = colnames(b)
+all.equal(a,b)
+```
+
+---
+
+
