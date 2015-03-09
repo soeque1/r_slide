@@ -206,7 +206,7 @@ is.numeric(3);is.integer(3)
 - 문자
 
 ```r
-is.character("김")isis.character(c("김",3,5)).nis.numeric(c("김",3,5))
+is.character("Kim");  is.character(c("Kim",3,5));  is.numeric(c("Kim",3,5))
 ```
 
 [1] TRUE

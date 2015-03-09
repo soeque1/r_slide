@@ -124,7 +124,7 @@ is.numeric(3);is.integer(3)
 
 - 문자
 ```{r, results='asis'}
-is.character("김"); is.character(c("김",3,5)); is.numeric(c("김",3,5))
+is.character("Kim");  is.character(c("Kim",3,5));  is.numeric(c("Kim",3,5))
 ```
 
 ---
