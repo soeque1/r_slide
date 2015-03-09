@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R 강의</title>
+  <meta charset="utf-8">
+  <meta name="description" content="R 강의">
+  <meta name="author" content="김형준">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>R 강의</h1>
+    <h2>첫번째 시간</h2>
+    <p>김형준<br/>Data Analyst</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Contents</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>R 소개<br></li>
+<li>기초 함수 및 변수 다루기<br></li>
+<li>데이터 핸들링<br></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>R</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>R 언어는 통계 <U>계산</U>과 <U>그래픽</U>을 위한 프로그래밍 언어<br></li>
+<li><p>S-PLUS -&gt; R (1997, GUN PROJECT)  </p></li>
+<li><p>한계 : R’s biggest challenge is that most R users are not programmers  </p></li>
+<li><p>극복 : Solving the “Two-Language” Problem  </p></li>
+</ul>
+
+<h3>설치</h3>
+
+<ul>
+<li>Install <a href="http://www.r-project.org/">R</a><br></li>
+<li>Install the lastest version of <a href="http://rstudio.org/download/">RStudio</a><br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>적절한 code editor 고르기</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>예) R Studio
+<img src="rstudio.png" alt="alt text"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The &quot;Comprehensive R Archive Network&quot; (CRAN)<br>
+is a collection of sites which carry identical material, consisting of the R distribution(s), the contributed extensions, documentation for R, and binaries.</li>
+</ul>
+
+<h3>장점</h3>
+
+<ul>
+<li>Freeware</li>
+<li>대화식 프로그램</li>
+<li>방대한 라이브러리</li>
+<li>다양한 OS 지원 / Java, C, Fortran 프로그래밍 인터페이스</li>
+<li>다양한 그래픽 지원</li>
+</ul>
+
+<h3>단점</h3>
+
+<ul>
+<li>Freeware --&gt; 저자 마음대로 input 설정</li>
+<li>국내자료가 부족</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>기초연산 &amp; 변수 다루기</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th>func</th>
+<th></th>
+<th>func</th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>+ - * / ^</td>
+<td>단순계산</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sqrt(x)</td>
+<td>제곱근</td>
+<td>ceiling(x)</td>
+<td>올림</td>
+</tr>
+<tr>
+<td>floor(x)</td>
+<td>내림</td>
+<td>abs(x)</td>
+<td>절댓값</td>
+</tr>
+<tr>
+<td>trunc(x)</td>
+<td>버림</td>
+<td>log(x)</td>
+<td>자연로그</td>
+</tr>
+<tr>
+<td>round(x)</td>
+<td>반올림</td>
+<td>round(x,n)</td>
+<td>소수점 n 까지 반올림</td>
+</tr>
+<tr>
+<td>factorial(n)</td>
+<td>n!</td>
+<td>choose(n,k)</td>
+<td>nCk</td>
+</tr>
+</tbody></table>
+
+<p>예)</p>
+
+<pre><code class="r">factorial(3)
+</code></pre>
+
+<p>[1] 6</p>
+
+<pre><code class="r">round(25.233,1)
+</code></pre>
+
+<p>[1] 25.2</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>패키지(라이브러리)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">head(installed.packages())
+</code></pre>
+
+<pre><code>##         Package  
+## abind   &quot;abind&quot;  
+## acepack &quot;acepack&quot;
+## ACTCD   &quot;ACTCD&quot;  
+## affy    &quot;affy&quot;   
+## affyio  &quot;affyio&quot; 
+## amap    &quot;amap&quot;   
+##         LibPath                                                         
+## abind   &quot;/Library/Frameworks/R.framework/Versions/3.1/Resources/library&quot;
+## acepack &quot;/Library/Frameworks/R.framework/Versions/3.1/Resources/library&quot;
+## ACTCD   &quot;/Library/Frameworks/R.framework/Versions/3.1/Resources/library&quot;
+## affy    &quot;/Library/Frameworks/R.framework/Versions/3.1/Resources/library&quot;
+## affyio  &quot;/Library/Frameworks/R.framework/Versions/3.1/Resources/library&quot;
+## amap    &quot;/Library/Frameworks/R.framework/Versions/3.1/Resources/library&quot;
+##         Version   Priority
+## abind   &quot;1.4-0&quot;   NA      
+## acepack &quot;1.3-3.3&quot; NA      
+## ACTCD   &quot;1.0-0&quot;   NA      
+## affy    &quot;1.44.0&quot;  NA      
+## affyio  &quot;1.34.0&quot;  NA      
+## amap    &quot;0.8-12&quot;  NA      
+##         Depends                                                     
+## abind   &quot;R (&gt;= 1.5.0)&quot;                                              
+## acepack NA                                                          
+## ACTCD   &quot;R (&gt;= 2.15.1), R.methodsS3&quot;                                
+## affy    &quot;R (&gt;= 2.8.0), BiocGenerics (&gt;= 0.1.12), Biobase (&gt;= 2.5.5)&quot;
+## affyio  &quot;R (&gt;= 2.6.0)&quot;                                              
+## amap    &quot;R (&gt;= 2.10.0)&quot;                                             
+##         Imports                                                                                                   
+## abind   NA                                                                                                        
+## acepack NA                                                                                                        
+## ACTCD   NA                                                                                                        
+## affy    &quot;affyio (&gt;= 1.13.3), BiocInstaller, graphics, grDevices,\nmethods, preprocessCore, stats, utils, zlibbioc&quot;
+## affyio  &quot;zlibbioc&quot;                                                                                                
+## amap    NA                                                                                                        
+##         LinkingTo        Suggests                                      
+## abind   NA               NA                                            
+## acepack NA               NA                                            
+## ACTCD   NA               NA                                            
+## affy    &quot;preprocessCore&quot; &quot;tkWidgets (&gt;= 1.19.0), affydata, widgetTools&quot;
+## affyio  NA               NA                                            
+## amap    NA               &quot;Biobase&quot;                                     
+##         Enhances License              License_is_FOSS
+## abind   NA       &quot;LGPL (&gt;= 2)&quot;        NA             
+## acepack NA       &quot;MIT + file LICENSE&quot; NA             
+## ACTCD   NA       &quot;GPL (&gt;= 2)&quot;         NA             
+## affy    NA       &quot;LGPL (&gt;= 2.0)&quot;      NA             
+## affyio  NA       &quot;LGPL (&gt;= 2)&quot;        NA             
+## amap    NA       &quot;GPL&quot;                NA             
+##         License_restricts_use OS_type MD5sum NeedsCompilation Built  
+## abind   NA                    NA      NA     NA               &quot;3.1.1&quot;
+## acepack NA                    NA      NA     &quot;yes&quot;            &quot;3.1.0&quot;
+## ACTCD   NA                    NA      NA     &quot;yes&quot;            &quot;3.1.1&quot;
+## affy    NA                    NA      NA     NA               &quot;3.1.1&quot;
+## affyio  NA                    NA      NA     NA               &quot;3.1.1&quot;
+## amap    NA                    NA      NA     &quot;yes&quot;            &quot;3.1.0&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h3>패키지 설치</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">install.packages(&quot;dplyr&quot;)
+</code></pre>
+
+<pre><code>## Error: trying to use CRAN without setting a mirror
+</code></pre>
+
+<pre><code class="r">install.packages(&quot;dplyr&quot;, repos=&quot;http://cran.rstudio.com/&quot;)
+</code></pre>
+
+<h3>패키지 정보</h3>
+
+<p><a href="https://www.google.co.kr/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=cran">CRAN</a>  </p>
+
+<p><a href="http://cran.r-project.org/web/packages/available_packages_by_name.html">CRAN Pac. by names</a>  </p>
+
+<p><a href="http://cran.r-project.org/web/views/">CRAN Pac. by Tasks</a>  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Help, RSiteSearch</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>RSiteSearch(&quot;sna&quot;)<br>
+??sna  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Data Handling</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>논리</li>
+</ul>
+
+<pre><code class="r">c(T,F,T)
+</code></pre>
+
+<p>[1]  TRUE FALSE  TRUE</p>
+
+<ul>
+<li>숫자</li>
+</ul>
+
+<pre><code class="r">is.numeric(3);is.integer(3)
+</code></pre>
+
+<p>[1] TRUE
+[1] FALSE</p>
+
+<ul>
+<li>문자</li>
+</ul>
+
+<pre><code class="r">is.character(&quot;김&quot;)isis.character(c(&quot;김&quot;,3,5)).nis.numeric(c(&quot;김&quot;,3,5))
+</code></pre>
+
+<p>[1] TRUE
+[1] TRUE
+[1] FALSE</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Data Handling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[
+\sqrt{2} \times \sqrt{2} \ne 2
+\]</p>
+
+<pre><code class="r">sqrt(2) * sqrt(2) == 2
+</code></pre>
+
+<p>[1] FALSE</p>
+
+<pre><code class="r">3.55555666662314214
+</code></pre>
+
+<p>[1] 3.556</p>
+
+<pre><code class="r">3.55555666662314214 == 3.556; 3.55555666662314214 == 3.55555666662314214
+</code></pre>
+
+<p>[1] FALSE
+[1] TRUE</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Data Handling</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">options(digits=5);3.55555666662314214
+</code></pre>
+
+<p>[1] 3.5556</p>
+
+<pre><code class="r">options(digits=10);3.55555666662314214
+</code></pre>
+
+<p>[1] 3.555556667</p>
+
+<ul>
+<li>구조
+
+<ul>
+<li>Matrix</li>
+<li>Data.Frame</li>
+<li>Data.Table</li>
+<li>List</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">x = matrix(NA, nrow=10, ncol=3)
+x
+</code></pre>
+
+<pre><code>##       [,1] [,2] [,3]
+##  [1,]   NA   NA   NA
+##  [2,]   NA   NA   NA
+##  [3,]   NA   NA   NA
+##  [4,]   NA   NA   NA
+##  [5,]   NA   NA   NA
+##  [6,]   NA   NA   NA
+##  [7,]   NA   NA   NA
+##  [8,]   NA   NA   NA
+##  [9,]   NA   NA   NA
+## [10,]   NA   NA   NA
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <article data-timings="">
+    <p>x[1,3]=3; x[2,]=c(1,5,7); x[3,]=seq(1,3); x[4,]=1:3; x[5,]=rep(1,3)<br>
+x[6,]=sep(5,1,by=-2);</p>
+
+<h3>Missing-Handling</h3>
+
+<p>x[is.na(x)] = 0</p>
+
+<pre><code class="r">x
+</code></pre>
+
+<pre><code>##       [,1] [,2] [,3]
+##  [1,]    0    0    3
+##  [2,]    1    5    7
+##  [3,]    1    2    3
+##  [4,]    1    2    3
+##  [5,]    1    1    1
+##  [6,]    5    3    1
+##  [7,]    0    0    0
+##  [8,]    0    0    0
+##  [9,]    0    0    0
+## [10,]    0    0    0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Data.Frame</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">data_ex = data.frame(height=c(168,182,175),weight=c(50,60,70),sex=c(&quot;여&quot;,&quot;남&quot;,&quot;남&quot;))
+data_ex
+</code></pre>
+
+<pre><code>##   height weight sex
+## 1    168     50  여
+## 2    182     60  남
+## 3    175     70  남
+</code></pre>
+
+<pre><code class="r">data_ex$married = c(T,F,T)
+data_ex[,&quot;bmi&quot;] = data_ex[,&quot;height&quot;]/data_ex[,&quot;weight&quot;]
+data_ex
+</code></pre>
+
+<pre><code>##   height weight sex married   bmi
+## 1    168     50  여    TRUE 3.360
+## 2    182     60  남   FALSE 3.033
+## 3    175     70  남    TRUE 2.500
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h3>사용(X)</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">attach (data_ex);height
+</code></pre>
+
+<pre><code>## [1] 168 182 175
+</code></pre>
+
+<pre><code class="r">detach(data_ex);height
+</code></pre>
+
+<pre><code>## Error: object &#39;height&#39; not found
+</code></pre>
+
+<h3>사용(O)</h3>
+
+<pre><code class="r">with(data_ex, height);subset(data_ex, height&gt;180)
+</code></pre>
+
+<pre><code>## [1] 168 182 175
+</code></pre>
+
+<pre><code>##   height weight sex married   bmi
+## 2    182     60  남   FALSE 3.033
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h3>사용 추천</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>library(&quot;dplyr&quot;)</p>
+
+<pre><code class="r">data_ex%&gt;%filter(height&gt;180)
+</code></pre>
+
+<pre><code>##   height weight sex married   bmi
+## 1    182     60  남   FALSE 3.033
+</code></pre>
+
+<h3>Big - Data</h3>
+
+<p>e.x) 미국 휴스턴에서 출발하는 모든 비행기의 2011년 이착륙기록  </p>
+
+<p>library(&quot;hflights&quot;)  </p>
+
+<pre><code class="r">library(&quot;hflights&quot;)
+dim(hflights)  
+</code></pre>
+
+<pre><code>## [1] 227496     21
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(&quot;hflights&quot;)
+#hflights
+#head(hflights)
+hflights[1:3,1:5]
+</code></pre>
+
+<pre><code>##      Year Month DayofMonth DayOfWeek DepTime
+## 5424 2011     1          1         6    1400
+## 5425 2011     1          2         7    1401
+## 5426 2011     1          3         1    1352
+</code></pre>
+
+<pre><code class="r">hflights_df = tbl_df(hflights)
+hflights_df
+</code></pre>
+
+<pre><code>## Source: local data frame [227,496 x 21]
+## 
+##    Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+## 1  2011     1          1         6    1400    1500            AA       428
+## 2  2011     1          2         7    1401    1501            AA       428
+## 3  2011     1          3         1    1352    1502            AA       428
+## 4  2011     1          4         2    1403    1513            AA       428
+## 5  2011     1          5         3    1405    1507            AA       428
+## 6  2011     1          6         4    1359    1503            AA       428
+## 7  2011     1          7         5    1359    1509            AA       428
+## 8  2011     1          8         6    1355    1454            AA       428
+## 9  2011     1          9         7    1443    1554            AA       428
+## 10 2011     1         10         1    1443    1553            AA       428
+## ..  ...   ...        ...       ...     ...     ...           ...       ...
+## Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime
+##   (int), ArrDelay (int), DepDelay (int), Origin (chr), Dest (chr),
+##   Distance (int), TaxiIn (int), TaxiOut (int), Cancelled (int),
+##   CancellationCode (chr), Diverted (int)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h3>Mean Func</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">mean(hflights[,&quot;DepTime&quot;]);mean(hflights[,&quot;DepTime&quot;],na.rm=T)
+</code></pre>
+
+<hr>
+
+<h3>R Base VS dplyr</h3>
+
+<pre><code class="r">hflights_df_rep&lt;-rbind(hflights_df,hflights_df,hflights_df)
+system.time(mean(as.data.frame(hflights_df_rep)[,&quot;DepTime&quot;],na.rm=T))
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.030   0.004   0.034
+</code></pre>
+
+<pre><code class="r">system.time(hflights_df_rep%&gt;%select(DepTime)%&gt;%dplyr::summarise(mean(DepTime,na.rm=T)))
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.017   0.001   0.020
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h3>rbind vs rbindlist</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">system.time(rbind(hflights_df,hflights_df,hflights_df))
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.520   0.151   0.734
+</code></pre>
+
+<pre><code class="r">library(&quot;data.table&quot;)
+system.time(rbindlist(list(hflights_df,hflights_df,hflights_df)))
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.034   0.017   0.051
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Contents'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='R'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='적절한 code editor 고르기'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Introduction'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='기초연산 &amp; 변수 다루기'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='패키지(라이브러리)'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='패키지 설치'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Help, RSiteSearch'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Data Handling'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Data Handling'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Data Handling'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Matrix'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title=''>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Data.Frame'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='사용(X)'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='사용 추천'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title=''>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Mean Func'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='rbind vs rbindlist'>
+         19
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
