@@ -1,0 +1,93 @@
+---
+title       : "R 강의"
+subtitle    : "첫번째 시간"
+author      : "김형준"
+job         : "Data Analytics"
+fframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets    : [bootstrap, quiz, shiny, interactive]
+ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Contents
+
+1. R 소개
+2. R과 통계
+3. R의 현재위치
+4. 기초 함수 및 변수 다루기
+5. 데이터 핸들링
+6. R Graphics
+7. 기초 통계
+8. 추론 통계
+
+---
+
+## 적절한 code editor 고르기
+- 예) R Studio  
+
+![alt text](rstudio.png)
+
+---
+
+## R
+
+* R 언어는 통계 <U>계산</U>과 <U>그래픽</U>을 위한 프로그래밍 언어  
+* S-PLUS -> R (1997, GUN PROJECT)  
+
+* 한계 : R’s biggest challenge is that most R users are not programmers  
+* 극복 : Solving the “Two-Language” Problem  
+
+설치 :
+ 
+* Install [R](http://www.r-project.org/)
+* Install the lastest version of [RStudio](http://rstudio.org/download/) 
+ 
+---
+
+
+
+
+--- 
+## Interactive Chart
+
+```{r echo = F, results = 'asis'}
+require(rCharts)
+haireye = as.data.frame(HairEyeColor)
+n1 <- nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
+  data = subset(haireye, Sex == 'Male')
+)
+n1$print('chart1')
+```
+
+---
+
+## Interactive Console
+
+```{r opts.label = 'interactive', results = 'asis'}
+require(googleVis)
+M1 <- gvisMotionChart(Fruits, idvar = 'Fruit', timevar = 'Year')
+print(M1, tag = 'chart')
+```
+
+--- &radio
+
+## Question 1
+
+What is 1 + 1?
+
+1. 1 
+2. _2_
+3. 3
+
+*** .hint
+
+This is a hint
+
+*** .explanation
+
+This is an explanation
+
+---

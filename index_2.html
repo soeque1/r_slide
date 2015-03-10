@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R 강의</title>
+  <meta charset="utf-8">
+  <meta name="description" content="R 강의">
+  <meta name="author" content="김형준">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>R 강의</h1>
+    <h2>두번째 시간</h2>
+    <p>김형준<br/>Data Analyst</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Contents</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>데이터 핸들링</li>
+<li>기술 통계</li>
+<li>Graph &amp; Visualization</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h3>주의 사항</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">a = 1:2; b = 3:5; c = 2:5
+cbind(a,b)
+</code></pre>
+
+<pre><code>## Warning: number of rows of result is not a multiple of vector length (arg
+## 1)
+</code></pre>
+
+<pre><code>##      a b
+## [1,] 1 3
+## [2,] 2 4
+## [3,] 1 5
+</code></pre>
+
+<pre><code class="r">rbind(a,c)
+</code></pre>
+
+<pre><code>##   [,1] [,2] [,3] [,4]
+## a    1    2    1    2
+## c    2    3    4    5
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(&quot;hflights&quot;)
+dim(hflights); nrow(hflights); ncol(hflights)
+</code></pre>
+
+<pre><code>## [1] 227496     21
+</code></pre>
+
+<pre><code>## [1] 227496
+</code></pre>
+
+<pre><code>## [1] 21
+</code></pre>
+
+<pre><code class="r">colnames(hflights); #range(rownames(hflights))
+</code></pre>
+
+<pre><code>##  [1] &quot;Year&quot;              &quot;Month&quot;             &quot;DayofMonth&quot;       
+##  [4] &quot;DayOfWeek&quot;         &quot;DepTime&quot;           &quot;ArrTime&quot;          
+##  [7] &quot;UniqueCarrier&quot;     &quot;FlightNum&quot;         &quot;TailNum&quot;          
+## [10] &quot;ActualElapsedTime&quot; &quot;AirTime&quot;           &quot;ArrDelay&quot;         
+## [13] &quot;DepDelay&quot;          &quot;Origin&quot;            &quot;Dest&quot;             
+## [16] &quot;Distance&quot;          &quot;TaxiIn&quot;            &quot;TaxiOut&quot;          
+## [19] &quot;Cancelled&quot;         &quot;CancellationCode&quot;  &quot;Diverted&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>기술 통계</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>자료의 특성을 표, 그림, 통계량 등을 사용하여 쉽게 파악할 수 있도록 정리요약
+</code></pre>
+
+<ul>
+<li>평균 (mean) / 중앙값 (median) / 합계 (sum)</li>
+<li>분산 (variance) / 표준편차 (sd)</li>
+<li>범위 (range)</li>
+<li>상관 (cor)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">mean(hflights[,&quot;DepTime&quot;]) # 평균-&gt; NA
+</code></pre>
+
+<pre><code>## [1] NA
+</code></pre>
+
+<pre><code class="r">mean(hflights[,&quot;DepTime&quot;],na.rm=T) # 평균(missing 제거)
+</code></pre>
+
+<pre><code>## [1] 1396
+</code></pre>
+
+<pre><code class="r">sapply(hflights,is.numeric) ## Numeric or not
+sapply(hflights[,sapply(hflights,is.numeric)],mean)
+sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">boxplot(hflights[,sapply(hflights,is.numeric)])
+</code></pre>
+
+<p><img src="assets/fig/boxplot1.png" alt="plot of chunk boxplot1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">col_sel = colnames(hflights)[sapply(hflights,is.numeric)]
+boxplot(hflights[,col_sel], xaxt=&quot;n&quot;)
+text(x =  1:length(col_sel), y = par(&quot;usr&quot;)[3] - 1, srt = 90, adj = 1,
+     labels = col_sel, xpd=T)
+</code></pre>
+
+<p><img src="assets/fig/boxplot2.png" alt="plot of chunk boxplot2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(&quot;reshape&quot;)
+hflights_df = hflights[,sapply(hflights,is.numeric)]
+hflights_df[,&quot;id&quot;] = 1:nrow(hflights_df)
+#head(hflights_df)
+hflights_df_m = melt(hflights_df,id=&quot;id&quot;)
+library(ggplot2)
+ggplot(hflights_df_m) +
+geom_boxplot(aes(x=variable, y=value))+ 
+xlab(&quot;&quot;)+
+theme(text=element_text(size=10),
+axis.text.x = element_text(angle = 90, size = 14, hjust=1))
+print(paste(&quot;# of Missing is&quot;, sum(is.na(hflights_df))))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    <pre><code>## Warning: Removed 25755 rows containing non-finite values (stat_boxplot).
+</code></pre>
+
+<p><img src="assets/fig/ggplot1.png" alt="plot of chunk ggplot1"> </p>
+
+<pre><code>## [1] &quot;# of Missing is 25755&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Contents'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='주의 사항'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title=''>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='기술 통계'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title=''>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title=''>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title=''>
+         9
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
