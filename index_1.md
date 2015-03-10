@@ -59,6 +59,12 @@ is a collection of sites which carry identical material, consisting of the R dis
 
 ---
 
+## R Demo
+
+[R demo](https://github.com/soeque1/r_slide/blob/master/R.pdf)
+
+---
+
 ## 기초연산 & 변수 다루기
 
 func | |func| |
@@ -92,62 +98,62 @@ head(installed.packages())
 ```
 
 ```
-##         Package  
-## abind   "abind"  
-## acepack "acepack"
-## ACTCD   "ACTCD"  
-## affy    "affy"   
-## affyio  "affyio" 
-## amap    "amap"   
-##         LibPath                                                         
-## abind   "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## acepack "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## ACTCD   "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## affy    "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## affyio  "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## amap    "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-##         Version   Priority
-## abind   "1.4-0"   NA      
-## acepack "1.3-3.3" NA      
-## ACTCD   "1.0-0"   NA      
-## affy    "1.44.0"  NA      
-## affyio  "1.34.0"  NA      
-## amap    "0.8-12"  NA      
-##         Depends                                                     
-## abind   "R (>= 1.5.0)"                                              
-## acepack NA                                                          
-## ACTCD   "R (>= 2.15.1), R.methodsS3"                                
-## affy    "R (>= 2.8.0), BiocGenerics (>= 0.1.12), Biobase (>= 2.5.5)"
-## affyio  "R (>= 2.6.0)"                                              
-## amap    "R (>= 2.10.0)"                                             
-##         Imports                                                                                                   
-## abind   NA                                                                                                        
-## acepack NA                                                                                                        
-## ACTCD   NA                                                                                                        
-## affy    "affyio (>= 1.13.3), BiocInstaller, graphics, grDevices,\nmethods, preprocessCore, stats, utils, zlibbioc"
-## affyio  "zlibbioc"                                                                                                
-## amap    NA                                                                                                        
-##         LinkingTo        Suggests                                      
-## abind   NA               NA                                            
-## acepack NA               NA                                            
-## ACTCD   NA               NA                                            
-## affy    "preprocessCore" "tkWidgets (>= 1.19.0), affydata, widgetTools"
-## affyio  NA               NA                                            
-## amap    NA               "Biobase"                                     
-##         Enhances License              License_is_FOSS
-## abind   NA       "LGPL (>= 2)"        NA             
-## acepack NA       "MIT + file LICENSE" NA             
-## ACTCD   NA       "GPL (>= 2)"         NA             
-## affy    NA       "LGPL (>= 2.0)"      NA             
-## affyio  NA       "LGPL (>= 2)"        NA             
-## amap    NA       "GPL"                NA             
-##         License_restricts_use OS_type MD5sum NeedsCompilation Built  
-## abind   NA                    NA      NA     NA               "3.1.1"
-## acepack NA                    NA      NA     "yes"            "3.1.0"
-## ACTCD   NA                    NA      NA     "yes"            "3.1.1"
-## affy    NA                    NA      NA     NA               "3.1.1"
-## affyio  NA                    NA      NA     NA               "3.1.1"
-## amap    NA                    NA      NA     "yes"            "3.1.0"
+##           Package    
+## abind     "abind"    
+## acepack   "acepack"  
+## acss.data "acss.data"
+## ACTCD     "ACTCD"    
+## ada       "ada"      
+## affy      "affy"     
+##           LibPath                                                         
+## abind     "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
+## acepack   "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
+## acss.data "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
+## ACTCD     "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
+## ada       "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
+## affy      "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
+##           Version   Priority
+## abind     "1.4-0"   NA      
+## acepack   "1.3-3.3" NA      
+## acss.data "1.0"     NA      
+## ACTCD     "1.0-0"   NA      
+## ada       "2.0-3"   NA      
+## affy      "1.44.0"  NA      
+##           Depends                                                     
+## abind     "R (>= 1.5.0)"                                              
+## acepack   NA                                                          
+## acss.data "R (>= 2.10)"                                               
+## ACTCD     "R (>= 2.15.1), R.methodsS3"                                
+## ada       "R(>= 2.10),rpart"                                          
+## affy      "R (>= 2.8.0), BiocGenerics (>= 0.1.12), Biobase (>= 2.5.5)"
+##           Imports                                                                                                   
+## abind     NA                                                                                                        
+## acepack   NA                                                                                                        
+## acss.data NA                                                                                                        
+## ACTCD     NA                                                                                                        
+## ada       NA                                                                                                        
+## affy      "affyio (>= 1.13.3), BiocInstaller, graphics, grDevices,\nmethods, preprocessCore, stats, utils, zlibbioc"
+##           LinkingTo        Suggests                                      
+## abind     NA               NA                                            
+## acepack   NA               NA                                            
+## acss.data NA               NA                                            
+## ACTCD     NA               NA                                            
+## ada       NA               NA                                            
+## affy      "preprocessCore" "tkWidgets (>= 1.19.0), affydata, widgetTools"
+##           Enhances License              License_is_FOSS
+## abind     NA       "LGPL (>= 2)"        NA             
+## acepack   NA       "MIT + file LICENSE" NA             
+## acss.data NA       "GPL (>= 2)"         NA             
+## ACTCD     NA       "GPL (>= 2)"         NA             
+## ada       NA       "GPL"                NA             
+## affy      NA       "LGPL (>= 2.0)"      NA             
+##           License_restricts_use OS_type MD5sum NeedsCompilation Built  
+## abind     NA                    NA      NA     NA               "3.1.1"
+## acepack   NA                    NA      NA     "yes"            "3.1.0"
+## acss.data NA                    NA      NA     "no"             "3.1.0"
+## ACTCD     NA                    NA      NA     "yes"            "3.1.1"
+## ada       NA                    NA      NA     NA               "3.1.0"
+## affy      NA                    NA      NA     NA               "3.1.1"
 ```
 
 ---
@@ -158,7 +164,9 @@ install.packages("dplyr")
 ```
 
 ```
-## Error: trying to use CRAN without setting a mirror
+## 
+## The downloaded binary packages are in
+## 	/var/folders/_r/ytdlmf5x039_5bzh37xy121r0000gn/T//RtmpwPm9Dz/downloaded_packages
 ```
 
 
@@ -341,10 +349,10 @@ data_ex
 ```
 
 ```
-##   height weight sex married   bmi
-## 1    168     50  여    TRUE 3.360
-## 2    182     60  남   FALSE 3.033
-## 3    175     70  남    TRUE 2.500
+##   height weight sex married         bmi
+## 1    168     50  여    TRUE 3.360000000
+## 2    182     60  남   FALSE 3.033333333
+## 3    175     70  남    TRUE 2.500000000
 ```
 
 ---
@@ -377,8 +385,8 @@ with(data_ex, height);subset(data_ex, height>180)
 ```
 
 ```
-##   height weight sex married   bmi
-## 2    182     60  남   FALSE 3.033
+##   height weight sex married         bmi
+## 2    182     60  남   FALSE 3.033333333
 ```
 
 ---
@@ -393,8 +401,8 @@ data_ex%>%filter(height>180)
 ```
 
 ```
-##   height weight sex married   bmi
-## 1    182     60  남   FALSE 3.033
+##   height weight sex married         bmi
+## 1    182     60  남   FALSE 3.033333333
 ```
 
 ### Big - Data
@@ -471,7 +479,7 @@ system.time(mean(as.data.frame(hflights_df_rep)[,"DepTime"],na.rm=T))
 
 ```
 ##    user  system elapsed 
-##   0.030   0.004   0.034
+##   0.026   0.004   0.029
 ```
 
 ```r
@@ -480,7 +488,7 @@ system.time(hflights_df_rep%>%select(DepTime)%>%dplyr::summarise(mean(DepTime,na
 
 ```
 ##    user  system elapsed 
-##   0.017   0.001   0.020
+##   0.006   0.000   0.007
 ```
 
 ---
@@ -494,7 +502,7 @@ system.time(rbind(hflights_df,hflights_df,hflights_df))
 
 ```
 ##    user  system elapsed 
-##   0.520   0.151   0.734
+##   0.538   0.157   0.775
 ```
 
 ```r
@@ -504,6 +512,210 @@ system.time(rbindlist(list(hflights_df,hflights_df,hflights_df)))
 
 ```
 ##    user  system elapsed 
-##   0.034   0.017   0.051
+##   0.038   0.011   0.050
 ```
+
+---
+
+## Dplyr
+
+![alt text](dplyr_1.png)
+
+[source](http://www.slideshare.net/Ram-N/data-manipulation-using-r-acm2014)
+
+---
+
+![alt text](dplyr_2.png)
+![alt text](dplyr_3.png)  
+
+[source](http://www.slideshare.net/Ram-N/data-manipulation-using-r-acm2014)
+
+---
+
+### filter: Keep rows Matching Criteria
+
+
+```r
+suppressMessages(library(dplyr))
+library(hflights)
+flights <- tbl_df(hflights)
+flights %>% filter(Month==1, DayofMonth==1)
+```
+
+```
+## Source: local data frame [552 x 21]
+## 
+##    Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
+## 1  2011     1          1         6    1400    1500            AA       428
+## 2  2011     1          1         6     728     840            AA       460
+## 3  2011     1          1         6    1631    1736            AA      1121
+## 4  2011     1          1         6    1756    2112            AA      1294
+## 5  2011     1          1         6    1012    1347            AA      1700
+## 6  2011     1          1         6    1211    1325            AA      1820
+## 7  2011     1          1         6     557     906            AA      1994
+## 8  2011     1          1         6    1824    2106            AS       731
+## 9  2011     1          1         6     654    1124            B6       620
+## 10 2011     1          1         6    1639    2110            B6       622
+## ..  ...   ...        ...       ...     ...     ...           ...       ...
+## Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime
+##   (int), ArrDelay (int), DepDelay (int), Origin (chr), Dest (chr),
+##   Distance (int), TaxiIn (int), TaxiOut (int), Cancelled (int),
+##   CancellationCode (chr), Diverted (int)
+```
+
+---
+
+### select: Pick columns by name
+
+
+```r
+flights %>% select(DepTime, ArrTime, FlightNum)
+```
+
+### arrange: Reorder Rows
+
+
+```r
+flights %>% 
+    select(UniqueCarrier, DepDelay) %>%
+        arrange(DepDelay) # arrange(desc(DepDelay))
+```
+
+```
+## Source: local data frame [227,496 x 2]
+## 
+##    UniqueCarrier DepDelay
+## 1             OO      -33
+## 2             MQ      -23
+## 3             XE      -19
+## 4             XE      -19
+## 5             CO      -18
+## 6             EV      -18
+## 7             XE      -17
+## 8             CO      -17
+## 9             XE      -17
+## 10            MQ      -17
+## ..           ...      ...
+```
+
+---
+
+### mutate: Add New Variables
+
+```r
+flights %>%
+    group_by(Dest) %>%
+    summarise(avg_delay = mean(ArrDelay, na.rm=TRUE))%>%slice(1:2)
+```
+
+```
+## Source: local data frame [2 x 2]
+## 
+##   Dest   avg_delay
+## 1  ABQ 7.226258993
+## 2  AEX 5.839436620
+```
+
+---
+    
+
+```r
+a = flights %>%
+    group_by(UniqueCarrier) %>%
+    summarise(mean_Cancelled = mean(Cancelled),mean_Diverted = mean(Diverted))
+a%>%slice(1:3)
+```
+
+```
+## Source: local data frame [3 x 3]
+## 
+##   UniqueCarrier mean_Cancelled  mean_Diverted
+## 1            AA  0.01849568434 0.001849568434
+## 2            AS  0.00000000000 0.002739726027
+## 3            B6  0.02589928058 0.005755395683
+```
+
+
+```r
+b = flights %>%
+    group_by(UniqueCarrier) %>%
+    summarise_each(funs(mean), Cancelled, Diverted)
+colnames(a) = colnames(b)
+all.equal(a,b)
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+### 
+
+```r
+planes<- group_by(flights, TailNum)
+delay<-summarise(planes, count=n(),  m_dist = mean(Distance,na.rm=T), 
+     m_delay = mean(ArrDelay,na.rm=T))%>%filter(m_dist > 0, m_delay > 0, count < 800)
+
+
+library(ggplot2)
+ggplot(delay, aes(m_dist, m_delay)) + geom_point(aes(size = count)) + geom_smooth() 
+
+plot(delay[,"m_dist"][[1]],delay[,"m_delay"][[1]],xlab="m_delay",ylab="m_delay",cex=delay[,"count"][[1]]/300)
+lines(smooth.spline(delay[,"m_dist"][[1]],delay[,"m_delay"][[1]]),col="red")
+```
+
+---
+
+## 데이터 불러오기
+
+- read.csv # base
+- fread # data.table
+
+### 여러개 데이터
+
+```r
+fread_multi <- function(allFiles){
+    mc <- detectCores(); 
+    cl <- makeCluster(mc);
+    DT <- parLapply(cl,allFiles,fun=fread,
+                    header=T,
+                    stringsAsFactors=F,
+                    colClasses=c("character","numeric","character",rep("numeric",48))) 
+    #call fread on each core (well... using each core at least)
+    stopCluster(cl);
+    DT <- rbindlist(DT);
+    return(DT);
+}
+```
+
+---
+
+### write.csv / read.csv
+
+```r
+path_dir = "/Users/kimhyungjun/Dropbox/R_lecture/mydeck/r_slide/"
+write.csv(delay, file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",
+          row.names=FALSE)
+header, stringAsFactors, colClasses, fileEncoding, row.names
+```
+
+
+```r
+delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949")
+all.equal(as.data.frame(delay), delay_rep)
+
+delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",stringsAsFactors = F)
+all.equal(as.data.frame(delay), delay_rep)
+```
+
+---
+
+### 여러개 데이터
+$$ parallel > lapply \simeq foreach$$ 
+- lapply
+- paraellel
+- foreach
+
+[soruce](http://stackoverflow.com/questions/14650662/loading-files-in-parallel-not-working-with-foreach-data-table)
 

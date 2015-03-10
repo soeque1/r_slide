@@ -59,6 +59,12 @@ is a collection of sites which carry identical material, consisting of the R dis
 
 ---
 
+## R Demo
+
+[R demo](https://github.com/soeque1/r_slide/blob/master/R.pdf)
+
+---
+
 ## 기초연산 & 변수 다루기
 
 func | |func| |
@@ -268,4 +274,139 @@ system.time(rbind(hflights_df,hflights_df,hflights_df))
 library("data.table")
 system.time(rbindlist(list(hflights_df,hflights_df,hflights_df)))
 ```
+
+---
+
+## Dplyr
+
+![alt text](dplyr_1.png)
+
+[source](http://www.slideshare.net/Ram-N/data-manipulation-using-r-acm2014)
+
+---
+
+![alt text](dplyr_2.png)
+![alt text](dplyr_3.png)  
+
+[source](http://www.slideshare.net/Ram-N/data-manipulation-using-r-acm2014)
+
+---
+
+### filter: Keep rows Matching Criteria
+
+```{r}
+suppressMessages(library(dplyr))
+library(hflights)
+flights <- tbl_df(hflights)
+flights %>% filter(Month==1, DayofMonth==1)
+```
+
+---
+
+### select: Pick columns by name
+
+```{r, eval=F}
+flights %>% select(DepTime, ArrTime, FlightNum)
+```
+
+### arrange: Reorder Rows
+
+```{r}
+flights %>% 
+    select(UniqueCarrier, DepDelay) %>%
+        arrange(DepDelay) # arrange(desc(DepDelay))
+```
+
+---
+
+### mutate: Add New Variables
+```{r}
+flights %>%
+    group_by(Dest) %>%
+    summarise(avg_delay = mean(ArrDelay, na.rm=TRUE))%>%slice(1:2)
+```
+
+---
+    
+```{r}
+a = flights %>%
+    group_by(UniqueCarrier) %>%
+    summarise(mean_Cancelled = mean(Cancelled),mean_Diverted = mean(Diverted))
+a%>%slice(1:3)
+```
+
+```{r}
+b = flights %>%
+    group_by(UniqueCarrier) %>%
+    summarise_each(funs(mean), Cancelled, Diverted)
+colnames(a) = colnames(b)
+all.equal(a,b)
+```
+
+---
+
+### 
+```{r, eval=F}
+planes<- group_by(flights, TailNum)
+delay<-summarise(planes, count=n(),  m_dist = mean(Distance,na.rm=T), 
+     m_delay = mean(ArrDelay,na.rm=T))%>%filter(m_dist > 0, m_delay > 0, count < 800)
+
+
+library(ggplot2)
+ggplot(delay, aes(m_dist, m_delay)) + geom_point(aes(size = count)) + geom_smooth() 
+
+plot(delay[,"m_dist"][[1]],delay[,"m_delay"][[1]],xlab="m_delay",ylab="m_delay",cex=delay[,"count"][[1]]/300)
+lines(smooth.spline(delay[,"m_dist"][[1]],delay[,"m_delay"][[1]]),col="red")
+```
+
+---
+
+## 데이터 불러오기
+
+- read.csv # base
+- fread # data.table
+
+### 여러개 데이터
+```{r, eval=F}
+fread_multi <- function(allFiles){
+    mc <- detectCores(); 
+    cl <- makeCluster(mc);
+    DT <- parLapply(cl,allFiles,fun=fread,
+                    header=T,
+                    stringsAsFactors=F,
+                    colClasses=c("character","numeric","character",rep("numeric",48))) 
+    #call fread on each core (well... using each core at least)
+    stopCluster(cl);
+    DT <- rbindlist(DT);
+    return(DT);
+}
+```
+
+---
+
+### write.csv / read.csv
+```{r, eval=F}
+path_dir = "/Users/kimhyungjun/Dropbox/R_lecture/mydeck/r_slide/"
+write.csv(delay, file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",
+          row.names=FALSE)
+header, stringAsFactors, colClasses, fileEncoding, row.names
+```
+
+```{r, eval=F}
+delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949")
+all.equal(as.data.frame(delay), delay_rep)
+
+delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",stringsAsFactors = F)
+all.equal(as.data.frame(delay), delay_rep)
+```
+
+---
+
+### 여러개 데이터
+$$ parallel > lapply \simeq foreach$$ 
+- lapply
+- paraellel
+- foreach
+
+[soruce](http://stackoverflow.com/questions/14650662/loading-files-in-parallel-not-working-with-foreach-data-table)
 
