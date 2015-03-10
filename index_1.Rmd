@@ -396,7 +396,8 @@ header, stringAsFactors, colClasses, fileEncoding, row.names
 delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949")
 all.equal(as.data.frame(delay), delay_rep)
 
-delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",stringsAsFactors = F)
+delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",
+                     stringsAsFactors = F)
 all.equal(as.data.frame(delay), delay_rep)
 ```
 

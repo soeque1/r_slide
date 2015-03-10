@@ -14,9 +14,9 @@ knit        : slidify::knit2slides
 
 ## Contents
 
-1. R 소개  
-2. 기초 함수 및 변수 다루기  
-3. 데이터 핸들링  
+3. 데이터 핸들링
+4. 기술 통계
+5. Graph & Visualization
 
 --- .class #id
 
@@ -74,3 +74,95 @@ all.equal(a,b)
 ---
 
 
+=======
+### 주의 사항
+```{r}
+a = 1:2; b = 3:5; c = 2:5
+cbind(a,b)
+rbind(a,c)
+```
+
+---
+
+```{r}
+library("hflights")
+dim(hflights); nrow(hflights); ncol(hflights)
+colnames(hflights); #range(rownames(hflights))
+```
+
+---
+
+## 기술 통계
+
+    자료의 특성을 표, 그림, 통계량 등을 사용하여 쉽게 파악할 수 있도록 정리요약
+
+- 평균 (mean) / 중앙값 (median) / 합계 (sum)
+- 분산 (variance) / 표준편차 (sd)
+- 범위 (range)
+- 상관 (cor)
+
+---
+
+```{r}
+mean(hflights[,"DepTime"]) # 평균-> NA
+mean(hflights[,"DepTime"],na.rm=T) # 평균(missing 제거)
+```   
+
+```{r, eval=F}
+sapply(hflights,is.numeric) ## Numeric or not
+sapply(hflights[,sapply(hflights,is.numeric)],mean)
+sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
+```   
+
+
+---
+
+
+```{r boxplot1, eval=T}
+boxplot(hflights[,sapply(hflights,is.numeric)])
+```
+
+
+---
+
+```{r boxplot2, eval=T}
+col_sel = colnames(hflights)[sapply(hflights,is.numeric)]
+boxplot(hflights[,col_sel], xaxt="n")
+text(x =  1:length(col_sel), y = par("usr")[3] - 1, srt = 90, adj = 1,
+     labels = col_sel, xpd=T)
+```
+
+---
+
+```{r, eval=F}
+library("reshape")
+hflights_df = hflights[,sapply(hflights,is.numeric)]
+hflights_df[,"id"] = 1:nrow(hflights_df)
+#head(hflights_df)
+hflights_df_m = melt(hflights_df,id="id")
+library(ggplot2)
+ggplot(hflights_df_m) +
+geom_boxplot(aes(x=variable, y=value))+ 
+xlab("")+
+theme(text=element_text(size=10),
+axis.text.x = element_text(angle = 90, size = 14, hjust=1))
+print(paste("# of Missing is", sum(is.na(hflights_df))))
+```
+
+---
+
+```{r ggplot1, echo=F, eval=T}
+library("reshape")
+hflights_df = hflights[,sapply(hflights,is.numeric)]
+hflights_df[,"id"] = 1:nrow(hflights_df)
+#head(hflights_df)
+hflights_df_m = melt(hflights_df,id="id")
+library(ggplot2)
+ggplot(hflights_df_m) +
+geom_boxplot(aes(x=variable, y=value))+ 
+xlab("")+
+theme(text=element_text(size=10),
+axis.text.x = element_text(angle = 90, size = 14, hjust=1))
+print(paste("# of Missing is", sum(is.na(hflights_df))))
+```
+>>>>>>> master

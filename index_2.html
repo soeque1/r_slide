@@ -47,9 +47,9 @@
   </hgroup>
   <article data-timings="">
     <ol>
-<li>R 소개<br></li>
-<li>기초 함수 및 변수 다루기<br></li>
-<li>데이터 핸들링<br></li>
+<li>데이터 핸들링</li>
+<li>기술 통계</li>
+<li>Graph &amp; Visualization</li>
 </ol>
 
   </article>
@@ -58,10 +58,30 @@
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>R Demo</h2>
+    <h3>주의 사항</h3>
   </hgroup>
   <article data-timings="">
-    <p><a href="https://github.com/soeque1/r_slide/blob/master/R.pdf">R demo</a></p>
+    <pre><code class="r">a = 1:2; b = 3:5; c = 2:5
+cbind(a,b)
+</code></pre>
+
+<pre><code>## Warning: number of rows of result is not a multiple of vector length (arg
+## 1)
+</code></pre>
+
+<pre><code>##      a b
+## [1,] 1 3
+## [2,] 2 4
+## [3,] 1 5
+</code></pre>
+
+<pre><code class="r">rbind(a,c)
+</code></pre>
+
+<pre><code>##   [,1] [,2] [,3] [,4]
+## a    1    2    1    2
+## c    2    3    4    5
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -69,7 +89,132 @@
 
 <slide class="" id="slide-3" style="background:;">
   <article data-timings="">
-    
+    <pre><code class="r">library(&quot;hflights&quot;)
+dim(hflights); nrow(hflights); ncol(hflights)
+</code></pre>
+
+<pre><code>## [1] 227496     21
+</code></pre>
+
+<pre><code>## [1] 227496
+</code></pre>
+
+<pre><code>## [1] 21
+</code></pre>
+
+<pre><code class="r">colnames(hflights); #range(rownames(hflights))
+</code></pre>
+
+<pre><code>##  [1] &quot;Year&quot;              &quot;Month&quot;             &quot;DayofMonth&quot;       
+##  [4] &quot;DayOfWeek&quot;         &quot;DepTime&quot;           &quot;ArrTime&quot;          
+##  [7] &quot;UniqueCarrier&quot;     &quot;FlightNum&quot;         &quot;TailNum&quot;          
+## [10] &quot;ActualElapsedTime&quot; &quot;AirTime&quot;           &quot;ArrDelay&quot;         
+## [13] &quot;DepDelay&quot;          &quot;Origin&quot;            &quot;Dest&quot;             
+## [16] &quot;Distance&quot;          &quot;TaxiIn&quot;            &quot;TaxiOut&quot;          
+## [19] &quot;Cancelled&quot;         &quot;CancellationCode&quot;  &quot;Diverted&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>기술 통계</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>자료의 특성을 표, 그림, 통계량 등을 사용하여 쉽게 파악할 수 있도록 정리요약
+</code></pre>
+
+<ul>
+<li>평균 (mean) / 중앙값 (median) / 합계 (sum)</li>
+<li>분산 (variance) / 표준편차 (sd)</li>
+<li>범위 (range)</li>
+<li>상관 (cor)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">mean(hflights[,&quot;DepTime&quot;]) # 평균-&gt; NA
+</code></pre>
+
+<pre><code>## [1] NA
+</code></pre>
+
+<pre><code class="r">mean(hflights[,&quot;DepTime&quot;],na.rm=T) # 평균(missing 제거)
+</code></pre>
+
+<pre><code>## [1] 1396
+</code></pre>
+
+<pre><code class="r">sapply(hflights,is.numeric) ## Numeric or not
+sapply(hflights[,sapply(hflights,is.numeric)],mean)
+sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">boxplot(hflights[,sapply(hflights,is.numeric)])
+</code></pre>
+
+<p><img src="assets/fig/boxplot1.png" alt="plot of chunk boxplot1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">col_sel = colnames(hflights)[sapply(hflights,is.numeric)]
+boxplot(hflights[,col_sel], xaxt=&quot;n&quot;)
+text(x =  1:length(col_sel), y = par(&quot;usr&quot;)[3] - 1, srt = 90, adj = 1,
+     labels = col_sel, xpd=T)
+</code></pre>
+
+<p><img src="assets/fig/boxplot2.png" alt="plot of chunk boxplot2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(&quot;reshape&quot;)
+hflights_df = hflights[,sapply(hflights,is.numeric)]
+hflights_df[,&quot;id&quot;] = 1:nrow(hflights_df)
+#head(hflights_df)
+hflights_df_m = melt(hflights_df,id=&quot;id&quot;)
+library(ggplot2)
+ggplot(hflights_df_m) +
+geom_boxplot(aes(x=variable, y=value))+ 
+xlab(&quot;&quot;)+
+theme(text=element_text(size=10),
+axis.text.x = element_text(angle = 90, size = 14, hjust=1))
+print(paste(&quot;# of Missing is&quot;, sum(is.na(hflights_df))))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    <pre><code>## Warning: Removed 25755 rows containing non-finite values (stat_boxplot).
+</code></pre>
+
+<p><img src="assets/fig/ggplot1.png" alt="plot of chunk ggplot1"> </p>
+
+<pre><code>## [1] &quot;# of Missing is 25755&quot;
+</code></pre>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -86,7 +231,7 @@
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='R Demo'>
+        data-slide=2 title='주의 사항'>
          2
       </a>
     </li>
@@ -94,6 +239,42 @@
       <a href="#" target="_self" rel='tooltip' 
         data-slide=3 title=''>
          3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='기술 통계'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title=''>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title=''>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title=''>
+         9
       </a>
     </li>
   </ul>
