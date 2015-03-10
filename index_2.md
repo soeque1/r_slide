@@ -1,0 +1,27 @@
+---
+title       : "R 강의"
+subtitle    : "두번째 시간"
+author      : "김형준"
+job         : "Data Analyst"
+fframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets    : [mathjax]
+#ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Contents
+
+1. R 소개  
+2. 기초 함수 및 변수 다루기  
+3. 데이터 핸들링  
+
+--- .class #id
+
+## R Demo
+
+[R demo](https://github.com/soeque1/r_slide/blob/master/R.pdf)
+
+---
