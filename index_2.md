@@ -15,8 +15,8 @@ knit        : slidify::knit2slides
 ## Contents
 
 3. 데이터 핸들링
-4. 기술 통계
-5. Graph & Visualization
+4. 함수
+5. 기술 통계
 
 --- .class #id
 
@@ -50,6 +50,65 @@ rbind(a,c)
 ```
 
 ---
+
+## 함수
+- IF 문
+
+```r
+if (.Platform$OS.type == "unix") { 
+    path_dir = "A"
+} else {
+    path_dir = "B"
+    windowsFonts(NanumGothic=windowsFont("NanumGothic"))
+} 
+```
+
+- library('foo') stops when foo was not installed
+- require() is basically try(library())
+보통 library 를 처음에 위치, require -> 저 아래에서 실행할 때 오류
+
+
+```r
+if (!require("dplyr")) {
+  install.packages("dplyr")
+}
+```
+
+---
+
+- FOR 문
+
+```r
+for (i in 1:3)
+{
+print(i)
+    for (j in 1:3)
+        print(j)
+}
+```
+
+---
+
+- Function
+$$\sqrt{(a^2+b^2)}$$
+
+
+```r
+norm_op = function(a,b)
+{
+    norm = a^2 + b^2
+    return(sqrt(norm))
+}
+    
+norm_op(1,3)  == sqrt(10)
+```
+
+```
+## [1] TRUE
+```
+
+---
+
 
 
 ```r
@@ -174,3 +233,5 @@ print(paste("# of Missing is", sum(is.na(hflights_df))))
 ```
 ## [1] "# of Missing is 25755"
 ```
+
+
