@@ -129,7 +129,7 @@ sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
 boxplot(hflights[,sapply(hflights,is.numeric)])
 ```
 
-![plot of chunk unnamed-chunk-5](assets/fig/unnamed-chunk-5.png) 
+![plot of chunk boxplot1](assets/fig/boxplot1.png) 
 
 
 ---
@@ -142,7 +142,7 @@ text(x =  1:length(col_sel), y = par("usr")[3] - 1, srt = 90, adj = 1,
      labels = col_sel, xpd=T)
 ```
 
-![plot of chunk unnamed-chunk-6](assets/fig/unnamed-chunk-6.png) 
+![plot of chunk boxplot2](assets/fig/boxplot2.png) 
 
 ---
 
@@ -169,7 +169,7 @@ print(paste("# of Missing is", sum(is.na(hflights_df))))
 ## Warning: Removed 25755 rows containing non-finite values (stat_boxplot).
 ```
 
-![plot of chunk unnamed-chunk-8](assets/fig/unnamed-chunk-8.png) 
+![plot of chunk ggplot1](assets/fig/ggplot1.png) 
 
 ```
 ## [1] "# of Missing is 25755"
