@@ -61,7 +61,7 @@ is a collection of sites which carry identical material, consisting of the R dis
 
 ## R Demo
 
-[R demo](https://github.com/soeque1/r_slide/blob/master/R.pdf)
+[R demo](http://soeque1.github.io/r_slide/R.pdf)
 
 ---
 
