@@ -14,14 +14,39 @@ knit        : slidify::knit2slides
 
 ## Contents
 
-1. R 소개  
-2. 기초 함수 및 변수 다루기  
-3. 데이터 핸들링  
+3. 데이터 핸들링
+4. 기술 통계
 
 --- .class #id
 
-## R Demo
+### 주의 사항
+```{r}
+a = 1:2; b = 3:5; c = 2:5
+cbind(a,b)
+rbind(a,c)
+```
 
-[R demo](https://github.com/soeque1/r_slide/blob/master/R.pdf)
+---
 
+```{r}
+library("hflights")
+dim(hflights)
+nrow(hflights)
+ncol(hflights)
+colnames(hflights)
+head(rownames(hflights))
+range(rownames(hflights))
+```
+
+---
+
+### 기술 통계
+    
+```{r}
+mean(hflights[,"DepTime"])
+mean(hflights[,"DepTime"],na.rm=T)
+apply(hflights,1,function(x) mean(x, na.rm=T))
+apply(hflights,2,function(x) mean(x, na.rm=T))
+```   
+ 
 ---
