@@ -17,8 +17,10 @@ knit        : slidify::knit2slides
 3. 데이터 핸들링
 4. 함수
 5. 기술 통계
+6. Visualization
 
 --- .class #id
+
 
 ### 주의 사항
 
@@ -188,7 +190,7 @@ sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
 boxplot(hflights[,sapply(hflights,is.numeric)])
 ```
 
-![plot of chunk boxplot1](assets/fig/boxplot1.png) 
+![plot of chunk boxplot2_1](assets/fig/boxplot2_1.png) 
 
 
 ---
@@ -201,7 +203,7 @@ text(x =  1:length(col_sel), y = par("usr")[3] - 1, srt = 90, adj = 1,
      labels = col_sel, xpd=T)
 ```
 
-![plot of chunk boxplot2](assets/fig/boxplot2.png) 
+![plot of chunk boxplot2_2](assets/fig/boxplot2_2.png) 
 
 ---
 
@@ -228,10 +230,127 @@ print(paste("# of Missing is", sum(is.na(hflights_df))))
 ## Warning: Removed 25755 rows containing non-finite values (stat_boxplot).
 ```
 
-![plot of chunk ggplot1](assets/fig/ggplot1.png) 
+![plot of chunk ggplot2_1](assets/fig/ggplot2_1.png) 
 
 ```
 ## [1] "# of Missing is 25755"
 ```
 
+---
+
+### summary
+
+
+```r
+summary(iris)
+```
+
+```
+##   Sepal.Length   Sepal.Width    Petal.Length   Petal.Width 
+##  Min.   :4.30   Min.   :2.00   Min.   :1.00   Min.   :0.1  
+##  1st Qu.:5.10   1st Qu.:2.80   1st Qu.:1.60   1st Qu.:0.3  
+##  Median :5.80   Median :3.00   Median :4.35   Median :1.3  
+##  Mean   :5.84   Mean   :3.06   Mean   :3.76   Mean   :1.2  
+##  3rd Qu.:6.40   3rd Qu.:3.30   3rd Qu.:5.10   3rd Qu.:1.8  
+##  Max.   :7.90   Max.   :4.40   Max.   :6.90   Max.   :2.5  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
+---
+
+## Visualization
+### boxplot
+
+
+```r
+boxplot(iris)
+```
+
+![plot of chunk boxplot2_3](assets/fig/boxplot2_3.png) 
+
+---
+
+### histogram
+
+
+```r
+colnames(iris)
+par(mfrow=c(2,2))
+hist(iris[,"Sepal.Length"])
+hist(iris[,"Sepal.Length"],prob=T)
+hist(iris[,"Sepal.Length"],prob=T)
+lines(density(iris[,"Sepal.Length"]))
+hist(iris[,"Sepal.Length"], breaks=30)
+```
+
+---
+
+![plot of chunk hist2_1](assets/fig/hist2_1.png) 
+
+---
+
+
+```r
+plot(iris[,"Sepal.Length"])
+```
+
+![plot of chunk plot2_1](assets/fig/plot2_1.png) 
+
+---
+
+
+```r
+par(mfrow=c(1,1))
+slices <- c(10, 12, 4, 16, 8) 
+groups <- c("US", "UK", "Australia", "Germany", "France")
+pct <- paste(round(slices/sum(slices)*100),"%",sep="")
+lbls <- paste(groups, "\n",pct) # add percents to labels 
+pie(slices,labels = lbls, col=rainbow(length(lbls)))
+```
+
+![plot of chunk pieplot2_1](assets/fig/pieplot2_1.png) 
+
+---
+
+
+```r
+df_ex = data.frame(slices, groups, lbls, pct)
+df_ex$fraction = df_ex$slices / sum(df_ex$slices)
+df_ex$ymax = cumsum(df_ex$fraction)
+df_ex$ymin = c(0, head(df_ex$ymax, n = -1))
+```
+
+---
+
+![plot of chunk gg_barplot2_1](assets/fig/gg_barplot2_1.png) 
+
+---
+
+
+```r
+# Pie / Donut plot
+Pie = ggplot(data = df_ex, aes(fill = lbls, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
+    geom_rect(colour = "grey30", show_guide = FALSE) +
+    coord_polar(theta = "y") +
+ #   xlim(c(0, 4)) +
+    theme_bw() +
+    theme(panel.grid=element_blank()) +
+    theme(axis.text=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    geom_text(aes(x = 3.5, y = ((ymin+ymax)/2), label = lbls)) +
+    xlab("") +
+    ylab("")+
+     scale_fill_manual(values=rainbow(length(lbls)))
+print(Pie)
+```
+
+---
+
+![plot of chunk ggpieplot2_1](assets/fig/ggpieplot2_1.png) 
 

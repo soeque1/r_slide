@@ -12,6 +12,67 @@ mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 ---
 
+### 주의 사항
+```{r}
+a = 1:2; b = 3:5; c = 2:5
+cbind(a,b)
+rbind(a,c)
+```
+
+---
+
+## 함수
+- IF 문
+```{r, eval=F}
+if (.Platform$OS.type == "unix") { 
+    path_dir = "A"
+} else {
+    path_dir = "B"
+    windowsFonts(NanumGothic=windowsFont("NanumGothic"))
+} 
+```
+
+- library('foo') stops when foo was not installed
+- require() is basically try(library())
+보통 library 를 처음에 위치, require -> 저 아래에서 실행할 때 오류
+
+```{r, eval=F}
+if (!require("dplyr")) {
+  install.packages("dplyr")
+}
+```
+
+---
+
+- FOR 문
+```{r, eval=F}
+for (i in 1:3)
+{
+print(i)
+    for (j in 1:3)
+        print(j)
+}
+```
+
+---
+
+- Function
+$$\sqrt{(a^2+b^2)}$$
+
+```{r, eval=T}
+norm_op = function(a,b)
+{
+    norm = a^2 + b^2
+    return(sqrt(norm))
+}
+    
+norm_op(1,3)  == sqrt(10)
+
+```
+
+---
+
+
 ```{r}
 library("hflights")
 dim(hflights); nrow(hflights); ncol(hflights)
@@ -93,3 +154,6 @@ theme(text=element_text(size=10),
 axis.text.x = element_text(angle = 90, size = 14, hjust=1))
 print(paste("# of Missing is", sum(is.na(hflights_df))))
 ```
+
+---
+

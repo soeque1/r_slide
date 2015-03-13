@@ -50,6 +50,7 @@
 <li>데이터 핸들링</li>
 <li>함수</li>
 <li>기술 통계</li>
+<li>Visualization</li>
 </ol>
 
   </article>
@@ -238,7 +239,7 @@ sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
     <pre><code class="r">boxplot(hflights[,sapply(hflights,is.numeric)])
 </code></pre>
 
-<p><img src="assets/fig/boxplot1.png" alt="plot of chunk boxplot1"> </p>
+<p><img src="assets/fig/boxplot2_1.png" alt="plot of chunk boxplot2_1"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -252,7 +253,7 @@ text(x =  1:length(col_sel), y = par(&quot;usr&quot;)[3] - 1, srt = 90, adj = 1,
      labels = col_sel, xpd=T)
 </code></pre>
 
-<p><img src="assets/fig/boxplot2.png" alt="plot of chunk boxplot2"> </p>
+<p><img src="assets/fig/boxplot2_2.png" alt="plot of chunk boxplot2_2"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -283,10 +284,157 @@ print(paste(&quot;# of Missing is&quot;, sum(is.na(hflights_df))))
     <pre><code>## Warning: Removed 25755 rows containing non-finite values (stat_boxplot).
 </code></pre>
 
-<p><img src="assets/fig/ggplot1.png" alt="plot of chunk ggplot1"> </p>
+<p><img src="assets/fig/ggplot2_1.png" alt="plot of chunk ggplot2_1"> </p>
 
 <pre><code>## [1] &quot;# of Missing is 25755&quot;
 </code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h3>summary</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">summary(iris)
+</code></pre>
+
+<pre><code>##   Sepal.Length   Sepal.Width    Petal.Length   Petal.Width 
+##  Min.   :4.30   Min.   :2.00   Min.   :1.00   Min.   :0.1  
+##  1st Qu.:5.10   1st Qu.:2.80   1st Qu.:1.60   1st Qu.:0.3  
+##  Median :5.80   Median :3.00   Median :4.35   Median :1.3  
+##  Mean   :5.84   Mean   :3.06   Mean   :3.76   Mean   :1.2  
+##  3rd Qu.:6.40   3rd Qu.:3.30   3rd Qu.:5.10   3rd Qu.:1.8  
+##  Max.   :7.90   Max.   :4.40   Max.   :6.90   Max.   :2.5  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Visualization</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>boxplot</h3>
+
+<pre><code class="r">boxplot(iris)
+</code></pre>
+
+<p><img src="assets/fig/boxplot2_3.png" alt="plot of chunk boxplot2_3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h3>histogram</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">colnames(iris)
+par(mfrow=c(2,2))
+hist(iris[,&quot;Sepal.Length&quot;])
+hist(iris[,&quot;Sepal.Length&quot;],prob=T)
+hist(iris[,&quot;Sepal.Length&quot;],prob=T)
+lines(density(iris[,&quot;Sepal.Length&quot;]))
+hist(iris[,&quot;Sepal.Length&quot;], breaks=30)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/hist2_1.png" alt="plot of chunk hist2_1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">plot(iris[,&quot;Sepal.Length&quot;])
+</code></pre>
+
+<p><img src="assets/fig/plot2_1.png" alt="plot of chunk plot2_1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">par(mfrow=c(1,1))
+slices &lt;- c(10, 12, 4, 16, 8) 
+groups &lt;- c(&quot;US&quot;, &quot;UK&quot;, &quot;Australia&quot;, &quot;Germany&quot;, &quot;France&quot;)
+pct &lt;- paste(round(slices/sum(slices)*100),&quot;%&quot;,sep=&quot;&quot;)
+lbls &lt;- paste(groups, &quot;\n&quot;,pct) # add percents to labels 
+pie(slices,labels = lbls, col=rainbow(length(lbls)))
+</code></pre>
+
+<p><img src="assets/fig/pieplot2_1.png" alt="plot of chunk pieplot2_1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">df_ex = data.frame(slices, groups, lbls, pct)
+df_ex$fraction = df_ex$slices / sum(df_ex$slices)
+df_ex$ymax = cumsum(df_ex$fraction)
+df_ex$ymin = c(0, head(df_ex$ymax, n = -1))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/gg_barplot2_1.png" alt="plot of chunk gg_barplot2_1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <article data-timings="">
+    <pre><code class="r"># Pie / Donut plot
+Pie = ggplot(data = df_ex, aes(fill = lbls, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
+    geom_rect(colour = &quot;grey30&quot;, show_guide = FALSE) +
+    coord_polar(theta = &quot;y&quot;) +
+ #   xlim(c(0, 4)) +
+    theme_bw() +
+    theme(panel.grid=element_blank()) +
+    theme(axis.text=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    geom_text(aes(x = 3.5, y = ((ymin+ymax)/2), label = lbls)) +
+    xlab(&quot;&quot;) +
+    ylab(&quot;&quot;)+
+     scale_fill_manual(values=rainbow(length(lbls)))
+print(Pie)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/ggpieplot2_1.png" alt="plot of chunk ggpieplot2_1"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -366,6 +514,66 @@ print(paste(&quot;# of Missing is&quot;, sum(is.na(hflights_df))))
       <a href="#" target="_self" rel='tooltip' 
         data-slide=12 title=''>
          12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='summary'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Visualization'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='histogram'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title=''>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title=''>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title=''>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title=''>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title=''>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title=''>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title=''>
+         22
       </a>
     </li>
   </ul>
