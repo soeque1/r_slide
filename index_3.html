@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R 강의</title>
+  <meta charset="utf-8">
+  <meta name="description" content="R 강의">
+  <meta name="author" content="김형준">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>R 강의</h1>
+    <h2>세번째 시간</h2>
+    <p>김형준<br/>Data Analyst</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Contents</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>분석예시</li>
+<li>WordCloud</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">pre_processing&lt;-function(data, start_line, end_line)
+{
+bodydata&lt;-data[start_line:end_line]
+bodydata&lt;-gsub(&quot;&lt;P align=justify&gt;&lt;/P&gt;&quot;,&quot;&quot;,bodydata)
+bodydata&lt;-str_replace_all(bodydata, &quot;[[:punct:]]|[a-zA-Z]|[\t+]&quot;, &quot; &quot;)
+bodydata&lt;-str_replace_all(bodydata, &quot;[[:space:]][[:space:]]+&quot;, &quot;&quot;)
+bodydata&lt;-bodydata[bodydata!=&quot;&quot;&amp;bodydata!=&quot; &quot;]
+return(bodydata)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">wordcloud_proc&lt;-function(bodydata)
+{
+nouns&lt;-sapply(bodydata,extractNoun)
+wordcount &lt;- table(unlist(nouns))
+wordcount &lt;- wordcount[nchar(names(wordcount))!=1]
+return(wordcount)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h3>박근혜 대통령 취임사 전문 (한겨레)</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>[source][<a href="http://www.hani.co.kr/arti/politics/politics_general/575390.htm">http://www.hani.co.kr/arti/politics/politics_general/575390.htm</a>]</p>
+
+<p><img src="assets/fig/wordcloud2_1.pdf" alt="plot of chunk wordcloud2_1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h3>이명박 대통령 취임사 전문 (머니투데이)</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>[source][<a href="http://stock.mt.co.kr/view/mtview.php?type=1&amp;no=2008022510425323553">http://stock.mt.co.kr/view/mtview.php?type=1&amp;no=2008022510425323553</a>]</p>
+
+<p><img src="assets/fig/wordcloud2_2.pdf" alt="plot of chunk wordcloud2_2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h3>노무현 대통령 취임사 전문 (한겨레)</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>[source][<a href="http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200302251026287.html">http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200302251026287.html</a>]</p>
+
+<p><img src="assets/fig/wordcloud2_3.pdf" alt="plot of chunk wordcloud2_3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Contents'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title=''>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='박근혜 대통령 취임사 전문 (한겨레)'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='이명박 대통령 취임사 전문 (머니투데이)'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='노무현 대통령 취임사 전문 (한겨레)'>
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

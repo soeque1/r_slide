@@ -1,0 +1,118 @@
+---
+title       : "R 강의"
+subtitle    : "세번째 시간"
+author      : "김형준"
+job         : "Data Analyst"
+framework   : io2012     # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets    : [mathjax]
+#ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Contents
+
+6. 분석예시
+- WordCloud
+
+---
+
+
+```{r echo=T, eval=T}
+pre_processing<-function(data, start_line, end_line)
+{
+bodydata<-data[start_line:end_line]
+bodydata<-gsub("<P align=justify></P>","",bodydata)
+bodydata<-str_replace_all(bodydata, "[[:punct:]]|[a-zA-Z]|[\t+]", " ")
+bodydata<-str_replace_all(bodydata, "[[:space:]][[:space:]]+", "")
+bodydata<-bodydata[bodydata!=""&bodydata!=" "]
+return(bodydata)
+}
+```
+
+---
+
+```{r echo=T, eval=T}
+wordcloud_proc<-function(bodydata)
+{
+nouns<-sapply(bodydata,extractNoun)
+wordcount <- table(unlist(nouns))
+wordcount <- wordcount[nchar(names(wordcount))!=1]
+return(wordcount)
+}
+```
+
+---
+
+```{r echo=F, eval=T, include=T}
+## WordCloud
+par(family="AppleGothic")
+pal <- brewer.pal(12,"Set3")
+pal <- pal[-c(1:2)]
+```
+
+### 박근혜 대통령 취임사 전문 (한겨레)  
+[source][http://www.hani.co.kr/arti/politics/politics_general/575390.htm]
+
+```{r wordcloud2_1, echo=F, eval=T,warning=F, include=T, dev="pdf"}
+library("extrafont")
+pdf.options(fonts="Malgun Gothic")
+library("KoNLP")
+library("wordcloud")
+source<-"http://www.hani.co.kr/arti/politics/politics_general/575390.html"
+data<-readLines(source,encoding="utf-8")
+start_line = grep("<h4><font color=#006699>박근혜 대통령 취임사 전문</font></h4>",data)
+end_line = grep("감사합니다. <P align=justify></P>",data)
+
+bodydata = pre_processing(data, start_line, end_line)
+wordcount = wordcloud_proc(bodydata)
+
+#head(sort(wordcount,decreasing=T))
+wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
+          random.order=F,rot.per=.1,colors=pal)
+```
+
+---
+
+### 이명박 대통령 취임사 전문 (머니투데이)  
+[source][http://stock.mt.co.kr/view/mtview.php?type=1&no=2008022510425323553]
+
+```{r wordcloud2_2, echo=F, eval=T, warning=F, dev="pdf"}
+pdf.options(fonts="Malgun Gothic")
+source_url="http://stock.mt.co.kr/view/mtview.php?type=1&no=2008022510425323553"
+data<-readLines(source_url)
+data<-iconv(data,"cp949","utf-8")
+start_line = grep("선진화의 길,다 함께 열어갑시다.<br />",data)
+end_line = grep("2008년 2월 25일 대한민국 대통령 이명박",data)
+
+bodydata = pre_processing(data, start_line, end_line)
+wordcount = wordcloud_proc(bodydata)
+
+#head(sort(wordcount,decreasing=T))
+wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
+          random.order=F,rot.per=.1,colors=pal)
+```
+
+---
+
+### 노무현 대통령 취임사 전문 (한겨레)  
+[source][http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200302251026287.html]
+
+```{r wordcloud2_3, echo=F, eval=T,warning=F,dev="pdf"}
+pdf.options(fonts="Malgun Gothic")
+source_url="http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200302251026287.html"
+data<-readLines(source_url)
+data<-iconv(data,"cp949","utf-8")
+start_line = grep("존경하는 국민 여러분.    오늘 저는 대한민국의 제16대 대통령에 취임하기 위해 이 자리에 섰습니다.",data)
+end_line = grep("대통령 노 무 현",data)
+
+bodydata = pre_processing(data, start_line, end_line)
+wordcount = wordcloud_proc(bodydata)
+
+#head(sort(wordcount,decreasing=T))
+wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
+          random.order=F,rot.per=.1,colors=pal)
+```
+
