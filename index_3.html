@@ -88,6 +88,29 @@ return(wordcount)
 </slide>
 
 <slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(&quot;extrafont&quot;)
+pdf.options(fonts=&quot;Malgun Gothic&quot;)
+library(&quot;KoNLP&quot;)
+library(&quot;wordcloud&quot;)
+source&lt;-&quot;http://www.hani.co.kr/arti/politics/politics_general/575390.html&quot;
+data&lt;-readLines(source,encoding=&quot;utf-8&quot;)
+start_line = grep(&quot;&lt;h4&gt;&lt;font color=#006699&gt;박근혜 대통령 취임사 전문&lt;/font&gt;&lt;/h4&gt;&quot;,data)
+end_line = grep(&quot;감사합니다. &lt;P align=justify&gt;&lt;/P&gt;&quot;,data)
+
+bodydata = pre_processing(data, start_line, end_line)
+wordcount = wordcloud_proc(bodydata)
+
+#head(sort(wordcount,decreasing=T))
+wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
+          random.order=F,rot.per=.1,colors=pal)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h3>박근혜 대통령 취임사 전문 (한겨레)</h3>
   </hgroup>
@@ -100,7 +123,7 @@ return(wordcount)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h3>이명박 대통령 취임사 전문 (머니투데이)</h3>
   </hgroup>
@@ -113,7 +136,7 @@ return(wordcount)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h3>노무현 대통령 취임사 전문 (한겨레)</h3>
   </hgroup>
@@ -150,20 +173,26 @@ return(wordcount)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='박근혜 대통령 취임사 전문 (한겨레)'>
+        data-slide=4 title=''>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='이명박 대통령 취임사 전문 (머니투데이)'>
+        data-slide=5 title='박근혜 대통령 취임사 전문 (한겨레)'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='노무현 대통령 취임사 전문 (한겨레)'>
+        data-slide=6 title='이명박 대통령 취임사 전문 (머니투데이)'>
          6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='노무현 대통령 취임사 전문 (한겨레)'>
+         7
       </a>
     </li>
   </ul>

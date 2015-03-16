@@ -49,6 +49,27 @@ return(wordcount)
 ---
 
 
+```r
+library("extrafont")
+pdf.options(fonts="Malgun Gothic")
+library("KoNLP")
+library("wordcloud")
+source<-"http://www.hani.co.kr/arti/politics/politics_general/575390.html"
+data<-readLines(source,encoding="utf-8")
+start_line = grep("<h4><font color=#006699>박근혜 대통령 취임사 전문</font></h4>",data)
+end_line = grep("감사합니다. <P align=justify></P>",data)
+
+bodydata = pre_processing(data, start_line, end_line)
+wordcount = wordcloud_proc(bodydata)
+
+#head(sort(wordcount,decreasing=T))
+wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
+          random.order=F,rot.per=.1,colors=pal)
+```
+
+---
+
+
 
 ### 박근혜 대통령 취임사 전문 (한겨레)  
 [source][http://www.hani.co.kr/arti/politics/politics_general/575390.htm]
