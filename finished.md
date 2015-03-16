@@ -1,452 +1,436 @@
 ---
 title       : "R 강의"
-subtitle    : "첫번째 시간"
+subtitle    : "두번째 시간"
 author      : "김형준"
-job         : "Data Analytics"
+job         : "Data Analyst"
 fframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
-widgets    : [bootstrap, quiz, shiny, interactive, mathjax]
-ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+widgets    : [mathjax]
+#ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 ---
 
 ## Contents
 
-1. R 소개  
-2. 기초 함수 및 변수 다루기  
-3. 데이터 핸들링  
-4. R Graphics  
-5. 기초 통계  
-6. 추론 통계  
+3. 데이터 핸들링
+4. 함수
+5. 기술 통계 & Visualization
 
 --- .class #id
 
-## R
+### 주의 사항
 
-* R 언어는 통계 <U>계산</U>과 <U>그래픽</U>을 위한 프로그래밍 언어  
-* S-PLUS -> R (1997, GUN PROJECT)  
+```r
+a = 1:2; b = 3:5; c = 2:5
+cbind(a,b)
+```
 
-* 한계 : R’s biggest challenge is that most R users are not programmers  
-* 극복 : Solving the “Two-Language” Problem  
+```
+## Warning: number of rows of result is not a multiple of vector length (arg
+## 1)
+```
 
-### 설치 
- 
-* Install [R](http://www.r-project.org/)  
-* Install the lastest version of [RStudio](http://rstudio.org/download/)  
+```
+##      a b
+## [1,] 1 3
+## [2,] 2 4
+## [3,] 1 5
+```
+
+```r
+rbind(a,c)
+```
+
+```
+##   [,1] [,2] [,3] [,4]
+## a    1    2    1    2
+## c    2    3    4    5
+```
 
 ---
 
+## 함수
+- IF 문
+
+```r
+if (.Platform$OS.type == "unix") { 
+    path_dir = "A"
+} else {
+    path_dir = "B"
+    windowsFonts(NanumGothic=windowsFont("NanumGothic"))
+} 
+```
+
+- library('foo') stops when foo was not installed
+- require() is basically try(library())
+보통 library 를 처음에 위치, require -> 저 아래에서 실행할 때 오류
 
 
-## 적절한 code editor 고르기
-예) R Studio
-![alt text](rstudio.png)
+```r
+if (!require("dplyr")) {
+  install.packages("dplyr")
+}
+```
 
 ---
 
-## Introduction
+- FOR 문
+
+```r
+for (i in 1:3)
+{
+print(i)
+    for (j in 1:3)
+        print(j)
+}
+```
+
+---
+
+- Function
+$$\sqrt{(a^2+b^2)}$$
+
+
+```r
+norm_op = function(a,b)
+{
+    norm = a^2 + b^2
+    return(sqrt(norm))
+}
     
-### The "Comprehensive R Archive Network" (CRAN)  
-is a collection of sites which carry identical material, consisting of the R distribution(s), the contributed extensions, documentation for R, and binaries.
-
-### 장점  
-- Freeware
-- 대화식 프로그램
-- 방대한 라이브러리
-- 다양한 OS 지원 / Java, C, Fortran 프로그래밍 인터페이스
-- 다양한 그래픽 지원
-
-### 단점
-- Freeware --> 저자 마음대로 input 설정
-- 국내자료가 부족
-
----
-
-## 기초연산 & 변수 다루기
-
-func | |func| |
----------|----------|---------|----------
-+ - * / ^    |  단순계산 |  |
-sqrt(x)    | 제곱근 | ceiling(x) | 올림
-floor(x) | 내림 | abs(x) | 절댓값
-trunc(x) | 버림 | log(x) | 자연로그
-round(x) | 반올림 | round(x,n) | 소수점 n 까지 반올림
-factorial(n) | n! | choose(n,k) | nCk
-예)
-
-```r
-factorial(3)
-```
-
-[1] 6
-
-```r
-round(25.233,1)
-```
-
-[1] 25.2
-
----
-
-## 패키지(라이브러리)
-
-```r
-head(installed.packages())
+norm_op(1,3)  == sqrt(10)
 ```
 
 ```
-##         Package  
-## abind   "abind"  
-## acepack "acepack"
-## ACTCD   "ACTCD"  
-## affy    "affy"   
-## affyio  "affyio" 
-## amap    "amap"   
-##         LibPath                                                         
-## abind   "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## acepack "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## ACTCD   "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## affy    "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## affyio  "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## amap    "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-##         Version   Priority
-## abind   "1.4-0"   NA      
-## acepack "1.3-3.3" NA      
-## ACTCD   "1.0-0"   NA      
-## affy    "1.44.0"  NA      
-## affyio  "1.34.0"  NA      
-## amap    "0.8-12"  NA      
-##         Depends                                                     
-## abind   "R (>= 1.5.0)"                                              
-## acepack NA                                                          
-## ACTCD   "R (>= 2.15.1), R.methodsS3"                                
-## affy    "R (>= 2.8.0), BiocGenerics (>= 0.1.12), Biobase (>= 2.5.5)"
-## affyio  "R (>= 2.6.0)"                                              
-## amap    "R (>= 2.10.0)"                                             
-##         Imports                                                                                                   
-## abind   NA                                                                                                        
-## acepack NA                                                                                                        
-## ACTCD   NA                                                                                                        
-## affy    "affyio (>= 1.13.3), BiocInstaller, graphics, grDevices,\nmethods, preprocessCore, stats, utils, zlibbioc"
-## affyio  "zlibbioc"                                                                                                
-## amap    NA                                                                                                        
-##         LinkingTo        Suggests                                      
-## abind   NA               NA                                            
-## acepack NA               NA                                            
-## ACTCD   NA               NA                                            
-## affy    "preprocessCore" "tkWidgets (>= 1.19.0), affydata, widgetTools"
-## affyio  NA               NA                                            
-## amap    NA               "Biobase"                                     
-##         Enhances License              License_is_FOSS
-## abind   NA       "LGPL (>= 2)"        NA             
-## acepack NA       "MIT + file LICENSE" NA             
-## ACTCD   NA       "GPL (>= 2)"         NA             
-## affy    NA       "LGPL (>= 2.0)"      NA             
-## affyio  NA       "LGPL (>= 2)"        NA             
-## amap    NA       "GPL"                NA             
-##         License_restricts_use OS_type MD5sum NeedsCompilation Built  
-## abind   NA                    NA      NA     NA               "3.1.1"
-## acepack NA                    NA      NA     "yes"            "3.1.0"
-## ACTCD   NA                    NA      NA     "yes"            "3.1.1"
-## affy    NA                    NA      NA     NA               "3.1.1"
-## affyio  NA                    NA      NA     NA               "3.1.1"
-## amap    NA                    NA      NA     "yes"            "3.1.0"
-```
-
----
-### 패키지 설치
-
-```r
-install.packages("dplyr")
-```
-
-```
-## Error: trying to use CRAN without setting a mirror
-```
-
-
-```r
-install.packages("dplyr", repos="http://cran.rstudio.com/")
-```
-
-### 패키지 정보  
-
-[CRAN](https://www.google.co.kr/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=cran)  
-
-[CRAN Pac. by names](http://cran.r-project.org/web/packages/available_packages_by_name.html)  
-  
-[CRAN Pac. by Tasks](http://cran.r-project.org/web/views/)  
-
----
-
-
-## Help, RSiteSearch
-
-RSiteSearch("sna")  
-??sna  
-
----
-
-## Data Handling
-
-- 논리
-
-```r
-c(T,F,T)
-```
-
-[1]  TRUE FALSE  TRUE
-
-- 숫자
-
-```r
-is.numeric(3);is.integer(3)
-```
-
-[1] TRUE
-[1] FALSE
-
-- 문자
-
-```r
-is.character("김")isis.character(c("김",3,5)).nis.numeric(c("김",3,5))
-```
-
-[1] TRUE
-[1] TRUE
-[1] FALSE
-
----
-
-## Data Handling
-$$latex
-\sqrt{2} \times \sqrt{2} \ne 2
-$$
-
-
-```r
-sqrt(2) * sqrt(2) == 2
-```
-
-[1] FALSE
-
-
-```r
-3.55555666662314214
-```
-
-[1] 3.556
-
-```r
-3.55555666662314214 == 3.556; 3.55555666662314214 == 3.55555666662314214
-```
-
-[1] FALSE
-[1] TRUE
-
----
-
-## Data Handling
-
-
-```r
-options(digits=5);3.55555666662314214
-```
-
-[1] 3.5556
-
-```r
-options(digits=10);3.55555666662314214
-```
-
-[1] 3.555556667
-
-- 구조
- * Matrix
- * Data.Frame
- * Data.Table
- * List
-
----
-
-
-
-## Matrix
-
-```r
-x = matrix(NA, nrow=10, ncol=3)
-x
-```
-
-```
-##       [,1] [,2] [,3]
-##  [1,]   NA   NA   NA
-##  [2,]   NA   NA   NA
-##  [3,]   NA   NA   NA
-##  [4,]   NA   NA   NA
-##  [5,]   NA   NA   NA
-##  [6,]   NA   NA   NA
-##  [7,]   NA   NA   NA
-##  [8,]   NA   NA   NA
-##  [9,]   NA   NA   NA
-## [10,]   NA   NA   NA
-```
-
----
-x[1,3]=3; x[2,]=c(1,5,7); x[3,]=seq(1,3); x[4,]=1:3; x[5,]=rep(1,3)  
-x[6,]=sep(5,1,by=-2);
-
-### Missing-Handling
-x[is.na(x)] = 0
-
-
-
-
-```r
-x
-```
-
-```
-##       [,1] [,2] [,3]
-##  [1,]    0    0    3
-##  [2,]    1    5    7
-##  [3,]    1    2    3
-##  [4,]    1    2    3
-##  [5,]    1    1    1
-##  [6,]    5    3    1
-##  [7,]    0    0    0
-##  [8,]    0    0    0
-##  [9,]    0    0    0
-## [10,]    0    0    0
-```
-
-## Data.Frame
-
-
-```r
-data_ex = data.frame(height=c(168,182,175),weight=c(50,60,70),sex=c("여","남","남"))
-data_ex
-```
-
-```
-##   height weight sex
-## 1    168     50  여
-## 2    182     60  남
-## 3    175     70  남
-```
-
-```r
-data_ex$married = c(T,F,T)
-data_ex[,"bmi"] = data_ex[,"height"]/data_ex[,"weight"]
-data_ex
-```
-
-```
-##   height weight sex married   bmi
-## 1    168     50  여    TRUE 3.360
-## 2    182     60  남   FALSE 3.033
-## 3    175     70  남    TRUE 2.500
-```
-
----
-### 사용(X)
-
-```r
-attach (data_ex);height
-```
-
-```
-## [1] 168 182 175
-```
-
-```r
-detach(data_ex);height
-```
-
-```
-## Error: object 'height' not found
-```
-
-### 사용(O)
-
-```r
-with(data_ex, height);subset(data_ex, height>180)
-```
-
-```
-## [1] 168 182 175
-```
-
-```
-##   height weight sex married   bmi
-## 2    182     60  남   FALSE 3.033
+## [1] TRUE
 ```
 
 ---
 
-### 사용 추천
-library("dplyr")
 
-
-
-```r
-data_ex%>%filter(height>180)
-```
-
-```
-##   height weight sex married   bmi
-## 1    182     60  남   FALSE 3.033
-```
-
-### Big - Data
-
-e.x) 미국 휴스턴에서 출발하는 모든 비행기의 2011년 이착륙기록  
-
-library("hflights")  
 
 ```r
 library("hflights")
-dim(hflights)  
+dim(hflights); nrow(hflights); ncol(hflights)
 ```
 
 ```
 ## [1] 227496     21
 ```
 
+```
+## [1] 227496
+```
+
+```
+## [1] 21
+```
+
 ```r
-#hflights
-head(fligths)
+colnames(hflights); #range(rownames(hflights))
 ```
 
 ```
-## Error: object 'fligths' not found
+##  [1] "Year"              "Month"             "DayofMonth"       
+##  [4] "DayOfWeek"         "DepTime"           "ArrTime"          
+##  [7] "UniqueCarrier"     "FlightNum"         "TailNum"          
+## [10] "ActualElapsedTime" "AirTime"           "ArrDelay"         
+## [13] "DepDelay"          "Origin"            "Dest"             
+## [16] "Distance"          "TaxiIn"            "TaxiOut"          
+## [19] "Cancelled"         "CancellationCode"  "Diverted"
 ```
 
-```r
-hflights_df = tbl_df(hflights)
-hflights_df
-```
-
-```
-## Source: local data frame [227,496 x 21]
-## 
-##    Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
-## 1  2011     1          1         6    1400    1500            AA       428
-## 2  2011     1          2         7    1401    1501            AA       428
-## 3  2011     1          3         1    1352    1502            AA       428
-## 4  2011     1          4         2    1403    1513            AA       428
-## 5  2011     1          5         3    1405    1507            AA       428
-## 6  2011     1          6         4    1359    1503            AA       428
-## 7  2011     1          7         5    1359    1509            AA       428
-## 8  2011     1          8         6    1355    1454            AA       428
-## 9  2011     1          9         7    1443    1554            AA       428
-## 10 2011     1         10         1    1443    1553            AA       428
-## ..  ...   ...        ...       ...     ...     ...           ...       ...
-## Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime
-##   (int), ArrDelay (int), DepDelay (int), Origin (chr), Dest (chr),
-##   Distance (int), TaxiIn (int), TaxiOut (int), Cancelled (int),
-##   CancellationCode (chr), Diverted (int)
-```
 ---
+
+## 기술 통계
+
+    자료의 특성을 표, 그림, 통계량 등을 사용하여 쉽게 파악할 수 있도록 정리요약
+
+- 평균 (mean) / 중앙값 (median) / 합계 (sum)
+- 분산 (variance) / 표준편차 (sd)
+- 범위 (range)
+- 상관 (cor)
+
+---
+
+
+```r
+mean(hflights[,"DepTime"]) # 평균-> NA
+```
+
+```
+## [1] NA
+```
+
+```r
+mean(hflights[,"DepTime"],na.rm=T) # 평균(missing 제거)
+```
+
+```
+## [1] 1396
+```
+
+
+```r
+sapply(hflights,is.numeric) ## Numeric or not
+sapply(hflights[,sapply(hflights,is.numeric)],mean)
+sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
+```
+
+
+---
+
+
+
+```r
+boxplot(hflights[,sapply(hflights,is.numeric)])
+```
+
+![plot of chunk boxplot2_1](assets/fig/boxplot2_1.png) 
+
+
+---
+
+
+```r
+col_sel = colnames(hflights)[sapply(hflights,is.numeric)]
+boxplot(hflights[,col_sel], xaxt="n")
+text(x =  1:length(col_sel), y = par("usr")[3] - 1, srt = 90, adj = 1,
+     labels = col_sel, xpd=T)
+```
+
+![plot of chunk boxplot2_2](assets/fig/boxplot2_2.png) 
+
+---
+
+
+```r
+library("reshape")
+hflights_df = hflights[,sapply(hflights,is.numeric)]
+hflights_df[,"id"] = 1:nrow(hflights_df)
+#head(hflights_df)
+hflights_df_m = melt(hflights_df,id="id")
+library(ggplot2)
+ggplot(hflights_df_m) +
+geom_boxplot(aes(x=variable, y=value))+ 
+xlab("")+
+theme(text=element_text(size=10),
+axis.text.x = element_text(angle = 90, size = 14, hjust=1))
+print(paste("# of Missing is", sum(is.na(hflights_df))))
+```
+
+---
+
+
+```
+## Warning: Removed 25755 rows containing non-finite values (stat_boxplot).
+```
+
+![plot of chunk ggplot2_1](assets/fig/ggplot2_1.png) 
+
+```
+## [1] "# of Missing is 25755"
+```
+
+---
+
+### summary
+
+
+```r
+summary(iris)
+```
+
+```
+##   Sepal.Length   Sepal.Width    Petal.Length   Petal.Width 
+##  Min.   :4.30   Min.   :2.00   Min.   :1.00   Min.   :0.1  
+##  1st Qu.:5.10   1st Qu.:2.80   1st Qu.:1.60   1st Qu.:0.3  
+##  Median :5.80   Median :3.00   Median :4.35   Median :1.3  
+##  Mean   :5.84   Mean   :3.06   Mean   :3.76   Mean   :1.2  
+##  3rd Qu.:6.40   3rd Qu.:3.30   3rd Qu.:5.10   3rd Qu.:1.8  
+##  Max.   :7.90   Max.   :4.40   Max.   :6.90   Max.   :2.5  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
+---
+
+## Visualization
+### boxplot
+
+
+```r
+boxplot(iris)
+```
+
+![plot of chunk boxplot2_3](assets/fig/boxplot2_3.png) 
+
+--- &twocol
+
+### Histogram
+
+*** =left
+
+
+
+
+```r
+colnames(iris)
+par(mfrow=c(2,2))
+hist(iris[,"Sepal.Length"])
+hist(iris[,"Sepal.Length"],prob=T)
+hist(iris[,"Sepal.Length"],prob=T)
+lines(density(iris[,"Sepal.Length"]))
+hist(iris[,"Sepal.Length"], breaks=30)
+```
+
+*** =right
+
+![plot of chunk hist2_1](assets/fig/hist2_1.png) 
+
+---
+
+
+```r
+plot(iris[,"Sepal.Length"])
+```
+
+![plot of chunk plot2_1](assets/fig/plot2_1.png) 
+
+---
+
+
+```r
+par(mfrow=c(1,1))
+slices <- c(10, 12, 4, 16, 8) 
+groups <- c("US", "UK", "Australia", "Germany", "France")
+pct <- paste(round(slices/sum(slices)*100),"%",sep="")
+lbls <- paste(groups, "\n",pct) # add percents to labels 
+pie(slices,labels = lbls, col=rainbow(length(lbls)))
+```
+
+![plot of chunk pieplot2_1](assets/fig/pieplot2_1.png) 
+
+---
+
+
+```r
+df_ex = data.frame(slices, groups, lbls, pct)
+df_ex$fraction = df_ex$slices / sum(df_ex$slices)
+df_ex$ymax = cumsum(df_ex$fraction)
+df_ex$ymin = c(0, head(df_ex$ymax, n = -1))
+```
+
+---
+
+![plot of chunk gg_barplot2_1](assets/fig/gg_barplot2_1.png) 
+
+---
+
+
+```r
+# Pie / Donut plot
+Pie = ggplot(data = df_ex, aes(fill = lbls, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
+    geom_rect(colour = "grey30", show_guide = FALSE) +
+    coord_polar(theta = "y") +
+ #   xlim(c(0, 4)) +
+    theme_bw() +
+    theme(panel.grid=element_blank()) +
+    theme(axis.text=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    geom_text(aes(x = 3.5, y = ((ymin+ymax)/2), label = lbls)) +
+    xlab("") +
+    ylab("")+
+     scale_fill_manual(values=rainbow(length(lbls)))
+print(Pie)
+```
+
+---
+
+![plot of chunk ggpieplot2_1](assets/fig/ggpieplot2_1.png) 
+
+---
+
+## 공분산(Covariacne)과 상관관계(Correlation)
+- 두 변수의 변화 사이의 관계, 한 변수가 증가함에 따라 다른 변수가 변화하는 경향성  
+
+
+```r
+set.seed(1)
+heights = rnorm(100,180,5)
+heights = sort(heights, decreasing = F)
+weights =  -10 + heights*.5 + rnorm(100,0,5)
+#hist(weights);hist(heights)
+cor(weights, heights)
+```
+
+```
+## [1] 0.4214
+```
+
+---
+
+![plot of chunk lmplot2_1](assets/fig/lmplot2_1.png) 
+
+```
+## NULL
+```
+
+---
+
+
+```r
+library("xtable")
+print(xtable(coef(summary(lm(weights ~ heights)))),type="html")
+```
+
+<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
+<!-- Mon Mar 16 16:11:10 2015 -->
+<table border=1>
+<tr> <th>  </th> <th> Estimate </th> <th> Std. Error </th> <th> t value </th> <th> Pr(&gt;|t|) </th>  </tr>
+  <tr> <td align="right"> (Intercept) </td> <td align="right"> -9.40 </td> <td align="right"> 19.46 </td> <td align="right"> -0.48 </td> <td align="right"> 0.63 </td> </tr>
+  <tr> <td align="right"> heights </td> <td align="right"> 0.50 </td> <td align="right"> 0.11 </td> <td align="right"> 4.60 </td> <td align="right"> 0.00 </td> </tr>
+   </table>
+
+---
+
+
+## Regression
+
+### Least Squares
+- Function to minimize w.r.t $b_{0}$, $b_{1}$
+$$ Q = \sum_{i=1}^{n}(Y_{i} - \hat{Y_{i}})^{2} = 
+\sum_{i=1}^{n}(Y_{i} - (b_{0}+b_{1}X_{i}))^{2} $$
+
+- Minimize this by Maximizing - $Q$
+- How to ?
+$$ \frac{dQ}{db_{0}} = 0 $$
+$$ \frac{dQ}{db_{1}} = 0 $$
+
+
+---
+
+
+```
+## NULL
+```
+
+![plot of chunk lmplot2_2](assets/fig/lmplot2_2.png) 
+
+---
+
+## Over-Fitting(과적합)
+
+
+```
+## NULL
+```
+
+![plot of chunk lmplot2_3](assets/fig/lmplot2_3.png) 

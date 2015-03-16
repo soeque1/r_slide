@@ -1,16 +1,24 @@
 ---
 title       : "R 강의"
-subtitle    : "첫번째 시간"
+subtitle    : "두번째 시간"
 author      : "김형준"
 job         : "Data Analyst"
 fframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
-widgets    : [bootstrap, quiz, shiny, interactive, mathjax]
-ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+widgets    : [mathjax]
+#ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 ---
+
+## Contents
+
+3. 데이터 핸들링
+4. 함수
+5. 기술 통계 & Visualization
+
+--- .class #id
 
 ### 주의 사항
 ```{r}
@@ -107,14 +115,14 @@ sapply(hflights[,sapply(hflights,is.numeric)],function(x) mean(x, na.rm=T))
 ---
 
 
-```{r boxplot1, eval=T}
+```{r boxplot2_1, eval=T}
 boxplot(hflights[,sapply(hflights,is.numeric)])
 ```
 
 
 ---
 
-```{r boxplot2, eval=T}
+```{r boxplot2_2, eval=T}
 col_sel = colnames(hflights)[sapply(hflights,is.numeric)]
 boxplot(hflights[,col_sel], xaxt="n")
 text(x =  1:length(col_sel), y = par("usr")[3] - 1, srt = 90, adj = 1,
@@ -140,7 +148,7 @@ print(paste("# of Missing is", sum(is.na(hflights_df))))
 
 ---
 
-```{r ggplot1, echo=F, eval=T}
+```{r ggplot2_1, echo=F, eval=T}
 library("reshape")
 hflights_df = hflights[,sapply(hflights,is.numeric)]
 hflights_df[,"id"] = 1:nrow(hflights_df)
@@ -157,3 +165,205 @@ print(paste("# of Missing is", sum(is.na(hflights_df))))
 
 ---
 
+### summary
+
+```{r}
+summary(iris)
+```
+
+---
+
+## Visualization
+### boxplot
+
+```{r boxplot2_3, echo=T, eval=T}
+boxplot(iris)
+```
+
+--- &twocol
+
+### Histogram
+
+*** =left
+
+```{r, echo=FALSE}
+options(width=30)
+```
+
+```{r echo=T, eval=F}
+colnames(iris)
+par(mfrow=c(2,2))
+hist(iris[,"Sepal.Length"])
+hist(iris[,"Sepal.Length"],prob=T)
+hist(iris[,"Sepal.Length"],prob=T)
+lines(density(iris[,"Sepal.Length"]))
+hist(iris[,"Sepal.Length"], breaks=30)
+```
+
+*** =right
+
+```{r hist2_1, echo=F, eval=T}
+par(mfrow=c(2,2))
+hist(iris[,"Sepal.Length"])
+hist(iris[,"Sepal.Length"],prob=T)
+hist(iris[,"Sepal.Length"],prob=T)
+lines(density(iris[,"Sepal.Length"]))
+hist(iris[,"Sepal.Length"], breaks=30)
+```
+
+---
+
+```{r plot2_1, echo=T, eval=T}
+plot(iris[,"Sepal.Length"])
+```
+
+---
+
+```{r pieplot2_1, echo=T, eval=T}
+par(mfrow=c(1,1))
+slices <- c(10, 12, 4, 16, 8) 
+groups <- c("US", "UK", "Australia", "Germany", "France")
+pct <- paste(round(slices/sum(slices)*100),"%",sep="")
+lbls <- paste(groups, "\n",pct) # add percents to labels 
+pie(slices,labels = lbls, col=rainbow(length(lbls)))
+```
+
+---
+
+```{r}
+df_ex = data.frame(slices, groups, lbls, pct)
+df_ex$fraction = df_ex$slices / sum(df_ex$slices)
+df_ex$ymax = cumsum(df_ex$fraction)
+df_ex$ymin = c(0, head(df_ex$ymax, n = -1))
+```
+
+---
+
+```{r gg_barplot2_1, echo=F, eval=T}
+# Bar plot
+library(ggplot2)
+bar = ggplot(data = df_ex, aes(x = groups, y = slices, fill = groups)) +
+    geom_bar(stat = "identity", show_guide = FALSE)
+print(bar)
+```
+
+---
+
+```{r echo=T, eval=F}
+# Pie / Donut plot
+Pie = ggplot(data = df_ex, aes(fill = lbls, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
+    geom_rect(colour = "grey30", show_guide = FALSE) +
+    coord_polar(theta = "y") +
+ #   xlim(c(0, 4)) +
+    theme_bw() +
+    theme(panel.grid=element_blank()) +
+    theme(axis.text=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    geom_text(aes(x = 3.5, y = ((ymin+ymax)/2), label = lbls)) +
+    xlab("") +
+    ylab("")+
+     scale_fill_manual(values=rainbow(length(lbls)))
+print(Pie)
+```
+
+---
+
+```{r ggpieplot2_1, echo=F, eval=T}
+# Pie / Donut plot
+Pie = ggplot(data = df_ex, aes(fill = lbls, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
+    geom_rect(colour = "grey30", show_guide = FALSE) +
+    coord_polar(theta = "y") +
+ #   xlim(c(0, 4)) +
+    theme_bw() +
+    theme(panel.grid=element_blank()) +
+    theme(axis.text=element_blank()) +
+    theme(axis.ticks=element_blank()) +
+    geom_text(aes(x = 3.5, y = ((ymin+ymax)/2), label = lbls)) +
+    xlab("") +
+    ylab("")+
+     scale_fill_manual(values=rainbow(length(lbls)))
+print(Pie)
+```
+
+---
+
+## 공분산(Covariacne)과 상관관계(Correlation)
+- 두 변수의 변화 사이의 관계, 한 변수가 증가함에 따라 다른 변수가 변화하는 경향성  
+
+```{r include=T}
+set.seed(1)
+heights = rnorm(100,180,5)
+heights = sort(heights, decreasing = F)
+weights =  -10 + heights*.5 + rnorm(100,0,5)
+#hist(weights);hist(heights)
+cor(weights, heights)
+```
+
+---
+
+```{r lmplot2_1, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+#abline(a=-20,b=.5,col="red")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+```
+
+---
+
+```{r xtable2_1, results="asis"}
+library("xtable")
+print(xtable(coef(summary(lm(weights ~ heights)))),type="html")
+```
+
+---
+
+
+## Regression
+
+### Least Squares
+- Function to minimize w.r.t $b_{0}$, $b_{1}$
+$$ Q = \sum_{i=1}^{n}(Y_{i} - \hat{Y_{i}})^{2} = 
+\sum_{i=1}^{n}(Y_{i} - (b_{0}+b_{1}X_{i}))^{2} $$
+
+- Minimize this by Maximizing - $Q$
+- How to ?
+$$ \frac{dQ}{db_{0}} = 0 $$
+$$ \frac{dQ}{db_{1}} = 0 $$
+
+
+---
+
+```{r lmplot2_2, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+legend(170,93,legend=c("True","Estimated"),col=c("black","red"),lty=1)
+
+```
+
+---
+
+## Over-Fitting(과적합)
+
+```{r lmplot2_3, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+
+lm_mse = sum((weights - predict(lm(weights ~ heights)))^2)
+true_mse = sum((weights - (-10 + .5*heights))^2)
+
+poly_lm<-lm(weights ~ poly(heights,20))
+points(heights,predict(poly_lm),type="l",col="blue")
+poly_mse = sum((weights - predict(poly_lm))^2)
+
+legend(170,93,legend=c(paste("True MSE:",round(true_mse,2)),
+                       paste("LM MSE:",round(lm_mse,2)), 
+                       paste("Poly MSE:",round(poly_mse,2))),
+              col=c("black","red","blue"),lty=1)
+```

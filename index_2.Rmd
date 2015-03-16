@@ -16,11 +16,9 @@ knit        : slidify::knit2slides
 
 3. 데이터 핸들링
 4. 함수
-5. 기술 통계
-6. Visualization
+5. 기술 통계 & Visualization
 
 --- .class #id
-
 
 ### 주의 사항
 ```{r}
@@ -176,16 +174,16 @@ summary(iris)
 ---
 
 ## Visualization
-### boxplot
 
 ```{r boxplot2_3, echo=T, eval=T}
 boxplot(iris)
 ```
 
----
+--- &twocol
 
 ### histogram
 
+*** =left
 ```{r echo=T, eval=F}
 colnames(iris)
 par(mfrow=c(2,2))
@@ -196,7 +194,7 @@ lines(density(iris[,"Sepal.Length"]))
 hist(iris[,"Sepal.Length"], breaks=30)
 ```
 
----
+*** =right
 
 ```{r hist2_1, echo=F, eval=T}
 par(mfrow=c(2,2))
@@ -281,3 +279,106 @@ Pie = ggplot(data = df_ex, aes(fill = lbls, ymax = ymax, ymin = ymin, xmax = 4, 
 print(Pie)
 ```
 
+---
+
+## 공분산(Covariacne)과 상관관계(Correlation)
+- 두 변수의 변화 사이의 관계, 한 변수가 증가함에 따라 다른 변수가 변화하는 경향성  
+
+```{r include=T}
+set.seed(1)
+heights = rnorm(100,180,5)
+heights = sort(heights, decreasing = F)
+weights =  -10 + heights*.5 + rnorm(100,0,5)
+#hist(weights);hist(heights)
+cor(weights, heights)
+```
+
+---
+
+```{r lmplot2_1, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+#abline(a=-20,b=.5,col="red")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+```
+
+---
+
+```{r xtable2_1, results="asis"}
+library("xtable")
+print(xtable(coef(summary(lm(weights ~ heights)))),type="html")
+```
+
+---
+
+
+## Regression
+
+### Least Squares
+- Function to minimize w.r.t $b_{0}$, $b_{1}$
+$$ Q = \sum_{i=1}^{n}(Y_{i} - \hat{Y_{i}})^{2} = 
+\sum_{i=1}^{n}(Y_{i} - (b_{0}+b_{1}X_{i}))^{2} $$
+
+- How to ?
+$$ \frac{dQ}{db_{0}} = 0 $$
+$$ \frac{dQ}{db_{1}} = 0 $$
+
+
+---
+
+```{r lmplot2_2, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+legend(170,93,legend=c("True","Estimated"),col=c("black","red"),lty=1)
+
+```
+
+---
+
+## Over-Fitting(과적합)
+
+```{r lmplot2_3, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+
+lm_mse = sum((weights - predict(lm(weights ~ heights)))^2)
+true_mse = sum((weights - (-10 + .5*heights))^2)
+
+poly_lm<-lm(weights ~ poly(heights,20))
+points(heights,predict(poly_lm),type="l",col="blue")
+poly_mse = sum((weights - predict(poly_lm))^2)
+
+legend(170,93,legend=c(paste("True MSE:",round(true_mse,2)),
+                       paste("LM MSE:",round(lm_mse,2)), 
+                       paste("Poly MSE:",round(poly_mse,2))),
+              col=c("black","red","blue"),lty=1)
+```
+
+---
+
+```{r, echo=T, eval=F, warning=F}
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+
+lm_mse = sum((weights - predict(lm(weights ~ heights)))^2)
+true_mse = sum((weights - (-10 + .5*heights))^2)
+
+poly_lm<-lm(weights ~ poly(heights,20))
+points(heights,predict(poly_lm),type="l",col="blue")
+poly_mse = sum((weights - predict(poly_lm))^2)
+
+legend(170,93,legend=c(paste("True MSE:",round(true_mse,2)),
+                       paste("LM MSE:",round(lm_mse,2)), 
+                       paste("Poly MSE:",round(poly_mse,2))),
+              col=c("black","red","blue"),lty=1)
+```

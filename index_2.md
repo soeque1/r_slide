@@ -16,11 +16,9 @@ knit        : slidify::knit2slides
 
 3. 데이터 핸들링
 4. 함수
-5. 기술 통계
-6. Visualization
+5. 기술 통계 & Visualization
 
 --- .class #id
-
 
 ### 주의 사항
 
@@ -265,7 +263,6 @@ summary(iris)
 ---
 
 ## Visualization
-### boxplot
 
 
 ```r
@@ -274,10 +271,11 @@ boxplot(iris)
 
 ![plot of chunk boxplot2_3](assets/fig/boxplot2_3.png) 
 
----
+--- &twocol
 
 ### histogram
 
+*** =left
 
 ```r
 colnames(iris)
@@ -289,7 +287,7 @@ lines(density(iris[,"Sepal.Length"]))
 hist(iris[,"Sepal.Length"], breaks=30)
 ```
 
----
+*** =right
 
 ![plot of chunk hist2_1](assets/fig/hist2_1.png) 
 
@@ -354,3 +352,103 @@ print(Pie)
 
 ![plot of chunk ggpieplot2_1](assets/fig/ggpieplot2_1.png) 
 
+---
+
+## 공분산(Covariacne)과 상관관계(Correlation)
+- 두 변수의 변화 사이의 관계, 한 변수가 증가함에 따라 다른 변수가 변화하는 경향성  
+
+
+```r
+set.seed(1)
+heights = rnorm(100,180,5)
+heights = sort(heights, decreasing = F)
+weights =  -10 + heights*.5 + rnorm(100,0,5)
+#hist(weights);hist(heights)
+cor(weights, heights)
+```
+
+```
+## [1] 0.4214
+```
+
+---
+
+![plot of chunk lmplot2_1](assets/fig/lmplot2_1.png) 
+
+```
+## NULL
+```
+
+---
+
+
+```r
+library("xtable")
+print(xtable(coef(summary(lm(weights ~ heights)))),type="html")
+```
+
+<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
+<!-- Mon Mar 16 16:11:10 2015 -->
+<table border=1>
+<tr> <th>  </th> <th> Estimate </th> <th> Std. Error </th> <th> t value </th> <th> Pr(&gt;|t|) </th>  </tr>
+  <tr> <td align="right"> (Intercept) </td> <td align="right"> -9.40 </td> <td align="right"> 19.46 </td> <td align="right"> -0.48 </td> <td align="right"> 0.63 </td> </tr>
+  <tr> <td align="right"> heights </td> <td align="right"> 0.50 </td> <td align="right"> 0.11 </td> <td align="right"> 4.60 </td> <td align="right"> 0.00 </td> </tr>
+   </table>
+
+---
+
+
+## Regression
+
+### Least Squares
+- Function to minimize w.r.t $b_{0}$, $b_{1}$
+$$ Q = \sum_{i=1}^{n}(Y_{i} - \hat{Y_{i}})^{2} = 
+\sum_{i=1}^{n}(Y_{i} - (b_{0}+b_{1}X_{i}))^{2} $$
+
+- How to ?
+$$ \frac{dQ}{db_{0}} = 0 $$
+$$ \frac{dQ}{db_{1}} = 0 $$
+
+
+---
+
+
+```
+## NULL
+```
+
+![plot of chunk lmplot2_2](assets/fig/lmplot2_2.png) 
+
+---
+
+## Over-Fitting(과적합)
+
+
+```
+## NULL
+```
+
+![plot of chunk lmplot2_3](assets/fig/lmplot2_3.png) 
+
+---
+
+
+```r
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+
+lm_mse = sum((weights - predict(lm(weights ~ heights)))^2)
+true_mse = sum((weights - (-10 + .5*heights))^2)
+
+poly_lm<-lm(weights ~ poly(heights,20))
+points(heights,predict(poly_lm),type="l",col="blue")
+poly_mse = sum((weights - predict(poly_lm))^2)
+
+legend(170,93,legend=c(paste("True MSE:",round(true_mse,2)),
+                       paste("LM MSE:",round(lm_mse,2)), 
+                       paste("Poly MSE:",round(poly_mse,2))),
+              col=c("black","red","blue"),lty=1)
+```

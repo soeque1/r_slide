@@ -49,8 +49,7 @@
     <ol>
 <li>데이터 핸들링</li>
 <li>함수</li>
-<li>기술 통계</li>
-<li>Visualization</li>
+<li>기술 통계 &amp; Visualization</li>
 </ol>
 
   </article>
@@ -326,9 +325,7 @@ print(paste(&quot;# of Missing is&quot;, sum(is.na(hflights_df))))
     <h2>Visualization</h2>
   </hgroup>
   <article data-timings="">
-    <h3>boxplot</h3>
-
-<pre><code class="r">boxplot(iris)
+    <pre><code class="r">boxplot(iris)
 </code></pre>
 
 <p><img src="assets/fig/boxplot2_3.png" alt="plot of chunk boxplot2_3"> </p>
@@ -342,7 +339,9 @@ print(paste(&quot;# of Missing is&quot;, sum(is.na(hflights_df))))
     <h3>histogram</h3>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">colnames(iris)
+    
+<div style='float:left;width:48%;' class='centered'>
+  <pre><code class="r">colnames(iris)
 par(mfrow=c(2,2))
 hist(iris[,&quot;Sepal.Length&quot;])
 hist(iris[,&quot;Sepal.Length&quot;],prob=T)
@@ -351,19 +350,16 @@ lines(density(iris[,&quot;Sepal.Length&quot;]))
 hist(iris[,&quot;Sepal.Length&quot;], breaks=30)
 </code></pre>
 
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/hist2_1.png" alt="plot of chunk hist2_1"> </p>
+
+</div>
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-16" style="background:;">
-  <article data-timings="">
-    <p><img src="assets/fig/hist2_1.png" alt="plot of chunk hist2_1"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-17" style="background:;">
   <article data-timings="">
     <pre><code class="r">plot(iris[,&quot;Sepal.Length&quot;])
 </code></pre>
@@ -374,7 +370,7 @@ hist(iris[,&quot;Sepal.Length&quot;], breaks=30)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <article data-timings="">
     <pre><code class="r">par(mfrow=c(1,1))
 slices &lt;- c(10, 12, 4, 16, 8) 
@@ -390,7 +386,7 @@ pie(slices,labels = lbls, col=rainbow(length(lbls)))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <article data-timings="">
     <pre><code class="r">df_ex = data.frame(slices, groups, lbls, pct)
 df_ex$fraction = df_ex$slices / sum(df_ex$slices)
@@ -402,7 +398,7 @@ df_ex$ymin = c(0, head(df_ex$ymax, n = -1))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <article data-timings="">
     <p><img src="assets/fig/gg_barplot2_1.png" alt="plot of chunk gg_barplot2_1"> </p>
 
@@ -410,7 +406,7 @@ df_ex$ymin = c(0, head(df_ex$ymax, n = -1))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-21" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <article data-timings="">
     <pre><code class="r"># Pie / Donut plot
 Pie = ggplot(data = df_ex, aes(fill = lbls, ymax = ymax, ymin = ymin, xmax = 4, xmin = 3)) +
@@ -432,9 +428,134 @@ print(Pie)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-22" style="background:;">
+<slide class="" id="slide-21" style="background:;">
   <article data-timings="">
     <p><img src="assets/fig/ggpieplot2_1.png" alt="plot of chunk ggpieplot2_1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>공분산(Covariacne)과 상관관계(Correlation)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>두 변수의 변화 사이의 관계, 한 변수가 증가함에 따라 다른 변수가 변화하는 경향성<br></li>
+</ul>
+
+<pre><code class="r">set.seed(1)
+heights = rnorm(100,180,5)
+heights = sort(heights, decreasing = F)
+weights =  -10 + heights*.5 + rnorm(100,0,5)
+#hist(weights);hist(heights)
+cor(weights, heights)
+</code></pre>
+
+<pre><code>## [1] 0.4214
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/lmplot2_1.png" alt="plot of chunk lmplot2_1"> </p>
+
+<pre><code>## NULL
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(&quot;xtable&quot;)
+print(xtable(coef(summary(lm(weights ~ heights)))),type=&quot;html&quot;)
+</code></pre>
+
+<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
+
+<!-- Mon Mar 16 16:11:10 2015 -->
+
+<table border=1>
+<tr> <th>  </th> <th> Estimate </th> <th> Std. Error </th> <th> t value </th> <th> Pr(&gt;|t|) </th>  </tr>
+  <tr> <td align="right"> (Intercept) </td> <td align="right"> -9.40 </td> <td align="right"> 19.46 </td> <td align="right"> -0.48 </td> <td align="right"> 0.63 </td> </tr>
+  <tr> <td align="right"> heights </td> <td align="right"> 0.50 </td> <td align="right"> 0.11 </td> <td align="right"> 4.60 </td> <td align="right"> 0.00 </td> </tr>
+   </table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Regression</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Least Squares</h3>
+
+<ul>
+<li><p>Function to minimize w.r.t \(b_{0}\), \(b_{1}\)
+\[ Q = \sum_{i=1}^{n}(Y_{i} - \hat{Y_{i}})^{2} = 
+\sum_{i=1}^{n}(Y_{i} - (b_{0}+b_{1}X_{i}))^{2} \]</p></li>
+<li><p>How to ?
+\[ \frac{dQ}{db_{0}} = 0 \]
+\[ \frac{dQ}{db_{1}} = 0 \]</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-26" style="background:;">
+  <article data-timings="">
+    <pre><code>## NULL
+</code></pre>
+
+<p><img src="assets/fig/lmplot2_2.png" alt="plot of chunk lmplot2_2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Over-Fitting(과적합)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## NULL
+</code></pre>
+
+<p><img src="assets/fig/lmplot2_3.png" alt="plot of chunk lmplot2_3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-28" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col=&quot;black&quot;)
+abline(lm(weights ~ heights), col=&quot;red&quot;)
+apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+
+lm_mse = sum((weights - predict(lm(weights ~ heights)))^2)
+true_mse = sum((weights - (-10 + .5*heights))^2)
+
+poly_lm&lt;-lm(weights ~ poly(heights,20))
+points(heights,predict(poly_lm),type=&quot;l&quot;,col=&quot;blue&quot;)
+poly_mse = sum((weights - predict(poly_lm))^2)
+
+legend(170,93,legend=c(paste(&quot;True MSE:&quot;,round(true_mse,2)),
+                       paste(&quot;LM MSE:&quot;,round(lm_mse,2)), 
+                       paste(&quot;Poly MSE:&quot;,round(poly_mse,2))),
+              col=c(&quot;black&quot;,&quot;red&quot;,&quot;blue&quot;),lty=1)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -572,8 +693,44 @@ print(Pie)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=22 title=''>
+        data-slide=22 title='공분산(Covariacne)과 상관관계(Correlation)'>
          22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title=''>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title=''>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Regression'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title=''>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Over-Fitting(과적합)'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title=''>
+         28
       </a>
     </li>
   </ul>
