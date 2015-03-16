@@ -74,7 +74,7 @@ pal <- pal[-c(1:2)]
 ```
 
 ### 박근혜 대통령 취임사 전문 (한겨레)  
-[source][http://www.hani.co.kr/arti/politics/politics_general/575390.htm]
+[source][http://www.hani.co.kr/arti/politics/politics_general/575390.html]
 
 ```{r wordcloud2_1, echo=F, eval=T,warning=F, include=T, dev="pdf"}
 library("extrafont")
