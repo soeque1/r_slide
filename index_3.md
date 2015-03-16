@@ -72,7 +72,7 @@ wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
 
 
 ### 박근혜 대통령 취임사 전문 (한겨레)  
-[source][http://www.hani.co.kr/arti/politics/politics_general/575390.html]
+[source][http://www.hani.co.kr/arti/politics/politics_general/575390.htm]
 
 ![plot of chunk wordcloud2_1](assets/fig/wordcloud2_1.pdf) 
 
