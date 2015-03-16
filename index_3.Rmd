@@ -30,6 +30,7 @@ bodydata<-str_replace_all(bodydata, "[[:space:]][[:space:]]+", "")
 bodydata<-bodydata[bodydata!=""&bodydata!=" "]
 return(bodydata)
 }
+
 ```
 
 ---
@@ -99,7 +100,7 @@ wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
 ### 이명박 대통령 취임사 전문 (머니투데이)  
 [source][http://stock.mt.co.kr/view/mtview.php?type=1&no=2008022510425323553]
 
-```{r wordcloud2_2, echo=F, eval=T, warning=F, dev="pdf"}
+```{r wordcloud2_2, echo=F, eval=T, warning=F,dev="pdf"}
 pdf.options(fonts="Malgun Gothic")
 source_url="http://stock.mt.co.kr/view/mtview.php?type=1&no=2008022510425323553"
 data<-readLines(source_url)
