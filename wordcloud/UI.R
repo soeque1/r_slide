@@ -24,7 +24,7 @@ tags$a(href="http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200
 	),
 
    mainPanel(
-   verbatimTextOutput("summary"),
-   plotOutput("plot1","100%","700px")
+   plotOutput("plot1","100%","600px"),
+   verbatimTextOutput("summary")
   )
 ))
