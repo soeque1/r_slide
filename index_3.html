@@ -57,6 +57,17 @@
 
 <slide class="" id="slide-2" style="background:;">
   <article data-timings="">
+    <div align="center">
+<iframe width="560" height="315"
+src="https://soeque1.shinyapps.io/wordcloud/" allowfullscreen>
+    </iframe></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
     <pre><code class="r">pre_processing&lt;-function(data, start_line, end_line)
 {
 bodydata&lt;-data[start_line:end_line]
@@ -72,7 +83,7 @@ return(bodydata)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <article data-timings="">
     <pre><code class="r">wordcloud_proc&lt;-function(bodydata)
 {
@@ -87,35 +98,12 @@ return(wordcount)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-4" style="background:;">
-  <article data-timings="">
-    <pre><code class="r">library(&quot;extrafont&quot;)
-pdf.options(fonts=&quot;Malgun Gothic&quot;)
-library(&quot;KoNLP&quot;)
-library(&quot;wordcloud&quot;)
-source&lt;-&quot;http://www.hani.co.kr/arti/politics/politics_general/575390.html&quot;
-data&lt;-readLines(source,encoding=&quot;utf-8&quot;)
-start_line = grep(&quot;&lt;h4&gt;&lt;font color=#006699&gt;박근혜 대통령 취임사 전문&lt;/font&gt;&lt;/h4&gt;&quot;,data)
-end_line = grep(&quot;감사합니다. &lt;P align=justify&gt;&lt;/P&gt;&quot;,data)
-
-bodydata = pre_processing(data, start_line, end_line)
-wordcount = wordcloud_proc(bodydata)
-
-#head(sort(wordcount,decreasing=T))
-wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
-          random.order=F,rot.per=.1,colors=pal)
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
 <slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h3>박근혜 대통령 취임사 전문 (한겨레)</h3>
   </hgroup>
   <article data-timings="">
-    <p>[source][<a href="http://www.hani.co.kr/arti/politics/politics_general/575390.htm">http://www.hani.co.kr/arti/politics/politics_general/575390.htm</a>]</p>
+    <p>[source][<a href="http://www.hani.co.kr/arti/politics/politics_general/575390.html">http://www.hani.co.kr/arti/politics/politics_general/575390.html</a>]</p>
 
 <p><img src="assets/fig/wordcloud2_1.png" alt="plot of chunk wordcloud2_1"> </p>
 
@@ -130,7 +118,7 @@ wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
   <article data-timings="">
     <p>[source][<a href="http://stock.mt.co.kr/view/mtview.php?type=1&amp;no=2008022510425323553">http://stock.mt.co.kr/view/mtview.php?type=1&amp;no=2008022510425323553</a>]</p>
 
-<p><img src="assets/fig/wordcloud2_2.png" alt="plot of chunk wordcloud2_2"> </p>
+<p><img src="assets/fig/wordcloud2_2.pdf" alt="plot of chunk wordcloud2_2"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -143,7 +131,7 @@ wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
   <article data-timings="">
     <p>[source][<a href="http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200302251026287.html">http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200302251026287.html</a>]</p>
 
-<p><img src="assets/fig/wordcloud2_3.png" alt="plot of chunk wordcloud2_3"> </object></p>
+<p><img src="assets/fig/wordcloud2_3.pdf" alt="plot of chunk wordcloud2_3"> </p>
 
   </article>
   <!-- Presenter Notes -->
