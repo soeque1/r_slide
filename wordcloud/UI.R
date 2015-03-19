@@ -5,13 +5,13 @@ shinyUI(pageWithSidebar(
   headerPanel("대통령 취임사 전문 분석"),
 
   sidebarPanel(
-      selectInput("dataset", "Chose a dataset:",
+      selectInput("dataset", "대통령 선택:",
                   choices=c("박근혜","이명박","노무현")),
       
-	numericInput("numbers","Numbers of Words to view:",30),
-	sliderInput("minFreq","Minimum Frequency of Words to view:", value=2, min=1, max=15)
+	numericInput("numbers","화면에 보여질 최대 단어 개수:",50),
+	sliderInput("minFreq","취임사에서 n회 이상 단어 출현:", value=2, min=1, max=15),
 #	,numericInput("obs","Numbers of Words to view:",10),
-	,submitButton("Update View"),
+#	,submitButton("Update View"),
 br(),
 code("대통령 취임사 전문 source"),
 br(),
