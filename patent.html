@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text-Based Core Technology Classification using Deep Lerning</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Text-Based Core Technology Classification using Deep Lerning">
+  <meta name="author" content="김형준">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Text-Based Core Technology Classification using Deep Lerning</h1>
+    <h2>- Self Driving Cars -</h2>
+    <p>김형준<br/>Data Analyst</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Contents</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Setting - isntall libraries</li>
+<li>Preprocess - Parsing &amp; NLP</li>
+<li>Analysis - Random Forest, Deep Learning with 3 layers</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">rm(list=ls())
+save_dir &lt;- &quot;/Users/kimhyungjun/Dropbox/h2o/prac/&quot;
+options(repos=&#39;http://cran.nexr.com&#39;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">install_lib &lt;- function(x){
+  for( i in x ){
+    #  require returns TRUE invisibly if it was able to load package
+    if( ! require( i , character.only = TRUE ) ){
+      #  If package was not able to be loaded then re-install
+      install.packages( i , dependencies = TRUE )
+      #  Load package after installing
+            library( i , character.only = T)
+    } else {
+            library( i , character.only = T)
+    }
+  }
+}
+
+suppressMessages(install_lib(c(&quot;readxl&quot;, 
+                               &quot;dplyr&quot;, &quot;stringr&quot;, 
+                               &quot;tm&quot;, 
+                               &quot;KoNLP&quot;, 
+                               &quot;h2o&quot;)))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">save_dir &lt;- &quot;/Users/kimhyungjun/Dropbox/h2o/prac/&quot;
+data_list &lt;- list.files(paste(save_dir,&quot;data/wips&quot;,sep=&quot;&quot;))
+data_list_kr &lt;- data_list[grep(&quot;kr&quot;,data_list)]
+
+data &lt;- data.frame()
+for (i in 1:length(data_list_kr))
+{
+    data_temp &lt;- read_excel(paste(save_dir,&quot;data/wips/&quot;,data_list_kr[i],sep=&quot;&quot;))
+    data_temp &lt;- cbind(rep(substr(data_list_kr[i],1,1),nrow(data_temp)),data_temp)
+    colnames(data_temp)[1] &lt;- &quot;기술&quot;
+    data &lt;- rbind(data,data_temp)
+    rm(data_temp)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">dt_kr &lt;- data[,c(&quot;기술&quot;, &quot;Original IPC Main&quot;, &quot;출원일&quot;,&quot;발명의 명칭&quot;, &quot;요약&quot;, &quot;국가코드&quot;)]
+dim(dt_kr)
+</code></pre>
+
+<pre><code>## [1] 126   6
+</code></pre>
+
+<pre><code class="r">dt_text &lt;- dt_kr %&gt;% dplyr::select(요약) %&gt;% .[[1]]
+DT &lt;-  sapply(dt_text, extractNoun, USE.NAMES = F) %&gt;%
+       sapply(function(x) paste(x, collapse = &#39; &#39;)) %&gt;%
+       as.data.frame
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">tdm &lt;- TermDocumentMatrix(Corpus(DataframeSource(DT)),
+                                control = list(
+                                    removeNumbers = TRUE,
+                                    wordLengths = c(2,Inf),
+                                    removePunctuation = TRUE,
+                                    weighting = function(x)
+                                        weightSMART(x, spec = &quot;nnn&quot;)))
+tdm &lt;- as.matrix(tdm)
+print(tdm[1:5,1:5])
+</code></pre>
+
+<pre><code>##            Docs
+## Terms       1 2 3 4 5
+##   abs       0 0 0 0 0
+##   access    0 0 0 0 0
+##   ad        0 0 0 0 0
+##   algorithm 0 0 0 0 0
+##   anti      0 0 0 0 0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">actual_y &lt;- dt_kr%&gt;%dplyr::select(기술)%&gt;%.[[1]]
+save_data &lt;- data.frame(cbind(t(tdm),actual_y))
+write.table(save_data, paste(save_dir,&#39;data/patent_kr.csv&#39;, sep=&quot;&quot;),
+            row.names=F, col.names=F)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">h2oServer &lt;- h2o.init(nthreads=-1, max_mem_size = &quot;6g&quot;)
+</code></pre>
+
+<pre><code>## Successfully connected to http://127.0.0.1:54321 
+## 
+## R is connected to H2O cluster:
+##     H2O cluster uptime:         1 minutes 55 seconds 
+##     H2O cluster version:        2.8.4.4 
+##     H2O cluster name:           H2O_started_from_R 
+##     H2O cluster total nodes:    1 
+##     H2O cluster total memory:   5.33 GB 
+##     H2O cluster total cores:    4 
+##     H2O cluster allowed cores:  4 
+##     H2O cluster healthy:        TRUE
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">data_hex &lt;- h2o.importFile(h2oServer, path = paste(save_dir,&quot;data/patent_kr.csv&quot;, sep=&quot;&quot;))
+</code></pre>
+
+<pre><code>## 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=================================================================| 100%
+</code></pre>
+
+<pre><code class="r">random &lt;- h2o.runif(data_hex, seed = 654321)
+train.hex &lt;- h2o.assign(data_hex[random &lt;= .8,], &quot;train.hex&quot;)
+test.hex  &lt;- h2o.assign(data_hex[random &gt; .8,], &quot;test.hex&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">label_t &lt;- test.hex %&gt;% as.data.frame %&gt;% select(ncol(test.hex)) %&gt;% table
+label_t[label_t == max(label_t)] / sum(label_t)
+</code></pre>
+
+<pre><code>##      C 
+## 0.7188
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">my.dl &lt;- h2o.deeplearning(x = 1:(ncol(train.hex)-1), y = ncol(train.hex), data=train.hex, validation=test.hex,
+                         variable_importances=T,
+                         activation = &quot;RectifierWithDropout&quot;, 
+                         input_dropout_ratio = 0.25, 
+                         hidden_dropout_ratios = c(0.5,0.5,0.5), 
+                         adaptive_rate = T,
+                         balance_classes = T, 
+                         train_samples_per_iteration = 1500, 
+                         hidden = c(250,250,250), 
+                         epochs = 15)
+</code></pre>
+
+<pre><code>## 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=================                                                |  26%
+  |                                                                       
+  |=================================                                |  51%
+  |                                                                       
+  |==================================================               |  77%
+  |                                                                       
+  |=================================================================| 100%
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">my.dl
+</code></pre>
+
+<pre><code>## IP Address: 127.0.0.1 
+## Port      : 54321 
+## Parsed Data Key: train.hex 
+## 
+## Deep Learning Model Key: DeepLearning_8c3d964aa781e597e88189a366f6447a
+## 
+## Training classification error: 0.01285
+## 
+## Validation classification error: 0.2812
+## 
+## Confusion matrix:
+## Reported on test.hex 
+##         Predicted
+## Actual   A B  C D E G H  Error
+##   A      2 0  1 0 0 1 0 0.5000
+##   B      0 0  1 1 0 0 0 1.0000
+##   C      2 0 20 1 0 0 0 0.1304
+##   D      0 0  0 0 0 0 0    NaN
+##   E      0 0  1 0 1 0 0 0.5000
+##   G      0 0  0 0 0 0 0    NaN
+##   H      1 0  0 0 0 0 0 1.0000
+##   Totals 5 0 23 2 1 1 0 0.2812
+## 
+## Hit Ratios for Multi-class Classification:
+##   k hit_ratios
+## 1 1     0.7188
+## 2 2     0.8750
+## 3 3     0.9062
+## 4 4     0.9062
+## 5 5     0.9375
+## 6 6     1.0000
+## 7 7     1.0000
+## 
+## Relative Variable Importance:
+##   C1079  C1061  C1111  C1043 C1012   C643   C586   C842  C1271   C446
+## 1     1 0.9694 0.9465 0.9379 0.921 0.9206 0.9197 0.9125 0.9086 0.9078
+##    C1206   C636   C742   C120  C1309   C667   C532   C154   C733  C1113
+## 1 0.9065 0.9001 0.8994 0.8974 0.8972 0.8917 0.8908 0.8895 0.8871 0.8862
+##     C714   C916   C968   C689   C422   C836  C1230  C1280  C1149   C675
+## 1 0.8855 0.8847 0.8835 0.8827 0.8825 0.8822 0.8799 0.8796 0.8795 0.8773
+##     C209   C160  C1067  C732  C1291   C379   C979   C685   C592   C488
+## 1 0.8773 0.8757 0.8751 0.873 0.8725 0.8722 0.8717 0.8714 0.8709 0.8705
+##    C1024   C771   C590  C1167   C686  C1242     C1  C141  C1100  C604
+## 1 0.8695 0.8685 0.8681 0.8677 0.8675 0.8672 0.8661 0.866 0.8658 0.865
+##     C110   C837  C1272  C1193   C258  C907  C657   C337   C243   C925 C278
+## 1 0.8648 0.8646 0.8646 0.8643 0.8632 0.863 0.862 0.8619 0.8617 0.8603 0.86
+##   C1153   C484  C762  C1290   C905    C84    C79   C466  C1054   C623
+## 1  0.86 0.8594 0.859 0.8587 0.8587 0.8585 0.8583 0.8581 0.8579 0.8576
+##     C106   C377   C962  C1197 C1103  C1005   C207   C848   C228   C254
+## 1 0.8575 0.8571 0.8568 0.8561 0.856 0.8557 0.8549 0.8547 0.8546 0.8546
+##    C1267   C561  C1333   C818   C764    C74   C459   C144   C355  C1180
+## 1 0.8543 0.8542 0.8539 0.8536 0.8535 0.8533 0.8528 0.8527 0.8526 0.8525
+##      C14  C1174   C101   C548  C1178   C343   C928   C896   C493   C627
+## 1 0.8524 0.8522 0.8522 0.8519 0.8517 0.8517 0.8517 0.8515 0.8513 0.8511
+##     C846   C620  C1023  C1065  C1223 C999  C1007   C416   C473   C118
+## 1 0.8509 0.8507 0.8506 0.8506 0.8503 0.85 0.8499 0.8494 0.8491 0.8487
+##     C683  C822   C420   C262    C80   C285   C692  C1216   C984   C417
+## 1 0.8485 0.848 0.8478 0.8477 0.8477 0.8475 0.8471 0.8469 0.8467 0.8466
+##     C652  C294   C550  C1288   C231   C474 C1041   C185   C289   C900
+## 1 0.8463 0.846 0.8456 0.8455 0.8454 0.8452 0.845 0.8449 0.8448 0.8448
+##     C959  C1064   C743  C631  C1231   C670  C1154   C549   C366   C183
+## 1 0.8445 0.8443 0.8441 0.844 0.8439 0.8438 0.8437 0.8437 0.8435 0.8433
+##     C584  C1088  C1118   C514   C360   C727  C1186   C182   C718  C1198
+## 1 0.8432 0.8432 0.8432 0.8431 0.8428 0.8427 0.8426 0.8424 0.8422 0.8421
+##    C251  C300   C33  C1275  C1107  C1131   C489   C750  C1069 C1000   C370
+## 1 0.842 0.842 0.842 0.8419 0.8418 0.8417 0.8417 0.8413 0.8412 0.841 0.8409
+##     C941   C812   C151   C936   C104   C724  C1117   C295  C1308   C350
+## 1 0.8407 0.8406 0.8405 0.8404 0.8402 0.8402 0.8399 0.8396 0.8391 0.8385
+##    C1102   C884   C810   C382   C245   C665   C139   C485   C398   C938
+## 1 0.8385 0.8383 0.8382 0.8381 0.8377 0.8376 0.8374 0.8374 0.8373 0.8371
+##     C989   C414  C899     C9   C405   C894  C1035   C850   C164   C311
+## 1 0.8371 0.8371 0.837 0.8369 0.8369 0.8368 0.8367 0.8366 0.8365 0.8362
+##    C641   C179  C1181  C1314   C635  C612  C442  C1108  C1112   C903
+## 1 0.836 0.8359 0.8356 0.8353 0.8352 0.835 0.835 0.8348 0.8345 0.8344
+##     C909   C601  C371  C217 C1125  C1265   C367  C1056  C135   C427   C543
+## 1 0.8343 0.8341 0.834 0.834 0.834 0.8337 0.8335 0.8331 0.833 0.8328 0.8327
+##     C606   C168     C8   C798   C192   C464   C205   C161   C476   C871
+## 1 0.8327 0.8326 0.8326 0.8326 0.8326 0.8323 0.8323 0.8322 0.8322 0.8319
+##    C1273  C1096   C544  C1341   C565   C526   C757   C397   C845  C1082
+## 1 0.8317 0.8317 0.8315 0.8315 0.8314 0.8314 0.8309 0.8309 0.8308 0.8308
+##     C566  C1270   C564   C649    C58  C1195 C284  C1336  C1297   C682
+## 1 0.8307 0.8305 0.8305 0.8305 0.8302 0.8302 0.83 0.8298 0.8294 0.8294
+##    C1190  C1204 C1134  C1059   C599   C684   C987  C1045   C531   C451
+## 1 0.8292 0.8291 0.829 0.8289 0.8288 0.8288 0.8287 0.8286 0.8284 0.8283
+##     C349   C763   C598  C215  C678  C597   C790   C716   C611   C191
+## 1 0.8282 0.8281 0.8281 0.828 0.828 0.828 0.8279 0.8278 0.8278 0.8276
+##     C257   C143  C646   C449   C628  C1146   C429   C365  C1027   C803
+## 1 0.8276 0.8275 0.827 0.8267 0.8267 0.8266 0.8266 0.8265 0.8265 0.8265
+##    C1080  C1294   C312   C690   C301  C1200 C1222 C1042  C1201   C619
+## 1 0.8264 0.8263 0.8263 0.8263 0.8263 0.8261 0.826 0.826 0.8259 0.8259
+##     C275   C808    C68  C1283   C720   C885   C946   C861  C1256   C530
+## 1 0.8259 0.8258 0.8258 0.8258 0.8253 0.8252 0.8251 0.8248 0.8246 0.8245
+##    C1263  C1268   C664  C1037  C881  C316   C270   C755   C219    C62
+## 1 0.8243 0.8243 0.8243 0.8241 0.824 0.824 0.8239 0.8238 0.8238 0.8238
+##     C849  C1155    C82  C1142  C1274  C1331    C29   C777   C688   C787
+## 1 0.8235 0.8235 0.8235 0.8234 0.8234 0.8233 0.8233 0.8232 0.8231 0.8231
+##    C1166 C1237   C970  C1040  C1162   C138  C1151  C1182   C210    C57
+## 1 0.8231 0.823 0.8228 0.8228 0.8225 0.8225 0.8224 0.8224 0.8224 0.8223
+##     C945   C410    C52   C469  C633  C1177  C1330  C1225   C317  C1136
+## 1 0.8223 0.8223 0.8223 0.8221 0.822 0.8219 0.8219 0.8215 0.8214 0.8214
+##     C951   C241    C30   C595  C1337   C483   C518  C1249   C674   C268
+## 1 0.8213 0.8213 0.8212 0.8212 0.8207 0.8207 0.8204 0.8203 0.8202 0.8201
+##     C214 C890 C540    C24   C495   C589   C699   C356  C1345   C817  C1217
+## 1 0.8201 0.82 0.82 0.8199 0.8199 0.8198 0.8198 0.8197 0.8196 0.8196 0.8196
+##     C695   C698   C206   C541  C1143  C1129   C329   C655   C418  C304
+## 1 0.8196 0.8195 0.8195 0.8194 0.8193 0.8192 0.8191 0.8191 0.8191 0.819
+##     C341  C1093  C1236   C806  C1097   C546   C354  C1089  C1016  C1156
+## 1 0.8188 0.8187 0.8187 0.8187 0.8186 0.8185 0.8184 0.8181 0.8181 0.8178
+##       C3  C1202  C1284   C527   C892   C864   C402   C615   C500  C440
+## 1 0.8177 0.8177 0.8176 0.8174 0.8173 0.8172 0.8172 0.8172 0.8171 0.817
+##    C1011   C437  C1140  C1315   C557   C973   C993  C1219  C1187  C1239
+## 1 0.8169 0.8168 0.8168 0.8166 0.8166 0.8165 0.8164 0.8164 0.8163 0.8163
+##     C920  C1163  C373   C132   C467  C1173   C823  C1251   C738   C470
+## 1 0.8162 0.8162 0.816 0.8159 0.8158 0.8158 0.8157 0.8157 0.8157 0.8157
+##     C816   C517   C940   C472   C814 C1152   C538    C38   C640  C1211
+## 1 0.8156 0.8154 0.8153 0.8153 0.8151 0.815 0.8149 0.8148 0.8147 0.8145
+##     C835   C653  C1022   C754   C539   C706   C990   C511   C237   C156
+## 1 0.8145 0.8145 0.8144 0.8144 0.8144 0.8144 0.8144 0.8143 0.8143 0.8143
+##     C779   C424  C1192   C319   C551   C419   C715  C1105    C43   C573
+## 1 0.8139 0.8138 0.8138 0.8138 0.8137 0.8136 0.8135 0.8133 0.8132 0.8131
+##     C264   C934   C148   C819   C455  C238  C1218  C1058   C465   C512
+## 1 0.8127 0.8124 0.8123 0.8123 0.8122 0.812 0.8118 0.8118 0.8117 0.8117
+##     C386  C1262   C462   C883  C1086  C1164   C339 C1066   C804   C149
+## 1 0.8117 0.8115 0.8115 0.8115 0.8114 0.8114 0.8111 0.811 0.8109 0.8108
+##    C1255   C249  C1287   C290  C1299   C330   C547   C917  C1135 C880
+## 1 0.8105 0.8104 0.8104 0.8104 0.8103 0.8103 0.8102 0.8102 0.8101 0.81
+##    C1015   C610   C220   C368  C1085   C158   C780    C59   C411   C523
+## 1 0.8099 0.8095 0.8094 0.8094 0.8093 0.8093 0.8093 0.8093 0.8091 0.8091
+##    C218  C768  C113   C100   C253   C964  C1264   C213   C691   C982
+## 1 0.809 0.809 0.809 0.8089 0.8089 0.8089 0.8088 0.8088 0.8088 0.8086
+##     C609   C967   C171   C770   C487   C212   C505   C195   C385  C1126
+## 1 0.8085 0.8084 0.8082 0.8081 0.8079 0.8079 0.8078 0.8078 0.8078 0.8077
+##     C824   C189  C1292   C174  C1038   C634   C866   C797  C1285   C457
+## 1 0.8077 0.8077 0.8076 0.8073 0.8072 0.8072 0.8071 0.8071 0.8069 0.8068
+##     C703   C481  C1209   C709  C1044   C575  C1144   C374  C1158   C425
+## 1 0.8068 0.8068 0.8067 0.8067 0.8067 0.8066 0.8065 0.8065 0.8064 0.8064
+##      C49   C288   C322     C7  C1120   C813   C988   C932   C931   C974
+## 1 0.8063 0.8063 0.8063 0.8062 0.8062 0.8061 0.8059 0.8059 0.8059 0.8059
+##    C1098   C949   C877   C342   C394   C307   C839  C1168   C432   C388
+## 1 0.8056 0.8056 0.8056 0.8056 0.8056 0.8055 0.8054 0.8053 0.8053 0.8048
+##     C412   C555  C1087   C430    C75  C358   C127    C71  C1002   C291
+## 1 0.8047 0.8044 0.8043 0.8042 0.8042 0.804 0.8038 0.8038 0.8038 0.8035
+##      C67   C131    C48   C752   C922   C314   C276  C1220   C333   C991
+## 1 0.8033 0.8032 0.8032 0.8032 0.8029 0.8029 0.8028 0.8027 0.8026 0.8026
+##    C1148   C933   C679   C805   C436    C70   C421   C463   C969   C983
+## 1 0.8025 0.8024 0.8022 0.8021 0.8019 0.8019 0.8018 0.8018 0.8017 0.8016
+##    C1327   C729   C302   C975     C2   C163    C51  C1247   C201  C1001
+## 1 0.8016 0.8014 0.8013 0.8009 0.8009 0.8008 0.8007 0.8004 0.8004 0.8003
+##    C1053   C735  C1008   C352   C697  C1334  C1055   C181    C76   C897
+## 1 0.8003 0.8003 0.8003 0.8002 0.8001 0.8001 0.8001 0.8001 0.7997 0.7996
+##    C1240   C705  C1176  C1013   C889   C266   C439   C831   C177  C956
+## 1 0.7995 0.7994 0.7994 0.7993 0.7993 0.7992 0.7992 0.7991 0.7991 0.799
+##    C1109   C717    C44    C20    C81   C847   C923   C924   C681   C919
+## 1 0.7989 0.7989 0.7989 0.7988 0.7988 0.7988 0.7988 0.7987 0.7985 0.7985
+##    C1014   C126   C407   C298   C536  C739   C783  C1050    C78   C660
+## 1 0.7985 0.7984 0.7984 0.7982 0.7981 0.798 0.7979 0.7977 0.7977 0.7975
+##      C46   C403   C494   C458  C1075   C994   C242  C1191   C642   C293
+## 1 0.7974 0.7974 0.7974 0.7974 0.7973 0.7973 0.7973 0.7972 0.7971 0.7971
+##    C478   C499   C726  C1019    C64  C1250  C1310  C1127   C269   C600
+## 1 0.797 0.7968 0.7968 0.7967 0.7967 0.7966 0.7965 0.7964 0.7964 0.7962
+##     C232   C693  C1025   C428   C172  C1312   C244   C448   C528   C125
+## 1 0.7961 0.7961 0.7959 0.7959 0.7958 0.7957 0.7956 0.7954 0.7954 0.7954
+##    C1324  C1122   C741  C638  C1046   C378   C184   C216    C77    C69
+## 1 0.7952 0.7952 0.7951 0.795 0.7949 0.7949 0.7948 0.7948 0.7948 0.7947
+##     C331   C187    C91   C147   C277   C700  C256 C1047  C1322     C5
+## 1 0.7946 0.7945 0.7944 0.7943 0.7942 0.7941 0.794 0.794 0.7939 0.7939
+##    C1303   C400  C1032   C344  C1259   C776  C1244    C60   C986  C1029
+## 1 0.7938 0.7938 0.7937 0.7936 0.7936 0.7935 0.7935 0.7933 0.7933 0.7933
+##     C658    C45  C152 C1123   C25  C1101   C447  C1006    C28   C381
+## 1 0.7933 0.7932 0.793 0.793 0.793 0.7929 0.7929 0.7929 0.7929 0.7928
+##     C133  C1281   C749   C399    C73   C372   C522  C1246   C614   C621
+## 1 0.7928 0.7927 0.7927 0.7927 0.7926 0.7925 0.7925 0.7922 0.7922 0.7922
+##     C335   C722 C1021  C1070  C1234   C119    C72   C279   C229   C102
+## 1 0.7921 0.7921 0.792 0.7919 0.7918 0.7917 0.7917 0.7915 0.7915 0.7914
+##     C230   C122   C525  C1212  C1017    C92   C879    C12   C166   C854
+## 1 0.7912 0.7911 0.7911 0.7909 0.7909 0.7907 0.7906 0.7906 0.7904 0.7903
+##     C348   C952  C1282   C336   C687   C838  C1077   C966   C357  C1094
+## 1 0.7903 0.7902 0.7901 0.7899 0.7899 0.7898 0.7898 0.7897 0.7895 0.7895
+##    C1036   C960   C443   C445   C380   C961   C453  C1189   C637   C579
+## 1 0.7894 0.7894 0.7894 0.7893 0.7892 0.7891 0.7891 0.7889 0.7889 0.7888
+##     C123   C226   C830  C1099   C730   C902   C280    C35   C985  C1009
+## 1 0.7888 0.7887 0.7886 0.7886 0.7884 0.7884 0.7883 0.7883 0.7882 0.7882
+##     C359   C129   C775   C136   C393    C53  C1254  C1115   C898   C807
+## 1 0.7881 0.7878 0.7878 0.7878 0.7877 0.7877 0.7877 0.7876 0.7876 0.7875
+##     C996   C433   C227  C1266  C112   C912   C800   C792   C668   C873
+## 1 0.7872 0.7872 0.7871 0.7871 0.787 0.7868 0.7868 0.7867 0.7865 0.7865
+##     C503    C61  C1172   C624  C108  C852 C1295  C490  C1124    C42   C103
+## 1 0.7864 0.7864 0.7862 0.7861 0.786 0.786 0.786 0.786 0.7859 0.7859 0.7858
+##     C107   C826   C980   C870   C840   C524    C86   C594  C128   C784
+## 1 0.7857 0.7856 0.7856 0.7855 0.7854 0.7854 0.7851 0.7851 0.785 0.7849
+##    C1313    C65   C247   C558   C471   C939    C98   C323  C1344   C654
+## 1 0.7849 0.7849 0.7847 0.7846 0.7846 0.7845 0.7844 0.7843 0.7842 0.7841
+##     C811  C1311   C313   C434   C731   C719   C820   C827   C562   C971
+## 1 0.7839 0.7839 0.7839 0.7837 0.7835 0.7834 0.7834 0.7833 0.7832 0.7832
+##     C121  C1207   C995   C283  C1241   C130  C1132   C117  C1188   C851
+## 1 0.7832 0.7832 0.7831 0.7831 0.7829 0.7829 0.7829 0.7828 0.7828 0.7827
+##     C888   C753   C413   C786   C802  C1326  C260  C1323  C1121  C1071
+## 1 0.7827 0.7826 0.7826 0.7826 0.7824 0.7823 0.782 0.7818 0.7818 0.7817
+##     C409  C1034   C460  C1208   C618   C109   C825  C1171    C23   C887
+## 1 0.7816 0.7816 0.7816 0.7816 0.7814 0.7813 0.7813 0.7813 0.7811 0.7811
+##    C263    C36  C1159   C876   C781  C1020  C1319   C167   C918  C1260
+## 1 0.781 0.7809 0.7808 0.7807 0.7807 0.7807 0.7806 0.7805 0.7804 0.7804
+##      C90   C506    C54  C1300   C504 C746 C607  C88  C1252  C1092  C1203
+## 1 0.7803 0.7802 0.7801 0.7801 0.7801 0.78 0.78 0.78 0.7799 0.7798 0.7798
+##     C475    C97   C305   C596   C603   C978  C1030  C1026   C545   C252
+## 1 0.7797 0.7797 0.7797 0.7796 0.7796 0.7795 0.7793 0.7793 0.7793 0.7793
+##    C1076  C1304   C406   C509   C585   C236   C369   C318   C710   C853
+## 1 0.7792 0.7792 0.7791 0.7791 0.7789 0.7788 0.7788 0.7787 0.7784 0.7779
+##    C1226   C559   C326  C1161   C255    C39   C740  C1039   C992  C250
+## 1 0.7779 0.7778 0.7776 0.7776 0.7774 0.7773 0.7773 0.7773 0.7773 0.777
+##      C63   C235  C1081  C1119   C351   C308   C772   C423   C582   C165
+## 1 0.7769 0.7769 0.7767 0.7766 0.7766 0.7766 0.7764 0.7761 0.7759 0.7759
+##     C299   C782   C788 C1031  C1301  C1261   C578  C1090 C1317   C921
+## 1 0.7756 0.7755 0.7752 0.775 0.7749 0.7748 0.7746 0.7744 0.774 0.7737
+##     C795   C593   C404   C758   C639   C327   C389   C415  C1106  C1278
+## 1 0.7736 0.7736 0.7734 0.7733 0.7731 0.7729 0.7729 0.7728 0.7727 0.7727
+##      C87  C957   C534   C630   C124    C27   C204   C239   C180  C1229
+## 1 0.7725 0.772 0.7719 0.7719 0.7717 0.7714 0.7713 0.7712 0.7712 0.7711
+##    C1060   C486   C950   C644   C791   C809   C501 C1170   C169   C346
+## 1 0.7709 0.7705 0.7705 0.7705 0.7704 0.7703 0.7702  0.77 0.7698 0.7696
+##    C1328   C306    C66   C577   C221    C26   C222  C1133  C1078  C1243
+## 1 0.7695 0.7695 0.7694 0.7693 0.7691 0.7689 0.7688 0.7683 0.7683 0.7681
+##    C1329   C929   C613  C1258  C1316   C977   C904   C508   C759  C1343
+## 1 0.7678 0.7675 0.7675 0.7675 0.7674 0.7674 0.7674 0.7672 0.7671 0.7671
+##     C587  C1279   C498   C353  C1335  C1215  C793  C1028  C1068   C281
+## 1 0.7668 0.7666 0.7662 0.7662 0.7662 0.7661 0.766 0.7656 0.7656 0.7655
+##     C529   C390   C857  C1083   C502   C632   C910   C855  C911  C391
+## 1 0.7654 0.7649 0.7647 0.7646 0.7646 0.7646 0.7642 0.7641 0.764 0.764
+##     C821   C193   C309   C707   C626   C567   C734   C882   C202    C13
+## 1 0.7638 0.7638 0.7638 0.7637 0.7636 0.7635 0.7635 0.7635 0.7635 0.7629
+##     C893   C387  C1233    C93   C401  C1160   C208   C334   C935   C146
+## 1 0.7629 0.7625 0.7619 0.7618 0.7615 0.7615 0.7615 0.7612 0.7611 0.7611
+##    C1084    C11    C56  C1253   C272   C199   C702    C21  C1104 C568
+## 1 0.7611 0.7609 0.7609 0.7608 0.7607 0.7606 0.7604 0.7603 0.7602 0.76
+##   C1332   C375   C948   C450   C533   C188   C134   C766   C930   C507
+## 1  0.76 0.7599 0.7599 0.7598 0.7596 0.7596 0.7589 0.7588 0.7584 0.7583
+##     C908   C794   C552   C497   C711   C140   C713   C583   C211    C32
+## 1 0.7582 0.7579 0.7576 0.7573 0.7571 0.7569 0.7569 0.7569 0.7566 0.7566
+##    C1116  C1157   C860   C953   C906  C1245   C542  C176   C891   C274
+## 1 0.7564 0.7564 0.7564 0.7563 0.7563 0.7563 0.7561 0.756 0.7559 0.7553
+##    C1169  C1199   C629   C234   C944  C1224  C1269   C396  C1318   C858
+## 1 0.7548 0.7548 0.7547 0.7547 0.7546 0.7544 0.7544 0.7541 0.7539 0.7538
+##    C1321   C320    C55   C233   C408   C767   C114  C1073  C1227   C303
+## 1 0.7537 0.7536 0.7535 0.7535 0.7535 0.7533 0.7533 0.7533 0.7533 0.7527
+##     C438  C1063  C942  C1141   C574  C1062   C867   C556   C519    C40
+## 1 0.7526 0.7526 0.752 0.7518 0.7516 0.7515 0.7511 0.7509 0.7506 0.7501
+##   C895   C271   C799   C972  C1004   C537  C1276   C745  C1307   C669
+## 1 0.75 0.7498 0.7497 0.7493 0.7491 0.7486 0.7485 0.7477 0.7477 0.7476
+##     C286 C1228   C998   C452   C869  C1165  C1257  C1213  C1074   C576
+## 1 0.7473 0.747 0.7466 0.7462 0.7462 0.7457 0.7455 0.7454 0.7452 0.7447
+##    C1346   C648    C17  C671   C265   C865   C535   C747  C1214  C1298
+## 1 0.7441 0.7424 0.7418 0.741 0.7404 0.7402 0.7398 0.7395 0.7388 0.7388
+##     C965  C273   C723   C225   C246  C1072  C1248 C1302   C292  C515
+## 1 0.7381 0.738 0.7377 0.7349 0.7348 0.7346 0.7343 0.734 0.7331 0.733
+##     C553   C571    C19  C332    C18   C937  C454   C901    C37   C563
+## 1 0.7329 0.7317 0.7317 0.731 0.7289 0.7282 0.728 0.7273 0.7266 0.7264
+##      C83   C240  C1139  C1306    C15   C223   C862  C325
+## 1 0.7235 0.7232 0.7218 0.7176 0.7133 0.7108 0.7097 0.696
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">my.dl@model[[5]]
+</code></pre>
+
+<pre><code>##         Predicted
+## Actual   A B  C D E G H  Error
+##   A      2 0  1 0 0 1 0 0.5000
+##   B      0 0  1 1 0 0 0 1.0000
+##   C      2 0 20 1 0 0 0 0.1304
+##   D      0 0  0 0 0 0 0    NaN
+##   E      0 0  1 0 1 0 0 0.5000
+##   G      0 0  0 0 0 0 0    NaN
+##   H      1 0  0 0 0 0 0 1.0000
+##   Totals 5 0 23 2 1 1 0 0.2812
+</code></pre>
+
+<pre><code class="r">1 - my.dl@model[[7]]  ##  ACC
+</code></pre>
+
+<pre><code>## [1] 0.7188
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">head(h2o.predict(my.dl, test.hex)%&gt;%as.data.frame)
+</code></pre>
+
+<pre><code>##   predict         A         B        C        D         E         G
+## 1       H 2.166e-01 0.1799683 0.007352 0.251499 0.0154716 1.453e-03
+## 2       H 1.036e-02 0.2805412 0.142209 0.156509 0.0015158 1.699e-04
+## 3       A 5.003e-01 0.0001919 0.008686 0.389995 0.0059543 1.192e-03
+## 4       C 1.788e-01 0.1421672 0.313836 0.109785 0.0621157 1.904e-01
+## 5       B 7.336e-05 0.9169067 0.081230 0.001039 0.0007177 7.114e-06
+## 6       D 3.687e-03 0.0804400 0.024203 0.688300 0.0002605 5.447e-04
+##           H
+## 1 0.3276930
+## 2 0.4086978
+## 3 0.0936572
+## 4 0.0029328
+## 5 0.0000267
+## 6 0.2025646
+</code></pre>
+
+<pre><code class="r">colnames(save_data)[str_replace_all(names(my.dl@model[[9]]), &quot;C&quot;, &quot;&quot;)%&gt;%as.numeric%&gt;%.[1:10]]
+</code></pre>
+
+<pre><code>##  [1] &quot;주차&quot;   &quot;상의&quot;   &quot;차선&quot;   &quot;구성&quot;   &quot;운전자&quot; &quot;종료&quot;   &quot;순환&quot;  
+##  [8] &quot;모듈을&quot; &quot;판단부&quot; &quot;통신과&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">my.rf &lt;- h2o.randomForest(x = 1:(ncol(train.hex)-1), y = ncol(train.hex), data = train.hex, validation = test.hex,
+                         type=&quot;fast&quot;, 
+                         importance=TRUE, 
+                         ntree=c(5), 
+                         depth=c(5,10))
+</code></pre>
+
+<pre><code>## 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |===                                                              |   5%
+  |                                                                       
+  |====================================                             |  55%
+  |                                                                       
+  |=================================================================| 100%
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">print(my.rf)
+</code></pre>
+
+<pre><code>## IP Address: 127.0.0.1 
+## Port      : 54321 
+## Parsed Data Key: train.hex 
+## 
+## Grid Search Model Key: GridSearch_be9434b9381ebda1351281661fd24178 
+## 
+## Summary
+##                                  model_key ntrees max_depth nbins
+## 1 SpeeDRF_ac5792b60e22cbc46b2d768ad4b946e7      5         5  1024
+## 2 SpeeDRF_b4b512503d6abb391bb0f1c9c2ee4c73      5        10  1024
+##   prediction_error run_time
+## 1           0.2188     6385
+## 2           0.2188     6799
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">my.rf@model[[1]]@model$confusion
+</code></pre>
+
+<pre><code>##         Predicted
+## Actual   A B  C D E G H  Error
+##   A      2 0  2 0 0 0 0 0.5000
+##   B      0 0  2 0 0 0 0 1.0000
+##   C      0 0 23 0 0 0 0 0.0000
+##   D      0 0  0 0 0 0 0    NaN
+##   E      0 0  2 0 0 0 0 1.0000
+##   G      0 0  0 0 0 0 0    NaN
+##   H      0 0  1 0 0 0 0 1.0000
+##   Totals 2 0 30 0 0 0 0 0.2188
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">print(1 - my.rf@sumtable[[1]]$prediction_error)
+</code></pre>
+
+<pre><code>## [1] 0.7812
+</code></pre>
+
+<pre><code class="r">print(1 - my.rf@sumtable[[2]]$prediction_error)
+</code></pre>
+
+<pre><code>## [1] 0.7812
+</code></pre>
+
+<pre><code class="r">h2o.shutdown(h2oServer)
+</code></pre>
+
+<pre><code>## Are you sure you want to shutdown the H2O instance running at http://127.0.0.1:54321 (Y/N)?
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Contents'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title=''>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title=''>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title=''>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title=''>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title=''>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title=''>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title=''>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title=''>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title=''>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title=''>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title=''>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title=''>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title=''>
+         18
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

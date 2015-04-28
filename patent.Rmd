@@ -1,0 +1,197 @@
+---
+title       : "Text-Based Core Technology Classification using Deep Lerning"
+subtitle    : "- Self Driving Cars -"
+author      : "김형준"
+job         : "Data Analyst"
+framework   : io2012     # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets    : [mathjax]
+#ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Contents
+
+1. Setting - isntall libraries
+2. Preprocess - Parsing & NLP
+3. Analysis - Random Forest, Deep Learning with 3 layers
+
+---
+
+```{r echo=T, eval=T}
+
+rm(list=ls())
+save_dir <- "/Users/kimhyungjun/Dropbox/h2o/prac/"
+options(repos='http://cran.nexr.com')
+
+```
+
+---
+
+```{r echo=T, eval=T}
+
+install_lib <- function(x){
+  for( i in x ){
+    #  require returns TRUE invisibly if it was able to load package
+    if( ! require( i , character.only = TRUE ) ){
+      #  If package was not able to be loaded then re-install
+      install.packages( i , dependencies = TRUE )
+      #  Load package after installing
+            library( i , character.only = T)
+    } else {
+            library( i , character.only = T)
+    }
+  }
+}
+
+suppressMessages(install_lib(c("readxl", 
+                               "dplyr", "stringr", 
+                               "tm", 
+                               "KoNLP", 
+                               "h2o")))
+
+```
+
+---
+
+```{r echo=T, eval=T}
+save_dir <- "/Users/kimhyungjun/Dropbox/h2o/prac/"
+data_list <- list.files(paste(save_dir,"data/wips",sep=""))
+data_list_kr <- data_list[grep("kr",data_list)]
+
+data <- data.frame()
+for (i in 1:length(data_list_kr))
+{
+    data_temp <- read_excel(paste(save_dir,"data/wips/",data_list_kr[i],sep=""))
+    data_temp <- cbind(rep(substr(data_list_kr[i],1,1),nrow(data_temp)),data_temp)
+    colnames(data_temp)[1] <- "기술"
+    data <- rbind(data,data_temp)
+    rm(data_temp)
+}
+```
+
+---
+
+```{r echo=T, eval=T}
+dt_kr <- data[,c("기술", "Original IPC Main", "출원일","발명의 명칭", "요약", "국가코드")]
+dim(dt_kr)
+dt_text <- dt_kr %>% dplyr::select(요약) %>% .[[1]]
+DT <-  sapply(dt_text, extractNoun, USE.NAMES = F) %>%
+       sapply(function(x) paste(x, collapse = ' ')) %>%
+       as.data.frame
+```
+
+---
+
+```{r echo=T, eval=T}
+tdm <- TermDocumentMatrix(Corpus(DataframeSource(DT)),
+                                control = list(
+                                    removeNumbers = TRUE,
+                                    wordLengths = c(2,Inf),
+                                    removePunctuation = TRUE,
+                                    weighting = function(x)
+                                        weightSMART(x, spec = "nnn")))
+tdm <- as.matrix(tdm)
+print(tdm[1:5,1:5])
+```
+
+---
+
+```{r echo=T, eval=T}
+actual_y <- dt_kr%>%dplyr::select(기술)%>%.[[1]]
+save_data <- data.frame(cbind(t(tdm),actual_y))
+write.table(save_data, paste(save_dir,'data/patent_kr.csv', sep=""),
+            row.names=F, col.names=F)
+```
+
+---
+
+```{r echo=T, eval=T}
+h2oServer <- h2o.init(nthreads=-1, max_mem_size = "6g")
+```
+
+
+---
+
+```{r echo=T, eval=T}
+data_hex <- h2o.importFile(h2oServer, path = paste(save_dir,"data/patent_kr.csv", sep=""))
+random <- h2o.runif(data_hex, seed = 654321)
+train.hex <- h2o.assign(data_hex[random <= .8,], "train.hex")
+test.hex  <- h2o.assign(data_hex[random > .8,], "test.hex")
+```
+
+---
+
+```{r echo=T, eval=T}
+label_t <- test.hex %>% as.data.frame %>% select(ncol(test.hex)) %>% table
+label_t[label_t == max(label_t)] / sum(label_t)
+```
+
+---
+
+```{r echo=T, eval=T}
+my.dl <- h2o.deeplearning(x = 1:(ncol(train.hex)-1), y = ncol(train.hex), data=train.hex, validation=test.hex,
+                         variable_importances=T,
+                         activation = "RectifierWithDropout", 
+                         input_dropout_ratio = 0.25, 
+                         hidden_dropout_ratios = c(0.5,0.5,0.5), 
+                         adaptive_rate = T,
+                         balance_classes = T, 
+                         train_samples_per_iteration = 1500, 
+                         hidden = c(250,250,250), 
+                         epochs = 15)
+```
+
+---
+
+```{r echo=T, eval=T}
+my.dl
+```
+
+---
+
+```{r echo=T, eval=T}
+my.dl@model[[5]]
+1 - my.dl@model[[7]]  ##  ACC
+```
+
+---
+
+```{r echo=T, eval=T}
+head(h2o.predict(my.dl, test.hex)%>%as.data.frame)
+colnames(save_data)[str_replace_all(names(my.dl@model[[9]]), "C", "")%>%as.numeric%>%.[1:10]]
+```
+
+---
+
+```{r echo=T, eval=T}
+my.rf <- h2o.randomForest(x = 1:(ncol(train.hex)-1), y = ncol(train.hex), data = train.hex, validation = test.hex,
+                         type="fast", 
+                         importance=TRUE, 
+                         ntree=c(5), 
+                         depth=c(5,10))
+```
+
+
+---
+
+```{r echo=T, eval=T}
+print(my.rf)
+```
+
+---
+
+```{r echo=T, eval=T}
+my.rf@model[[1]]@model$confusion
+```
+
+---
+
+```{r echo=T, eval=T}
+print(1 - my.rf@sumtable[[1]]$prediction_error)
+print(1 - my.rf@sumtable[[2]]$prediction_error)
+
+h2o.shutdown(h2oServer)
+```
