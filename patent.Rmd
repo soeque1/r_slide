@@ -48,7 +48,7 @@ install_lib <- function(x){
 
 suppressMessages(install_lib(c("readxl", 
                                "dplyr", "stringr", 
-                               "tm", 
+                               "tm", "lsa",
                                "KoNLP", 
                                "h2o")))
 
@@ -100,6 +100,13 @@ print(tdm[1:5,1:5])
 ---
 
 ```{r echo=T, eval=T}
+tdm <- lw_logtf(tdm) * gw_entropy(tdm)
+print(tdm[1:5,1:5])
+```
+
+---
+
+```{r echo=T, eval=T}
 actual_y <- dt_kr%>%dplyr::select(기술)%>%.[[1]]
 save_data <- data.frame(cbind(t(tdm),actual_y))
 write.table(save_data, paste(save_dir,'data/patent_kr.csv', sep=""),
@@ -111,7 +118,6 @@ write.table(save_data, paste(save_dir,'data/patent_kr.csv', sep=""),
 ```{r echo=T, eval=T}
 h2oServer <- h2o.init(nthreads=-1, max_mem_size = "6g")
 ```
-
 
 ---
 
