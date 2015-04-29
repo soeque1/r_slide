@@ -708,5 +708,5 @@ $$ parallel > lapply \simeq foreach$$
 - paraellel
 - foreach
 
-[soruce](http://stackoverflow.com/questions/14650662/loading-files-in-parallel-not-working-with-foreach-data-table)
+[source](http://stackoverflow.com/questions/14650662/loading-files-in-parallel-not-working-with-foreach-data-table)
 
