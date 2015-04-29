@@ -123,3 +123,15 @@ wordcount = wordcloud_proc(bodydata)
 wordcloud(names(wordcount),freq=wordcount,scale=c(8,1),
           random.order=F,rot.per=.1,colors=pal)
 ```
+
+---
+
+### 박근혜 - 노무현
+![alt text](assets/fig/p_n.png)
+
+---
+
+### 노무현 - 박근혜
+![alt text](assets/fig/n_p.png)
+
+

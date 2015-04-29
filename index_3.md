@@ -75,3 +75,15 @@ return(wordcount)
 [source][http://legacy.www.hani.co.kr/section-003000000/2003/02/003000000200302251026287.html]
 
 ![plot of chunk wordcloud2_3](assets/fig/wordcloud2_3.pdf) 
+
+---
+
+### 박근혜 - 노무현
+![alt text](assets/fig/p_n.png)
+
+---
+
+### 노무현 - 박근혜
+![alt text](assets/fig/n_p.png)
+
+
