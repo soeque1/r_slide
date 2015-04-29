@@ -23,7 +23,7 @@ knit        : slidify::knit2slides
 ## R
 
 * R 언어는 통계 <U>계산</U>과 <U>그래픽</U>을 위한 프로그래밍 언어  
-* S-PLUS -> R (1997, GUN PROJECT)  
+* S-PLUS -> R (1997, GNU PROJECT)  
 
 * 한계 : R’s biggest challenge is that most R users are not programmers  
 * 극복 : Solving the “Two-Language” Problem  

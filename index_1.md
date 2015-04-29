@@ -23,7 +23,7 @@ knit        : slidify::knit2slides
 ## R
 
 * R 언어는 통계 <U>계산</U>과 <U>그래픽</U>을 위한 프로그래밍 언어  
-* S-PLUS -> R (1997, GUN PROJECT)  
+* S-PLUS -> R (1997, GNU PROJECT)  
 
 * 한계 : R’s biggest challenge is that most R users are not programmers  
 * 극복 : Solving the “Two-Language” Problem  
@@ -104,56 +104,35 @@ head(installed.packages())
 ## acss.data "acss.data"
 ## ACTCD     "ACTCD"    
 ## ada       "ada"      
-## affy      "affy"     
+## adabag    "adabag"   
 ##           LibPath                                                         
 ## abind     "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
 ## acepack   "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
 ## acss.data "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
 ## ACTCD     "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
 ## ada       "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-## affy      "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
-##           Version   Priority
-## abind     "1.4-0"   NA      
-## acepack   "1.3-3.3" NA      
-## acss.data "1.0"     NA      
-## ACTCD     "1.0-0"   NA      
-## ada       "2.0-3"   NA      
-## affy      "1.44.0"  NA      
-##           Depends                                                     
-## abind     "R (>= 1.5.0)"                                              
-## acepack   NA                                                          
-## acss.data "R (>= 2.10)"                                               
-## ACTCD     "R (>= 2.15.1), R.methodsS3"                                
-## ada       "R(>= 2.10),rpart"                                          
-## affy      "R (>= 2.8.0), BiocGenerics (>= 0.1.12), Biobase (>= 2.5.5)"
-##           Imports                                                                                                   
-## abind     NA                                                                                                        
-## acepack   NA                                                                                                        
-## acss.data NA                                                                                                        
-## ACTCD     NA                                                                                                        
-## ada       NA                                                                                                        
-## affy      "affyio (>= 1.13.3), BiocInstaller, graphics, grDevices,\nmethods, preprocessCore, stats, utils, zlibbioc"
-##           LinkingTo        Suggests                                      
-## abind     NA               NA                                            
-## acepack   NA               NA                                            
-## acss.data NA               NA                                            
-## ACTCD     NA               NA                                            
-## ada       NA               NA                                            
-## affy      "preprocessCore" "tkWidgets (>= 1.19.0), affydata, widgetTools"
-##           Enhances License              License_is_FOSS
-## abind     NA       "LGPL (>= 2)"        NA             
-## acepack   NA       "MIT + file LICENSE" NA             
-## acss.data NA       "GPL (>= 2)"         NA             
-## ACTCD     NA       "GPL (>= 2)"         NA             
-## ada       NA       "GPL"                NA             
-## affy      NA       "LGPL (>= 2.0)"      NA             
+## adabag    "/Library/Frameworks/R.framework/Versions/3.1/Resources/library"
+##           Version   Priority Depends                      Imports
+## abind     "1.4-0"   NA       "R (>= 1.5.0)"               NA     
+## acepack   "1.3-3.3" NA       NA                           NA     
+## acss.data "1.0"     NA       "R (>= 2.10)"                NA     
+## ACTCD     "1.0-0"   NA       "R (>= 2.15.1), R.methodsS3" NA     
+## ada       "2.0-3"   NA       "R(>= 2.10),rpart"           NA     
+## adabag    "3.2"     NA       "rpart, mlbench, caret"      NA     
+##           LinkingTo Suggests Enhances License              License_is_FOSS
+## abind     NA        NA       NA       "LGPL (>= 2)"        NA             
+## acepack   NA        NA       NA       "MIT + file LICENSE" NA             
+## acss.data NA        NA       NA       "GPL (>= 2)"         NA             
+## ACTCD     NA        NA       NA       "GPL (>= 2)"         NA             
+## ada       NA        NA       NA       "GPL"                NA             
+## adabag    NA        NA       NA       "GPL (>= 2)"         NA             
 ##           License_restricts_use OS_type MD5sum NeedsCompilation Built  
 ## abind     NA                    NA      NA     NA               "3.1.1"
 ## acepack   NA                    NA      NA     "yes"            "3.1.0"
 ## acss.data NA                    NA      NA     "no"             "3.1.0"
 ## ACTCD     NA                    NA      NA     "yes"            "3.1.1"
 ## ada       NA                    NA      NA     NA               "3.1.0"
-## affy      NA                    NA      NA     NA               "3.1.1"
+## adabag    NA                    NA      NA     "no"             "3.1.0"
 ```
 
 ---
@@ -166,7 +145,7 @@ install.packages("dplyr")
 ```
 ## 
 ## The downloaded binary packages are in
-## 	/var/folders/_r/ytdlmf5x039_5bzh37xy121r0000gn/T//RtmpwPm9Dz/downloaded_packages
+## 	/var/folders/_r/ytdlmf5x039_5bzh37xy121r0000gn/T//RtmpypwiTe/downloaded_packages
 ```
 
 
@@ -445,21 +424,21 @@ hflights_df
 ```
 ## Source: local data frame [227,496 x 21]
 ## 
-##    Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier FlightNum
-## 1  2011     1          1         6    1400    1500            AA       428
-## 2  2011     1          2         7    1401    1501            AA       428
-## 3  2011     1          3         1    1352    1502            AA       428
-## 4  2011     1          4         2    1403    1513            AA       428
-## 5  2011     1          5         3    1405    1507            AA       428
-## 6  2011     1          6         4    1359    1503            AA       428
-## 7  2011     1          7         5    1359    1509            AA       428
-## 8  2011     1          8         6    1355    1454            AA       428
-## 9  2011     1          9         7    1443    1554            AA       428
-## 10 2011     1         10         1    1443    1553            AA       428
-## ..  ...   ...        ...       ...     ...     ...           ...       ...
-## Variables not shown: TailNum (chr), ActualElapsedTime (int), AirTime
-##   (int), ArrDelay (int), DepDelay (int), Origin (chr), Dest (chr),
-##   Distance (int), TaxiIn (int), TaxiOut (int), Cancelled (int),
+##      Year Month DayofMonth DayOfWeek DepTime ArrTime UniqueCarrier
+## 5424 2011     1          1         6    1400    1500            AA
+## 5425 2011     1          2         7    1401    1501            AA
+## 5426 2011     1          3         1    1352    1502            AA
+## 5427 2011     1          4         2    1403    1513            AA
+## 5428 2011     1          5         3    1405    1507            AA
+## 5429 2011     1          6         4    1359    1503            AA
+## 5430 2011     1          7         5    1359    1509            AA
+## 5431 2011     1          8         6    1355    1454            AA
+## 5432 2011     1          9         7    1443    1554            AA
+## 5433 2011     1         10         1    1443    1553            AA
+## ..    ...   ...        ...       ...     ...     ...           ...
+## Variables not shown: FlightNum (int), TailNum (chr), ActualElapsedTime
+##   (int), AirTime (int), ArrDelay (int), DepDelay (int), Origin (chr), Dest
+##   (chr), Distance (int), TaxiIn (int), TaxiOut (int), Cancelled (int),
 ##   CancellationCode (chr), Diverted (int)
 ```
 
@@ -479,7 +458,7 @@ system.time(mean(as.data.frame(hflights_df_rep)[,"DepTime"],na.rm=T))
 
 ```
 ##    user  system elapsed 
-##   0.026   0.004   0.029
+##   0.022   0.001   0.023
 ```
 
 ```r
@@ -488,7 +467,7 @@ system.time(hflights_df_rep%>%select(DepTime)%>%dplyr::summarise(mean(DepTime,na
 
 ```
 ##    user  system elapsed 
-##   0.006   0.000   0.007
+##   0.007   0.001   0.011
 ```
 
 ---
@@ -502,17 +481,37 @@ system.time(rbind(hflights_df,hflights_df,hflights_df))
 
 ```
 ##    user  system elapsed 
-##   0.538   0.157   0.775
+##   1.221   0.183   1.452
 ```
 
 ```r
 library("data.table")
+```
+
+```
+## 
+## Attaching package: 'data.table'
+## 
+## The following object is masked from 'package:hash':
+## 
+##     copy
+## 
+## The following objects are masked from 'package:h2o':
+## 
+##     month, year
+## 
+## The following object is masked from 'package:dplyr':
+## 
+##     last
+```
+
+```r
 system.time(rbindlist(list(hflights_df,hflights_df,hflights_df)))
 ```
 
 ```
 ##    user  system elapsed 
-##   0.038   0.011   0.050
+##   0.034   0.007   0.048
 ```
 
 ---
@@ -609,11 +608,7 @@ flights %>%
 ```
 
 ```
-## Source: local data frame [2 x 2]
-## 
-##   Dest   avg_delay
-## 1  ABQ 7.226258993
-## 2  AEX 5.839436620
+## Error: could not find function "slice"
 ```
 
 ---
@@ -627,12 +622,7 @@ a%>%slice(1:3)
 ```
 
 ```
-## Source: local data frame [3 x 3]
-## 
-##   UniqueCarrier mean_Cancelled  mean_Diverted
-## 1            AA  0.01849568434 0.001849568434
-## 2            AS  0.00000000000 0.002739726027
-## 3            B6  0.02589928058 0.005755395683
+## Error: could not find function "slice"
 ```
 
 
@@ -705,7 +695,8 @@ header, stringAsFactors, colClasses, fileEncoding, row.names
 delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949")
 all.equal(as.data.frame(delay), delay_rep)
 
-delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",stringsAsFactors = F)
+delay_rep = read.csv(file=paste(path_dir,"delay.csv",sep=""),fileEncoding="CP949",
+                     stringsAsFactors = F)
 all.equal(as.data.frame(delay), delay_rep)
 ```
 
