@@ -60,7 +60,7 @@ return(wordcount)
 ### 박근혜 대통령 취임사 전문 (한겨레)  
 [source][http://www.hani.co.kr/arti/politics/politics_general/575390.html]
 
-![plot of chunk wordcloud2_1](assets/fig/wordcloud2_1.png) 
+![plot of chunk wordcloud2_1](assets/fig/wordcloud2_1.pdf) 
 
 ---
 
