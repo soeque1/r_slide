@@ -1,0 +1,111 @@
+---
+title       : "텍스트에서 여론과 감정을 발견하기"
+subtitle    : "Using R"
+author      : "김형준"
+job         : "Data Analyst"
+biglogo     : logo_01.png
+logo        : logo_02.png
+license     : by
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+widgets     : []            # {mathjax, bootstrap, quiz}
+mode        : selfcontained
+hitheme     : tomorrow      # {tomorrow, tomorrow_night, solarized_dark, solarized_light}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+knit        : slidify::knit2slides
+---
+
+## 영화 자료를 이용한 다양한 분석
+
+<h3>Topics</h3>
+* 주제(topic) 분류 - Text & Self-Rating   
+* 개인별 영화 추천 - Text & Self-Rating   
+* <font color="red">감정 분석 - Text </font> & Self-Rating
+
+<h3> Method </h3>
+* <font color="red"> Visualization</font>  
+* Prediction  
+
+<h3> Model </h3>
+* Lasso LM / LSA / LDA / Deep Learning  
+
+---
+
+## 목차
+
+<h4><br></h4>
+<h3 style="text-align:left">1. R 기초 세팅</h3>
+<h3 style="text-align:left">2. 패키지 인스톨</h3>    
+<h3 style="text-align:left">3. 어벤저스 웹크롤</h3>  
+<h3 style="text-align:left">4. 시각화</h3>  
+
+--- &twocol w1:30% w2:70% .new-background
+
+## 목차
+
+*** =left
+<h4><br></h4>
+<h3 style="text-align:left">1. R 기초 세팅</h3>
+<h3 style="text-align:left">2. 패키지 인스톨</h3>    
+<h3 style="text-align:left">3. 어벤저스 웹크롤</h3>  
+<h3 style="text-align:left">4. 시각화</h3>  
+
+*** =right
+<center><img src="assets/img/result_graph.png" height="500" width="600"></center>
+---
+
+--- .dark .segue .nobackground
+## 1. R 기초 세팅
+
+--- .new-background
+
+## 1. R 기초 세팅
+
+```r
+if (.Platform$OS.type == "unix") { 
+  user_path = "/Users/kimhyungjun/daum_movie/"
+  graph_fonts = "Malgun Gothic"
+  par(family=graph_fonts)
+  fileEncoding = "UTF-8"
+} else {
+  user_path = "C:/Users/kimhyungjun/daum_movie/"   
+  windowsFonts(malgun = windowsFont("맑은고딕"))
+  graph_fonts = "malgun"
+  fileEncoding = "CP949"
+}
+
+setwd(user_path)
+```
+
+```
+## Error: cannot change working directory
+```
+
+--- .new-background
+
+## 2. 패키지 인스톨
+<h4>영화 웹크롤 및 파싱</h4>
+* [rvest](http://cran.r-project.org/web/packages/rvest/index.html)  
+* [stringr](http://cran.r-project.org/web/packages/stringr/index.html)  
+
+<h4></br></h4>
+
+<h4>감정 사전(엑셀파일 읽기)</h4>
+* [readxl](http://cran.r-project.org/web/packages/readxl/index.html)  
+* [한국어 감정 사전 1](http://word.snu.ac.kr/kosac/)  
+* [한국어 감정 사전 2](http://clab.snu.ac.kr/arssa/doku.php?id=app_dict_1.0)  
+* [참고 논문 모음 1](http://word.snu.ac.kr/kosac/publications.php)  
+* [참고 논문 모음 2](http://clab.snu.ac.kr/arssa/doku.php?id=my_works)  
+
+--- .new-background
+
+## 2. 패키지 인스톨
+
+<h4>텍스트 분석</h4>
+* [dplyr](http://cran.r-project.org/web/packages/dplyr/index.html)  
+* [tm](http://cran.r-project.org/web/packages/tm/index.html)  
+
+<h4>네트워크 그래프</h4>
+* [qgraph](http://cran.r-project.org/web/packages/qgraph/index.html)  
+
+--- .new-background
+
