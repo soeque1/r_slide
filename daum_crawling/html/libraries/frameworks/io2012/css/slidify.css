@@ -391,7 +391,6 @@ slide:not(.segue)  h9{
  color: #19597A;
 }
 
-
 slide.segue h8{
  font-family: "Open Sans";
  font-weight: 700;
@@ -401,10 +400,6 @@ slide:not(.segue)  h8{
  font-weight: 700;
  color: #1E2227;
 }
-
-
-
-
 
 article p {
   font-family: "Open Sans"
@@ -423,6 +418,28 @@ pre code {
 
 #glimmer iframe {
   width: 100%;
+}
+
+slide.codefont pre {
+font-size: 9px ;
+}
+
+slide.outfont p {
+font-size: 9px ;
+}
+
+slide.codemargin pre {
+margin-top: -10px ;
+margin-bottom: -10px ;
+padding-top: -10px ;
+padding-bottom: -10px ;
+}
+
+slide.outmargin p {
+margin-top: -10px ;
+margin-bottom: -10px ;
+padding-top: -10px ;
+padding-bottom: -10px ;
 }
 
 .title-slide {

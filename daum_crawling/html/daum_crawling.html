@@ -97,9 +97,13 @@
 
 <h3 style="text-align:left">2. 패키지 인스톨</h3>    
 
-<h3 style="text-align:left">3. 어벤저스 웹크롤</h3>  
+<h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 
-<h3 style="text-align:left">4. 시각화</h3>  
+<h3 style="text-align:left">4. 감정사전 불러오기</h3>  
+
+<h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>  
+
+<h3 style="text-align:left">6. 시각화</h3>  
 
   </article>
   <!-- Presenter Notes -->
@@ -118,9 +122,13 @@
 
 <h3 style="text-align:left">2. 패키지 인스톨</h3>    
 
-<h3 style="text-align:left">3. 어벤저스 웹크롤</h3>  
+<h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 
-<h3 style="text-align:left">4. 시각화</h3>  
+<h3 style="text-align:left">4. 감정사전 불러오기</h3>  
+
+<h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>  
+
+<h3 style="text-align:left">6. 시각화</h3>  
 
 </div>    
 <div class='right' style='float:right;width:70%'>
@@ -147,12 +155,15 @@
   </hgroup>
   <article data-timings="">
     <pre><code class="r">if (.Platform$OS.type == &quot;unix&quot;) { 
-  user_path = &quot;/Users/kimhyungjun/daum_movie/&quot;
+  ##  코드와 파일 디렉토리
+  user_path = &quot;/Users/kimhyungjun/repo/daum_movie/&quot; 
+  ##  그래프 폰트
   graph_fonts = &quot;Malgun Gothic&quot;
   par(family=graph_fonts)
+  ##  텍스트 인코딩
   fileEncoding = &quot;UTF-8&quot;
 } else {
-  user_path = &quot;C:/Users/kimhyungjun/daum_movie/&quot;   
+  user_path = &quot;C:/Users/kimhyungjun/repo/daum_movie/&quot;   
   windowsFonts(malgun = windowsFont(&quot;맑은고딕&quot;))
   graph_fonts = &quot;malgun&quot;
   fileEncoding = &quot;CP949&quot;
@@ -161,19 +172,30 @@
 setwd(user_path)
 </code></pre>
 
-<pre><code>## Error: cannot change working directory
-</code></pre>
-
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-6" style="background:;">
+<slide class="dark segue nobackground" id="slide-6" style="background:;">
   <hgroup>
     <h2>2. 패키지 인스톨</h2>
   </hgroup>
   <article data-timings="">
-    <h4>영화 웹크롤 및 파싱</h4>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>2. 패키지 인스톨</h2>
+  </hgroup>
+  <article data-timings="">
+    <h4></br></h4>
+
+<h4></br></h4>
+
+<h4>영화 웹크롤 및 파싱</h4>
 
 <ul>
 <li><a href="http://cran.r-project.org/web/packages/rvest/index.html">rvest</a><br></li>
@@ -182,7 +204,9 @@ setwd(user_path)
 
 <h4></br></h4>
 
-<h4>감정 사전(엑셀파일 읽기)</h4>
+<h4></br></h4>
+
+<h4>감정 사전 (엑셀파일 읽기)</h4>
 
 <ul>
 <li><a href="http://cran.r-project.org/web/packages/readxl/index.html">readxl</a><br></li>
@@ -196,17 +220,25 @@ setwd(user_path)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-7" style="background:;">
+<slide class="new-background" id="slide-8" style="background:;">
   <hgroup>
     <h2>2. 패키지 인스톨</h2>
   </hgroup>
   <article data-timings="">
-    <h4>텍스트 분석</h4>
+    <h4></br></h4>
+
+<h4></br></h4>
+
+<h4>텍스트 분석</h4>
 
 <ul>
 <li><a href="http://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a><br></li>
 <li><a href="http://cran.r-project.org/web/packages/tm/index.html">tm</a><br></li>
 </ul>
+
+<h4></br></h4>
+
+<h4></br></h4>
 
 <h4>네트워크 그래프</h4>
 
@@ -218,9 +250,1003 @@ setwd(user_path)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-8" style="background:;">
+<slide class="new-background" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>2. 패키지 인스톨</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">install.packages(c(&quot;rvest&quot;,&quot;stringr&quot;,&quot;dplyr&quot;,&quot;tm&quot;,&quot;qgraph&quot;),
+                 repos=&quot;http://cran.nexr.com&quot;)
+</code></pre>
+
+<h4><br></h4>
+
+<p><h9>패키지 불러오기</h9></p>
+
+<pre><code class="r">library(&quot;httr&quot;)
+library(&quot;rvest&quot;)
+library(&quot;stringr&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;tm&quot;)
+library(&quot;qgraph&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="dark segue nobackground" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>3. 어벤져스 웹크롤</h2>
+  </hgroup>
   <article data-timings="">
     
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>3. 어벤져스 웹크롤</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>웹사이트</li>
+<li>웹브라우저 열기(e.g. Firefox, Chorme, Safari, Internet Explorer)</li>
+<li>웹사이트 입력(e.g. <a href="http://movie.daum.net">http://movie.daum.net</a>)</li>
+<li>사용자는 client (페이지, 이미지, 텍스트를 웹 서버로 요청함)</li>
+<li>웹 서버 사용자에게 반응을 보냄</li>
+<li>사용자와 웹 서버는 프로토콜(e.g. HTTP)로 커뮤니케이션</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>HTTP</h2>
+  </hgroup>
+  <article data-timings="">
+    <h4> HTTP? </h4>
+
+<ul>
+<li>HyperText Transfer Protocal</li>
+</ul>
+
+<pre><code class="r">library(&quot;httr&quot;)
+GET(&quot;http://google.com/&quot;)  ##  Requset -&gt; Resposne
+</code></pre>
+
+<pre><code>## Response [http://www.google.co.kr/?gfe_rd=cr&amp;ei=A1hQVeWdJ4ig8wexx4DIDw]
+##   Date: 2015-05-11 16:19
+##   Status: 200
+##   Content-Type: text/html; charset=EUC-KR
+##   Size: 18.3 kB
+## &lt;!doctype html&gt;&lt;html itemscope=&quot;&quot; itemtype=&quot;http://schema.org/WebPage&quot; l...
+## window.google.vel.lu&amp;&amp;window.google.vel.lu(a),d.src=a,google.li=g+1)};go...
+## function _gjh(){!_gjuc()&amp;&amp;window.google&amp;&amp;google.x&amp;&amp;google.x({id:&quot;GJH&quot;},f...
+## if (!iesg){document.f&amp;&amp;document.f.q.focus();document.gbqf&amp;&amp;document.gbqf...
+## }
+## })();&lt;/script&gt;&lt;div id=&quot;mngb&quot;&gt;    &lt;div id=gbar&gt;&lt;nobr&gt;&lt;b class=gb1&gt;검색&lt;/b&gt; ...
+## });})();&lt;/script&gt; &lt;/div&gt; &lt;/span&gt;&lt;br clear=&quot;all&quot; id=&quot;lgpd&quot;&gt;&lt;div id=&quot;lga&quot;&gt;...
+## &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;br&gt;&lt;/div&gt;&lt;form action=&quot;/search&quot; name=&quot;f&quot;&gt;&lt;table cellp...
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>다음 영화</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><a href="http://movie.daum.net">http://movie.daum.net</a></p>
+
+<p><left><img src="assets/img/daum_movie.png" height="550" width="550"></left></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>어벤져스 (1페이지 웹크롤)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">urls_view &lt;- &quot;http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&amp;t__nil_NetizenPoint=tabName&quot;
+r &lt;- GET(urls_view)
+htxt &lt;- html(r)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-15" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">html_nodes(htxt, &quot;.comment&quot;)
+</code></pre>
+
+<p>[[1]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810919&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;극장수만 왕창 차지하고 재미는 완죤히 없는 영화                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[2]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810883&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;역시 어벤져스였어요 깨고 부수고 싸우는 영화를 좋아해서 마블 영웅들 영화는 거의다 본 것 같은데 어벤져스는 그 영웅들이 다 나와서 눈이 혀강했어요 점점 발전하는 컴퓨터 그래픽과 캐릭터들을 볼 수 있어서 좋고 다음편이 기대돼요                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[3]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810765&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;제작비를 한국서 뽑아가려는 허리우드 영화.. 이제 그만보자.. 그저 혼란스러운 영화일 뿐..                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[4]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810764&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;전편보다는 확실히 약하다. 하지만 마블 대서사시의 스토리 상 한번쯤은 캐릭터와 스토리 정리가 필요했다. 어벤저스3와 캡틴아메리카 시빌워를 위한 반석을 다져주는데 의미가 있는 작품. 쿠키 영상에서 타노스의 짧은 독백 &quot;I&#39;ll do it myself&quot; 한마디가 인피니티 워에 대한 기다림을 즐겁게 만들어 줬다.                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[5]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810755&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;영화 메세지가 뭔지? 스릴도 없구 화려한 그래픽만...액션물 보면서 졸기는 처음이엇음...시간 돈낭비...비츄~~                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[6]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810754&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;전편에 비해 이야기가 흘러가는 구성방식이 조금은 덜 재밌게 느껴지긴 하지만, 마블의 영웅들은 언제나 봐도 즐겁고 유쾌하다. 영화속에서라도 통쾌하고 시원함을 느끼게 해주는 캐릭터들에게 감사하며 아마 3편을 위한 작은 쉼이 아닐까 싶었던 2편이었다. 퀵실버가 허무하게 마무리된것이 다소아쉬운점...                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[7]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810752&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;블랙위도우가 헐크를 조련하는 맛!                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[8]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810749&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;기대했던 것보다 좀 지루했음... 볼거리야 뭐 어마어마 하지만 내용이 좀 한데 뭉쳐지지 않는? 그리고 툭툭 끊어진 기분? 여튼 1편이 훠어어얼씬 괜찮았음                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[9]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810733&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;1편 보셨거나 아니면 마블 히어로물 좋아하신다면 걍 별기대 없이 보세요.&amp;#13;
+</code></pre>
+
+<p>저같은 경우 마블 히어로물 다 봤고 마블영화는 다 보는편인데 그중에 제일 별로였네요.&#13;
+스토리를 억지로 풀어갈려고 대사가 너무 많음. 중간중간 다큐드라마임. ㅎㅎ&#13;
+여친은 옆에서 자네요. ㅋㅋㅋ 매드맥볼건 약간 후회도됨. ㅠㅠ&#13;
+                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a></p>
+
+<pre><code>                &lt;/span&gt; 
+</code></pre>
+
+<p>[[10]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810687&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;1편 보고 2편 많이 기대했는데 짜임새가 많이 떨어지는 느낌이에요.  런닝타임이 굉장히 길게 느껴지고. 유머요소가 1편보다 훨씬 많아졌는데 웃기긴 했지만 영화자체는 산만하게 만드는듯 했어요. 그냥...보기 힘들었어요                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[11]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810650&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;볼만은 한데...쓸데없이 대사가 많아...                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[12]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810638&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;스크린독점영화. 우리나라 스크린 2281개중 1843개관을 차진한 영화. 우리나라 극장의 현실입니다. 명량,국제시장 등 스크린을 독신한 영화로 보고싶은 영화를 못보는 현실이 화가 납니다. 물론 영화도 별로 재미없습니다.                    &lt;span class=&quot;em b&quot;&gt;[1]&lt;/span&gt;
+                &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[13]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810619&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;저는 앞사람 대갈통이 너무 큰지 아니면 그사람이 너무 허리와목을 쭉 빼고 보는건지 그사람 대가리에 자막이 절반이 가려서 환장하는줄..영화끝까지.. 일부러맨뒷줄에 자리잡았는데 되려 손해;  그러다 내용이 지루해서 졸뻔,, 서울배경은 정말 촌스러웠음                     &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[14]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810614&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;마블을 잘 모르는 사람에겐 스토리가 지루할수도 있고 산만할수도 있다 러닝타임이 꽤 긴편임에도 액션씬이 쉬지않고 나와 끝나고나면 정신없을수도 있다 하지만 마블팬이라면 재밌게 볼 수 있을법한 영화                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>[[15]]
+<span class="comment article"></p>
+
+<pre><code>                                    &lt;a href=&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;amp;ratingId=1810584&amp;amp;type=after&quot; title=&quot;댓글달기&quot;&gt;그냥 평점이 너무 아깝다 ㅎㅎ                    &lt;img src=&quot;http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif&quot; width=&quot;13&quot; height=&quot;13&quot; alt=&quot;댓글달기&quot; class=&quot;btn_reply&quot;/&gt;&lt;/a&gt;
+
+                &lt;/span&gt; 
+</code></pre>
+
+<p>attr(,&quot;class&quot;)
+[1] &quot;XMLNodeSet&quot;</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-16" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">html_nodes(html_nodes(htxt, &quot;.comment&quot;),&quot;a&quot;)
+</code></pre>
+
+<p>[[1]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810919&amp;type=after" title="댓글달기">극장수만 왕창 차지하고 재미는 완죤히 없는 영화                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[2]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810883&amp;type=after" title="댓글달기">역시 어벤져스였어요 깨고 부수고 싸우는 영화를 좋아해서 마블 영웅들 영화는 거의다 본 것 같은데 어벤져스는 그 영웅들이 다 나와서 눈이 혀강했어요 점점 발전하는 컴퓨터 그래픽과 캐릭터들을 볼 수 있어서 좋고 다음편이 기대돼요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[3]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810765&amp;type=after" title="댓글달기">제작비를 한국서 뽑아가려는 허리우드 영화.. 이제 그만보자.. 그저 혼란스러운 영화일 뿐..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[4]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810764&amp;type=after" title="댓글달기">전편보다는 확실히 약하다. 하지만 마블 대서사시의 스토리 상 한번쯤은 캐릭터와 스토리 정리가 필요했다. 어벤저스3와 캡틴아메리카 시빌워를 위한 반석을 다져주는데 의미가 있는 작품. 쿠키 영상에서 타노스의 짧은 독백 &quot;I&#39;ll do it myself&quot; 한마디가 인피니티 워에 대한 기다림을 즐겁게 만들어 줬다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[5]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810755&amp;type=after" title="댓글달기">영화 메세지가 뭔지? 스릴도 없구 화려한 그래픽만...액션물 보면서 졸기는 처음이엇음...시간 돈낭비...비츄~~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[6]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810754&amp;type=after" title="댓글달기">전편에 비해 이야기가 흘러가는 구성방식이 조금은 덜 재밌게 느껴지긴 하지만, 마블의 영웅들은 언제나 봐도 즐겁고 유쾌하다. 영화속에서라도 통쾌하고 시원함을 느끼게 해주는 캐릭터들에게 감사하며 아마 3편을 위한 작은 쉼이 아닐까 싶었던 2편이었다. 퀵실버가 허무하게 마무리된것이 다소아쉬운점...                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[7]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810752&amp;type=after" title="댓글달기">블랙위도우가 헐크를 조련하는 맛!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[8]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810749&amp;type=after" title="댓글달기">기대했던 것보다 좀 지루했음... 볼거리야 뭐 어마어마 하지만 내용이 좀 한데 뭉쳐지지 않는? 그리고 툭툭 끊어진 기분? 여튼 1편이 훠어어얼씬 괜찮았음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[9]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810733&amp;type=after" title="댓글달기">1편 보셨거나 아니면 마블 히어로물 좋아하신다면 걍 별기대 없이 보세요.&#13;
+저같은 경우 마블 히어로물 다 봤고 마블영화는 다 보는편인데 그중에 제일 별로였네요.&#13;
+스토리를 억지로 풀어갈려고 대사가 너무 많음. 중간중간 다큐드라마임. ㅎㅎ&#13;
+여친은 옆에서 자네요. ㅋㅋㅋ 매드맥볼건 약간 후회도됨. ㅠㅠ&#13;
+                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[10]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810687&amp;type=after" title="댓글달기">1편 보고 2편 많이 기대했는데 짜임새가 많이 떨어지는 느낌이에요.  런닝타임이 굉장히 길게 느껴지고. 유머요소가 1편보다 훨씬 많아졌는데 웃기긴 했지만 영화자체는 산만하게 만드는듯 했어요. 그냥...보기 힘들었어요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[11]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810650&amp;type=after" title="댓글달기">볼만은 한데...쓸데없이 대사가 많아...                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[12]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810638&amp;type=after" title="댓글달기">스크린독점영화. 우리나라 스크린 2281개중 1843개관을 차진한 영화. 우리나라 극장의 현실입니다. 명량,국제시장 등 스크린을 독신한 영화로 보고싶은 영화를 못보는 현실이 화가 납니다. 물론 영화도 별로 재미없습니다.                    <span class="em b">[1]</span>
+                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[13]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810619&amp;type=after" title="댓글달기">저는 앞사람 대갈통이 너무 큰지 아니면 그사람이 너무 허리와목을 쭉 빼고 보는건지 그사람 대가리에 자막이 절반이 가려서 환장하는줄..영화끝까지.. 일부러맨뒷줄에 자리잡았는데 되려 손해;  그러다 내용이 지루해서 졸뻔,, 서울배경은 정말 촌스러웠음                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[14]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810614&amp;type=after" title="댓글달기">마블을 잘 모르는 사람에겐 스토리가 지루할수도 있고 산만할수도 있다 러닝타임이 꽤 긴편임에도 액션씬이 쉬지않고 나와 끝나고나면 정신없을수도 있다 하지만 마블팬이라면 재밌게 볼 수 있을법한 영화                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>[[15]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810584&amp;type=after" title="댓글달기">그냥 평점이 너무 아깝다 ㅎㅎ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> </p>
+
+<p>attr(,&quot;class&quot;)
+[1] &quot;XMLNodeSet&quot;</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-17" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">html_text(html_nodes(html_nodes(htxt, &quot;.comment&quot;),&quot;a&quot;))
+</code></pre>
+
+<p>[1] &quot;극장수만 왕창 차지하고 재미는 완죤히 없는 영화                    &quot;<br>
+ [2] &quot;역시 어벤져스였어요 깨고 부수고 싸우는 영화를 좋아해서 마블 영웅들 영화는 거의다 본 것 같은데 어벤져스는 그 영웅들이 다 나와서 눈이 혀강했어요 점점 발전하는 컴퓨터 그래픽과 캐릭터들을 볼 수 있어서 좋고 다음편이 기대돼요                    &quot;<br>
+ [3] &quot;제작비를 한국서 뽑아가려는 허리우드 영화.. 이제 그만보자.. 그저 혼란스러운 영화일 뿐..                    &quot;<br>
+ [4] &quot;전편보다는 확실히 약하다. 하지만 마블 대서사시의 스토리 상 한번쯤은 캐릭터와 스토리 정리가 필요했다. 어벤저스3와 캡틴아메리카 시빌워를 위한 반석을 다져주는데 의미가 있는 작품. 쿠키 영상에서 타노스의 짧은 독백 \&quot;I&#39;ll do it myself\&quot; 한마디가 인피니티 워에 대한 기다림을 즐겁게 만들어 줬다.                    &quot;<br>
+ [5] &quot;영화 메세지가 뭔지? 스릴도 없구 화려한 그래픽만...액션물 보면서 졸기는 처음이엇음...시간 돈낭비...비츄~~                    &quot;<br>
+ [6] &quot;전편에 비해 이야기가 흘러가는 구성방식이 조금은 덜 재밌게 느껴지긴 하지만, 마블의 영웅들은 언제나 봐도 즐겁고 유쾌하다. 영화속에서라도 통쾌하고 시원함을 느끼게 해주는 캐릭터들에게 감사하며 아마 3편을 위한 작은 쉼이 아닐까 싶었던 2편이었다. 퀵실버가 허무하게 마무리된것이 다소아쉬운점...                    &quot;<br>
+ [7] &quot;블랙위도우가 헐크를 조련하는 맛!                    &quot;<br>
+ [8] &quot;기대했던 것보다 좀 지루했음... 볼거리야 뭐 어마어마 하지만 내용이 좀 한데 뭉쳐지지 않는? 그리고 툭툭 끊어진 기분? 여튼 1편이 훠어어얼씬 괜찮았음                    &quot;<br>
+ [9] &quot;1편 보셨거나 아니면 마블 히어로물 좋아하신다면 걍 별기대 없이 보세요.\r\n저같은 경우 마블 히어로물 다 봤고 마블영화는 다 보는편인데 그중에 제일 별로였네요.\r\n스토리를 억지로 풀어갈려고 대사가 너무 많음. 중간중간 다큐드라마임. ㅎㅎ\r\n여친은 옆에서 자네요. ㅋㅋㅋ 매드맥볼건 약간 후회도됨. ㅠㅠ\r\n                    &quot;
+[10] &quot;1편 보고 2편 많이 기대했는데 짜임새가 많이 떨어지는 느낌이에요.  런닝타임이 굉장히 길게 느껴지고. 유머요소가 1편보다 훨씬 많아졌는데 웃기긴 했지만 영화자체는 산만하게 만드는듯 했어요. 그냥...보기 힘들었어요                    &quot;<br>
+[11] &quot;볼만은 한데...쓸데없이 대사가 많아...                    &quot;<br>
+[12] &quot;스크린독점영화. 우리나라 스크린 2281개중 1843개관을 차진한 영화. 우리나라 극장의 현실입니다. 명량,국제시장 등 스크린을 독신한 영화로 보고싶은 영화를 못보는 현실이 화가 납니다. 물론 영화도 별로 재미없습니다.                    [1]\n                    &quot;<br>
+[13] &quot;저는 앞사람 대갈통이 너무 큰지 아니면 그사람이 너무 허리와목을 쭉 빼고 보는건지 그사람 대가리에 자막이 절반이 가려서 환장하는줄..영화끝까지.. 일부러맨뒷줄에 자리잡았는데 되려 손해;  그러다 내용이 지루해서 졸뻔,, 서울배경은 정말 촌스러웠음                     &quot;<br>
+[14] &quot;마블을 잘 모르는 사람에겐 스토리가 지루할수도 있고 산만할수도 있다 러닝타임이 꽤 긴편임에도 액션씬이 쉬지않고 나와 끝나고나면 정신없을수도 있다 하지만 마블팬이라면 재밌게 볼 수 있을법한 영화                    &quot;<br>
+[15] &quot;그냥 평점이 너무 아깝다 ㅎㅎ                    &quot;                                                                                                                                                                                                                                                                              </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>REGEX (연습 1)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ex &lt;- c(&quot;아!! R이 왜 이렇게 재미있냐?&quot;, &quot;[1]&quot;, &quot;[2]&quot;, &quot;[20]&quot;, &quot;졸리다...&quot;)
+str_replace_all(ex, &#39;!&#39;, &#39;&#39;)
+</code></pre>
+
+<pre><code>## [1] &quot;아 R이 왜 이렇게 재미있냐?&quot; &quot;[1]&quot;                       
+## [3] &quot;[2]&quot;                        &quot;[20]&quot;                      
+## [5] &quot;졸리다...&quot;
+</code></pre>
+
+<pre><code class="r">str_replace_all(ex, &quot;!|\\.&quot;, &quot;&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;아 R이 왜 이렇게 재미있냐?&quot; &quot;[1]&quot;                       
+## [3] &quot;[2]&quot;                        &quot;[20]&quot;                      
+## [5] &quot;졸리다&quot;
+</code></pre>
+
+<pre><code class="r">str_replace_all(ex, &quot;[[:punct:]]&quot;, &quot;&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;아 R이 왜 이렇게 재미있냐&quot; &quot;1&quot;                        
+## [3] &quot;2&quot;                         &quot;20&quot;                       
+## [5] &quot;졸리다&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>REGEX (연습 1)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">str_replace_all(ex, &quot;1&quot;, &quot;&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;아!! R이 왜 이렇게 재미있냐?&quot; &quot;[]&quot;                          
+## [3] &quot;[2]&quot;                          &quot;[20]&quot;                        
+## [5] &quot;졸리다...&quot;
+</code></pre>
+
+<pre><code class="r">str_replace_all(ex, &quot;[1]&quot;, &quot;&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;아!! R이 왜 이렇게 재미있냐?&quot; &quot;[]&quot;                          
+## [3] &quot;[2]&quot;                          &quot;[20]&quot;                        
+## [5] &quot;졸리다...&quot;
+</code></pre>
+
+<pre><code class="r">str_replace_all(ex, &quot;\\[1\\]&quot;, &quot;&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;아!! R이 왜 이렇게 재미있냐?&quot; &quot;&quot;                            
+## [3] &quot;[2]&quot;                          &quot;[20]&quot;                        
+## [5] &quot;졸리다...&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>REGEX (연습 1)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">str_replace_all(ex, &quot;\\[[0-9]\\]&quot;, &quot;&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;아!! R이 왜 이렇게 재미있냐?&quot; &quot;&quot;                            
+## [3] &quot;&quot;                             &quot;[20]&quot;                        
+## [5] &quot;졸리다...&quot;
+</code></pre>
+
+<pre><code class="r">str_replace_all(ex, &quot;\\[[0-9]+\\]&quot;, &quot;&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;아!! R이 왜 이렇게 재미있냐?&quot; &quot;&quot;                            
+## [3] &quot;&quot;                             &quot;&quot;                            
+## [5] &quot;졸리다...&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>REGEX (연습 1)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ex &lt;- str_replace_all(ex, &quot;\\[[0-9]+\\]&quot;, &quot;&quot;)
+
+ex==&quot;&quot;
+</code></pre>
+
+<pre><code>## [1] FALSE  TRUE  TRUE  TRUE FALSE
+</code></pre>
+
+<pre><code class="r">ex!=&quot;&quot;
+</code></pre>
+
+<pre><code>## [1]  TRUE FALSE FALSE FALSE  TRUE
+</code></pre>
+
+<pre><code class="r">ex[ex!=&quot;&quot;]
+</code></pre>
+
+<pre><code>## [1] &quot;아!! R이 왜 이렇게 재미있냐?&quot; &quot;졸리다...&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>어벤져스(1페이지 웹크롤)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">movie_text &lt;- html_text(html_nodes(html_nodes(htxt, &quot;.comment&quot;),&quot;a&quot;))
+
+movie_text &lt;- str_replace_all(movie_text, &quot;\\[[0-9]+\\]&quot;, &quot;&quot;)  ##  영화평의 댓글 제거
+
+movie_text &lt;- movie_text[movie_text!=&quot;&quot;]  ##  영화평의 댓글 제거
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>FOR문 연습 &amp; IF, break 연습</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">for (i in 1:5)
+{
+    print(i)
+}
+</code></pre>
+
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+</code></pre>
+
+<pre><code class="r">for (i in 1:100)
+{
+    if(i==3) break
+    print(i)
+}
+</code></pre>
+
+<pre><code>## [1] 1
+## [1] 2
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>어벤져스 전체 페이지 웹크롤</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">movie_text_sum &lt;- c();
+
+for (page_num in 1:1000)
+{
+urls_view &lt;- paste(&quot;http://movie.daum.net/review/netizen_point/movieNetizenPoint.do?type=after&amp;op=movieId&amp;searchValue=73750&amp;page=&quot;,page_num,sep=&quot;&quot;)
+r &lt;- GET(urls_view)
+htxt &lt;- html(r)
+
+movie_text &lt;-  html_nodes(htxt, &quot;.comment&quot;)
+movie_text &lt;-  html_nodes(movie_text, &quot;a&quot;)
+movie_text &lt;-  html_text(movie_text)
+#movie_text &lt;-  html_text(html_nodes(html_nodes(htxt, &quot;.comment&quot;),&quot;a&quot;))
+
+if(length(movie_text)==0) break;
+
+movie_text &lt;- str_replace_all(movie_text, &quot;\\[[0-9]+\\]&quot;, &quot;&quot;)  ##  영화평의 댓글 제거
+movie_text &lt;- movie_text[movie_text!=&quot;&quot;]
+movie_text_sum &lt;- c(movie_text_sum, movie_text)
+print(paste(page_num, &quot;-th page&quot;, sep=&quot;&quot;))    
+}
+
+movie_text_sum &lt;- str_replace_all(movie_text_sum, &quot;\n|\n\r&quot;, &quot; &quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="dark segue nobackground" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>4. 감정사전 불러오기</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>4. 감정사전 불러오기</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">emotion_dict &lt;- read.csv(&quot;emotion_dict.csv&quot;, 
+                         header = T, 
+                         fileEncoding = fileEncoding,
+                         stringsAsFactors = F)
+</code></pre>
+
+<pre><code class="r">pos_word &lt;- subset(emotion_dict, pos_neg==&quot;pos&quot;)[,&quot;words&quot;]
+neg_word &lt;- subset(emotion_dict, pos_neg==&quot;neg&quot;)[,&quot;words&quot;]
+#emotion_dict[11:15,]; emotion_dict[1301:1305,];
+</code></pre>
+
+<h4><br></h4>
+
+<p><a href="https://www.dropbox.com/s/okv4mjiq0wlhgbl/emotion_dict.csv?dl=0">감정사전</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="dark segue nobackground" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>5. 키워드 파싱 및 추출</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>자연어 처리 문제</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><font color="red">기대</font>했던 것보다 좀 <font color="red">지루</font>했음... 와이프는 
+<font color="red">재미있다</font>고...</p>
+
+<pre><code class="r">library(&quot;KoNLP&quot;)
+extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미있다고...&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;것&quot;     &quot;지루&quot;   &quot;와이프&quot;
+</code></pre>
+
+<pre><code class="r">str_split(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미있다고...&quot;, &quot; &quot;)[[1]]
+</code></pre>
+
+<pre><code>## [1] &quot;기대했던&quot;      &quot;것보다&quot;        &quot;좀&quot;            &quot;지루했음...&quot;  
+## [5] &quot;와이프는&quot;      &quot;재미있다고...&quot;
+</code></pre>
+
+<pre><code class="r">str_sub(str_split(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미있다고...&quot;, &quot; &quot;)[[1]],1,2)
+</code></pre>
+
+<pre><code>## [1] &quot;기대&quot; &quot;것보&quot; &quot;좀&quot;   &quot;지루&quot; &quot;와이&quot; &quot;재미&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>키워드 추출 (집중!!)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>ex &lt;- &quot;기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ &gt; &lt; *&quot;</p>
+
+<ul>
+<li>Step 1) 문장 자르기(split)</li>
+</ul>
+
+<pre><code class="r">str_split(ex, &quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot; )
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] &quot;아&quot;       &quot;이&quot;       &quot;왜&quot;       &quot;이렇게&quot;   &quot;재미있냐&quot; &quot;&quot;        
+## 
+## [[2]]
+## [1] &quot;&quot;
+## 
+## [[3]]
+## [1] &quot;&quot;
+## 
+## [[4]]
+## [1] &quot;&quot;
+## 
+## [[5]]
+## [1] &quot;졸리다&quot; &quot;&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>키워드 추출 (집중!!)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Step 2) 앞 2글자 추출</li>
+</ul>
+
+<pre><code class="r">str_sub(str_split(ex, &quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot; )[[1]], 1, 2)
+</code></pre>
+
+<pre><code>## [1] &quot;아&quot;   &quot;이&quot;   &quot;왜&quot;   &quot;이렇&quot; &quot;재미&quot; &quot;&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>키워드 추출 (집중!!)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Step 3) 맞춤법 교정</li>
+</ul>
+
+<pre><code class="r">plyr::revalue(&quot;재밌&quot;, c(&quot;재밌&quot; =  &quot;재미&quot;, &quot;재믿&quot; = &quot;재미&quot;), warn_missing=F)
+</code></pre>
+
+<pre><code>## [1] &quot;재미&quot;
+</code></pre>
+
+<pre><code class="r">plyr::revalue(&quot;재믿&quot;, c(&quot;재밌&quot; =  &quot;재미&quot;, &quot;재믿&quot; = &quot;재미&quot;), warn_missing=F)
+</code></pre>
+
+<pre><code>## [1] &quot;재미&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>키워드 추출(집중!!)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Step 4) 다시 한 문장으로 합치기</li>
+</ul>
+
+<pre><code class="r">paste(c(&quot;하&quot;, &quot;R은&quot;, &quot;정말&quot;, &quot;신나&quot;), sep= &#39; &#39;)
+</code></pre>
+
+<pre><code>## [1] &quot;하&quot;   &quot;R은&quot;  &quot;정말&quot; &quot;신나&quot;
+</code></pre>
+
+<pre><code class="r">paste(c(&quot;하&quot;, &quot;R은&quot;, &quot;정말&quot;, &quot;신나&quot;),collapse=&quot; &quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;하 R은 정말 신나&quot;
+</code></pre>
+
+<pre><code class="r">paste(c(&quot;하&quot;, &quot;R은&quot;, &quot;정말&quot;, &quot;신나&quot;),collapse=&quot;+&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;하+R은+정말+신나&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>키워드 추출(어벤져스)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Step 1) 문장 자르기(split)</li>
+</ul>
+
+<pre><code class="r">key_vec &lt;- str_split(movie_text_sum[1], 
+          &quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot; )
+key_vec
+</code></pre>
+
+<pre><code>## [[1]]
+##  [1] &quot;괜찮음&quot;       &quot;시원한&quot;       &quot;액션&quot;         &quot;갠적으로&quot;    
+##  [5] &quot;캡틴아메리카&quot; &quot;너무&quot;         &quot;좋아함&quot;       &quot;헐크도&quot;      
+##  [9] &quot;좋고&quot;         &quot;&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>키워드 추출 (어벤져스)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Step 2) 앞 2글자 추출</li>
+</ul>
+
+<pre><code class="r">key_vec &lt;- str_sub(key_vec[[1]], 1, 2)
+key_vec
+</code></pre>
+
+<pre><code>##  [1] &quot;괜찮&quot; &quot;시원&quot; &quot;액션&quot; &quot;갠적&quot; &quot;캡틴&quot; &quot;너무&quot; &quot;좋아&quot; &quot;헐크&quot; &quot;좋고&quot; &quot;&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>키워드 추출 (어벤져스)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Step 3) 맞춤법 교정</li>
+</ul>
+
+<pre><code class="r">movie_name &lt;- &quot;어벤져스&quot;
+key_vec &lt;- plyr::revalue(key_vec, c(&quot;재밌&quot; = &quot;재미&quot;,
+                                    &quot;재밋&quot; = &quot;재미&quot;,
+                                    &quot;잼있&quot; = &quot;재미&quot;,
+                                    &quot;영화&quot; = movie_name,
+                                    &quot;스토&quot; = &quot;스토리&quot;,
+                                    &quot;시사&quot; = &quot;시사회&quot;,
+                                    &quot;어벤&quot; = &quot;어벤져스&quot;,
+                                    &quot;아이&quot; = &quot;아이언맨&quot;,
+                                    &quot;히어&quot; = &quot;히어로&quot;,
+                                    &quot;어밴져스&quot; = &quot;어벤져스&quot;,
+                                    &quot;캐릭&quot; = &quot;캐릭터&quot;,
+                                    &quot;울트&quot; = &quot;울트론&quot;),
+                         warn_missing = F)
+key_vec
+</code></pre>
+
+<pre><code>##  [1] &quot;괜찮&quot; &quot;시원&quot; &quot;액션&quot; &quot;갠적&quot; &quot;캡틴&quot; &quot;너무&quot; &quot;좋아&quot; &quot;헐크&quot; &quot;좋고&quot; &quot;&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>키워드 추출 (어벤져스)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Step 4) 다시 한 문장으로 합치기</li>
+</ul>
+
+<pre><code class="r">key_vec &lt;- paste(key_vec, collapse=&quot; &quot;)
+key_vec
+</code></pre>
+
+<pre><code>## [1] &quot;괜찮 시원 액션 갠적 캡틴 너무 좋아 헐크 좋고 &quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>키워드 추출 (어벤져스)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">key_vec_sum &lt;- c(); movie_name = &quot;어벤져스&quot;
+for (i in 1:length(movie_text_sum))
+{
+key_vec &lt;- str_split(movie_text_sum[i], &quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot; )
+
+key_vec &lt;- str_sub(key_vec[[1]], 1, 2)
+movie_name &lt;- &quot;어벤져스&quot;
+key_vec &lt;- plyr::revalue(key_vec, c(&quot;재밌&quot; = &quot;재미&quot;,
+                                       &quot;재밋&quot; = &quot;재미&quot;,
+                                       &quot;잼있&quot; = &quot;재미&quot;,
+                                       &quot;영화&quot; = movie_name,
+                                       &quot;스토&quot; = &quot;스토리&quot;,
+                                       &quot;시사&quot; = &quot;시사회&quot;,
+                                       &quot;어벤&quot; = &quot;어벤져스&quot;,
+                                       &quot;아이&quot; = &quot;아이언맨&quot;,
+                                       &quot;히어&quot; = &quot;히어로&quot;,
+                                       &quot;어밴져스&quot; = &quot;어벤져스&quot;,
+                                       &quot;캐릭&quot; = &quot;캐릭터&quot;,
+                                       &quot;울트&quot; = &quot;울트론&quot;),
+                        warn_missing = F)
+key_vec &lt;- c(key_vec, &#39; &#39;)  ##  윈도우 tm 버그 때문
+key_vec_sum[i] &lt;- paste(key_vec, collapse=&#39;  &#39;)  ##  두 칸 (윈도우 tm 버그 때문)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>Co-occurrence Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">dim(key_vec_sum)
+</code></pre>
+
+<pre><code>## NULL
+</code></pre>
+
+<pre><code class="r">dim(as.data.frame(key_vec_sum))
+</code></pre>
+
+<pre><code>## [1] 1737    1
+</code></pre>
+
+<pre><code class="r">key_vec_sum &lt;- Corpus(DataframeSource(as.data.frame(key_vec_sum)))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>Co-occurrence Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">delete_dic &lt;- c(&#39;그냥&#39;, &#39;너무&#39;, &#39;보고&#39;, &#39;생각&#39;, &#39;정말&#39;, &#39;그래&#39;, &#39;봤는&#39;,
+                &#39;나오&#39;, &#39;진짜&#39;, &#39;평점&#39;, &#39;보면&#39;, &#39;사람&#39;, &#39;시간&#39;, &#39;중간&#39;, &#39;느낌&#39;,
+                &#39;이런&#39;, &#39;보는&#39;, &#39;보다&#39;, &#39;편보&#39;, &#39;많이&#39;, 
+                &#39;모르&#39;, &#39;우리&#39;, &#39;그런&#39;, &#39;아니&#39;, &#39;이해&#39;, &#39;그리&#39;, &#39;하는&#39;,
+                &#39;다음&#39;, &#39;역시&#39;, &#39;없다&#39;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>Co-occurrence Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">key_vec_sum &lt;- TermDocumentMatrix(key_vec_sum,
+                                  control = list(
+                                  removeNumbers = TRUE,
+                                  wordLengths = c(2,Inf),  ##  윈도우 작동 X
+                                  removePunctuation = TRUE,
+                                  stopwords = delete_dic,
+                                  weighting = function(x) weightBin(x)))
+
+key_vec_sum &lt;- as.matrix(key_vec_sum)
+key_vec_sum &lt;- key_vec_sum[nchar(rownames(key_vec_sum))!=1,]  ##  for windows
+dim(key_vec_sum)
+</code></pre>
+
+<pre><code>## [1] 4264 1737
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Co-occurrence Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">key_vec_sum_d &lt;- key_vec_sum[order(rowSums(key_vec_sum), decreasing = T),][1:20,]
+co_matrix &lt;- key_vec_sum_d %*% t(key_vec_sum_d)
+co_matrix[1:5,1:5]
+</code></pre>
+
+<pre><code>##           Terms
+## Terms      어벤져스 재미 기대 지루 액션
+##   어벤져스      535  165   92   66   59
+##   재미          165  491   80   54   33
+##   기대           92   80  243   40   31
+##   지루           66   54   40  196   37
+##   액션           59   33   31   37  161
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>Co-occurrence Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">groups_list = list()
+groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
+groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
+groups_list
+</code></pre>
+
+<pre><code>## $비호감단어
+## [1]  2  3  4 14 15 16
+## 
+## $호감단어
+## [1]  2  3 13
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>Graph</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">qgraph(co_matrix, layout=&quot;spring&quot;, diag = F, 
+       labels = colnames(co_matrix), 
+       edge.color = &quot;darkblue&quot;, 
+       legend.cex = .7, 
+       vsize = 5,
+       label.cex = 0.3, 
+       label.color = &quot;black&quot;,
+       groups = groups_list)
+
+title(movie_name, line = 3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-44" style="background:;">
+  <hgroup>
+    <h2>Graph</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><center><img src="assets/img/result_graph.png" height="800" width="800"></center></p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -273,8 +1299,224 @@ setwd(user_path)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title=''>
+        data-slide=8 title='2. 패키지 인스톨'>
          8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='2. 패키지 인스톨'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='3. 어벤져스 웹크롤'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='3. 어벤져스 웹크롤'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='HTTP'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='다음 영화'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='어벤져스 (1페이지 웹크롤)'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title=''>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title=''>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title=''>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='REGEX (연습 1)'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='REGEX (연습 1)'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='REGEX (연습 1)'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='REGEX (연습 1)'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='어벤져스(1페이지 웹크롤)'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='FOR문 연습 &amp; IF, break 연습'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='어벤져스 전체 페이지 웹크롤'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='4. 감정사전 불러오기'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='4. 감정사전 불러오기'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='5. 키워드 파싱 및 추출'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='자연어 처리 문제'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='키워드 추출 (집중!!)'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='키워드 추출 (집중!!)'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='키워드 추출 (집중!!)'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='키워드 추출(집중!!)'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='키워드 추출(어벤져스)'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='키워드 추출 (어벤져스)'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='키워드 추출 (어벤져스)'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='키워드 추출 (어벤져스)'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='키워드 추출 (어벤져스)'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='Co-occurrence Matrix'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='Co-occurrence Matrix'>
+         39
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=40 title='Co-occurrence Matrix'>
+         40
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=41 title='Co-occurrence Matrix'>
+         41
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=42 title='Co-occurrence Matrix'>
+         42
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=43 title='Graph'>
+         43
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=44 title='Graph'>
+         44
       </a>
     </li>
   </ul>
