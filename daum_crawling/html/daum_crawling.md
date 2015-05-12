@@ -1048,7 +1048,7 @@ sapply(str_split(ex, " ")[[1]],
 
 
 ```r
-qgraph(co_matrix, layout="spring", diag = F, 
+qgraph(co_matrix, layout="spring", diag = T, 
        labels = colnames(co_matrix), 
        edge.color = "darkblue", 
        legend.cex = .7, 
@@ -1066,3 +1066,26 @@ title(movie_name, line = 3)
 
 <center><img src="assets/img/result_graph.png" height="800" width="800"></center>
 
+--- .new-background
+
+## Graph
+
+
+```r
+qgraph(co_matrix, layout="spring", diag = T, 
+       labels = colnames(co_matrix), 
+       edge.color = "darkblue", 
+       legend.cex = .7, 
+       vsize = log(diag(co_matrix2)),
+       label.cex = 0.3, 
+       label.color = "black",
+       groups = groups_list)
+
+title(movie_name, line = 3)
+```
+
+--- .new-background
+
+## Graph
+
+<center><img src="assets/img/result_graph_2.png" height="800" width="800"></center>

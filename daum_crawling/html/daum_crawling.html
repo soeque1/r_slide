@@ -1269,7 +1269,7 @@ sapply(str_split(ex, &quot; &quot;)[[1]],
     <h2>Graph</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">qgraph(co_matrix, layout=&quot;spring&quot;, diag = F, 
+    <pre><code class="r">qgraph(co_matrix, layout=&quot;spring&quot;, diag = T, 
        labels = colnames(co_matrix), 
        edge.color = &quot;darkblue&quot;, 
        legend.cex = .7, 
@@ -1291,6 +1291,38 @@ title(movie_name, line = 3)
   </hgroup>
   <article data-timings="">
     <p><center><img src="assets/img/result_graph.png" height="800" width="800"></center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-47" style="background:;">
+  <hgroup>
+    <h2>Graph</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">qgraph(co_matrix, layout=&quot;spring&quot;, diag = T, 
+       labels = colnames(co_matrix), 
+       edge.color = &quot;darkblue&quot;, 
+       legend.cex = .7, 
+       vsize = log(diag(co_matrix2)),
+       label.cex = 0.3, 
+       label.color = &quot;black&quot;,
+       groups = groups_list)
+
+title(movie_name, line = 3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-48" style="background:;">
+  <hgroup>
+    <h2>Graph</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><center><img src="assets/img/result_graph_2.png" height="800" width="800"></center></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1574,6 +1606,18 @@ title(movie_name, line = 3)
       <a href="#" target="_self" rel='tooltip' 
         data-slide=46 title='Graph'>
          46
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=47 title='Graph'>
+         47
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=48 title='Graph'>
+         48
       </a>
     </li>
   </ul>
