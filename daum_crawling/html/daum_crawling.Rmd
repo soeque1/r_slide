@@ -181,7 +181,7 @@ http://movie.daum.net
 
 --- .new-background .modal
 
-## 어벤져스 (1페이지 웹크롤)
+## 어벤져스 (1 페이지 웹크롤)
 
 ```{r, echo=T, eval=T, results='asis'}
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&t__nil_NetizenPoint=tabName"
@@ -250,7 +250,9 @@ str_replace_all(ex, "\\[[0-9]+\\]", "")
 ```{r}
 
 ex <- str_replace_all(ex, "\\[[0-9]+\\]", "")
+```
 
+```{r}
 ex==""
 ex!=""
 ex[ex!=""]
@@ -258,7 +260,7 @@ ex[ex!=""]
 
 --- .new-background
 
-## 어벤져스(1페이지 웹크롤)
+## 어벤져스 (1 페이지 웹크롤)
 
 ```{r, echo=F}
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&t__nil_NetizenPoint=tabName"
@@ -411,7 +413,7 @@ plyr::revalue("재믿", c("재밌" =  "재미", "재믿" = "재미"), warn_missi
 
 --- .new-background
 
-## 키워드 추출(집중!!)
+## 키워드 추출 (집중!!)
 
 * Step 4) 다시 한 문장으로 합치기
 ```{r, eval=T}
@@ -422,7 +424,7 @@ paste(c("하", "R은", "정말", "신나"),collapse="+")
 
 --- .new-background
 
-## 키워드 추출(어벤져스)
+## 키워드 추출 (어벤져스)
 
 * Step 1) 문장 자르기(split)
 
@@ -584,6 +586,34 @@ groups_list = list()
 groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
 groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
 groups_list
+
+```
+
+--- .new-background
+
+## 긍정과 부정 - 중복 단어
+
+```{r, eval=T}
+
+pos_neg_word <- c(pos_word, neg_word)
+pos_neg_word[duplicated(pos_neg_word)]
+
+```
+
+--- .new-background
+
+## 긍정과 부정 - 중복 단어 
+
+* 하나의 대안
+
+```{r, eval=T}
+
+negation_words <- c("없", "않", "안")
+ex <- "재미없다. 기대안했다 헐크 웃기다 웃음!!"
+sapply(str_split(ex, " ")[[1]], 
+       function(x) if ( str_sub(x,3,3) %in% negation_words )
+                        str_sub(x,1,3) else { str_sub(x,1,2) },
+       USE.NAMES = F)
 
 ```
 
