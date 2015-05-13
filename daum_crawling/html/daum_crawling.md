@@ -14,6 +14,10 @@ highlighter : highlight.js  # {highlight.js, prettify, highlight}
 knit        : slidify::knit2slides
 ---
 
+<center><img src="assets/img/quantlab.png" height=600px width=800px></center>
+
+--- .new-background
+
 ## 영화 자료를 이용한 다양한 분석
 
 <h3>Topics</h3>
@@ -1045,6 +1049,14 @@ split_12(ex)
 
 
 
+
+```r
+movie_text_sum[1]
+```
+
+```
+## [1] "괜찮음.. 시원한 액션.. 갠적으로 캡틴아메리카 너무 좋아함. 헐크도 좋고.. ♥♥♥"
+```
 
 ```r
 key_vec <- SimplePos09(movie_text_sum[1])

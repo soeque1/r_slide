@@ -14,6 +14,10 @@ highlighter : highlight.js  # {highlight.js, prettify, highlight}
 knit        : slidify::knit2slides
 ---
 
+<center><img src="assets/img/quantlab.png" height=600px width=800px></center>
+
+--- .new-background
+
 ## 영화 자료를 이용한 다양한 분석
 
 <h3>Topics</h3>
@@ -598,6 +602,7 @@ movie_text_sum <- movie_text_sum[[1]]
 ```
 
 ```{r, eval=T, include=T}
+movie_text_sum[1]
 key_vec <- SimplePos09(movie_text_sum[1])
 key_vec <- paste(SimplePos09(movie_text_sum[1]),"")
 key_vec
