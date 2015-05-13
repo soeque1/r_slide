@@ -30,8 +30,7 @@ knit        : slidify::knit2slides
 
 --- &twocol w1:50% w2:50% .new-background
 
-## 영화 자료를 이용한 분석 예시
-- Text
+## 분석 예시 - Text
 
 *** =left
 <center><img src="assets/img/before_imitation.png" height="500" width="500"></center>
@@ -41,17 +40,15 @@ knit        : slidify::knit2slides
 
 --- .new-background
 
-## 영화 자료를 이용한 분석 예시
-- Self-Rating
+## 분석 예시 - Self-Rating
 
-<center><img src="assets/img/foulball.png" height="800" width="750"></center>
+<center><img src="assets/img/foulball.png" height="600" width="650"></center>
 
 --- .new-background
 
-## 영화 자료를 이용한 분석 예시
-- Self-Rating & Text
+## 분석 예시 - Self-Rating & Text
 
-<center><img src="assets/img/sentiment.png" height="800" width="750"></center>
+<center><img src="assets/img/sentiment.png" height="600" width="650"></center>
 
 --- .new-background
 
@@ -66,7 +63,7 @@ knit        : slidify::knit2slides
 <h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
 <h3 style="text-align:left">7. 시각화</h3>  
 
---- &twocol w1:35% w2:65% .new-background
+--- &twocol w1:40% w2:60% .new-background
 
 ## 목차
 
@@ -777,7 +774,7 @@ title(movie_name, line = 3)
 
 ## Graph
 
-<center><img src="assets/img/result_graph.png" height="800" width="800"></center>
+<center><img src="assets/img/result_graph.png" height="500" width="500"></center>
 
 --- .new-background
 
@@ -802,4 +799,4 @@ title(movie_name, line = 3)
 
 ## Graph
 
-<center><img src="assets/img/result_graph_2.png" height="800" width="800"></center>
+<center><img src="assets/img/result_graph_2.png" height="500" width="500"></center>
