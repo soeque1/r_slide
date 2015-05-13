@@ -1267,10 +1267,16 @@ result
 <pre><code>## [1] &quot;기대  재밌음     보   &quot;
 </code></pre>
 
-<pre><code class="r">ex  ##  앞 두글자가 오히려 좋을 수도
+<pre><code class="r">ex  ##  앞 두 글자가 오히려 좋을 수도
 </code></pre>
 
 <pre><code>## [1] &quot;기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ &gt; &lt; *&quot;
+</code></pre>
+
+<pre><code class="r">split_12(ex)
+</code></pre>
+
+<pre><code>## [1] &quot;기대&quot; &quot;아주&quot; &quot;재밌&quot; &quot;!!&quot;   &quot;꼭&quot;   &quot;봐요&quot; &quot;&gt;&quot;    &quot;&lt;&quot;    &quot;*&quot;
 </code></pre>
 
   </article>
@@ -1315,6 +1321,10 @@ key_vec
 
 <pre><code class="r">key_vec &lt;- str_extract_all(key_vec,&quot;[가-힣]+/P|[가-힣]+/N&quot;)
 key_vec &lt;- paste(key_vec, collapse=&quot; &quot;)
+key_vec
+</code></pre>
+
+<pre><code>## [1] &quot;괜찮/P character(0) 시원한/N 액션/N character(0) c(\&quot;개/P\&quot;, \&quot;적/N\&quot;) 캡틴아메리카/N character(0) c(\&quot;좋/P\&quot;, \&quot;하/P\&quot;) character(0) 헐크도/N 좋/P character(0) character(0)&quot;
 </code></pre>
 
   </article>
@@ -1333,6 +1343,13 @@ key_vec &lt;- paste(key_vec, collapse=&quot; &quot;)
 <pre><code class="r">key_vec &lt;- str_replace_all(key_vec,&quot;[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot;,&quot;&quot;)
 key_vec &lt;- str_split(key_vec, &quot; &quot;)
 key_vec &lt;- key_vec[[1]]
+key_vec
+</code></pre>
+
+<pre><code>##  [1] &quot;괜찮&quot;         &quot;&quot;             &quot;시원한&quot;       &quot;액션&quot;        
+##  [5] &quot;&quot;             &quot;개&quot;           &quot;적&quot;           &quot;캡틴아메리카&quot;
+##  [9] &quot;&quot;             &quot;좋&quot;           &quot;하&quot;           &quot;&quot;            
+## [13] &quot;헐크도&quot;       &quot;좋&quot;           &quot;&quot;             &quot;&quot;
 </code></pre>
 
   </article>

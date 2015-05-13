@@ -579,7 +579,8 @@ result
 ```{r, eval=T}
 result <- str_replace_all(result,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
 result
-ex  ##  앞 두글자가 오히려 좋을 수도
+ex  ##  앞 두 글자가 오히려 좋을 수도
+split_12(ex)
 ```
 
 --- .new-background
@@ -609,9 +610,9 @@ key_vec
 * Step (2) 체언(N)과 용언(P) 추출
 
 ```{r, eval=T, include=T}
-
 key_vec <- str_extract_all(key_vec,"[가-힣]+/P|[가-힣]+/N")
 key_vec <- paste(key_vec, collapse=" ")
+key_vec
 ```
 
 --- .new-background .modal
@@ -621,10 +622,10 @@ key_vec <- paste(key_vec, collapse=" ")
 * Step (3) 파싱(문장 자르기)
 
 ```{r, eval=T, include=T}
-
 key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
 key_vec <- str_split(key_vec, " ")
 key_vec <- key_vec[[1]]
+key_vec
 ```
 
 --- .new-background .modal

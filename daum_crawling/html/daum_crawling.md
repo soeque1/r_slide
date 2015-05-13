@@ -1022,11 +1022,19 @@ result
 ```
 
 ```r
-ex  ##  앞 두글자가 오히려 좋을 수도
+ex  ##  앞 두 글자가 오히려 좋을 수도
 ```
 
 ```
 ## [1] "기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ > < *"
+```
+
+```r
+split_12(ex)
+```
+
+```
+## [1] "기대" "아주" "재밌" "!!"   "꼭"   "봐요" ">"    "<"    "*"
 ```
 
 --- .new-background
@@ -1064,6 +1072,11 @@ key_vec
 ```r
 key_vec <- str_extract_all(key_vec,"[가-힣]+/P|[가-힣]+/N")
 key_vec <- paste(key_vec, collapse=" ")
+key_vec
+```
+
+```
+## [1] "괜찮/P character(0) 시원한/N 액션/N character(0) c(\"개/P\", \"적/N\") 캡틴아메리카/N character(0) c(\"좋/P\", \"하/P\") character(0) 헐크도/N 좋/P character(0) character(0)"
 ```
 
 --- .new-background .modal
@@ -1077,6 +1090,14 @@ key_vec <- paste(key_vec, collapse=" ")
 key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
 key_vec <- str_split(key_vec, " ")
 key_vec <- key_vec[[1]]
+key_vec
+```
+
+```
+##  [1] "괜찮"         ""             "시원한"       "액션"        
+##  [5] ""             "개"           "적"           "캡틴아메리카"
+##  [9] ""             "좋"           "하"           ""            
+## [13] "헐크도"       "좋"           ""             ""
 ```
 
 --- .new-background .modal
