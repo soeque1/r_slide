@@ -692,6 +692,7 @@ print(paste(page_num, "-th page", sep=""))
 
 movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 ```
+
 --- .dark .segue .nobackground
 
 ## 4. 감정사전 불러오기
@@ -1133,7 +1134,7 @@ co_matrix[1:5,1:5]
 
 --- .new-background
 
-## TermxDocument Matrix와 감정 사전
+## Term x Document Matrix와 감정 사전
 
 
 ```r

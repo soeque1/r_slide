@@ -899,15 +899,21 @@ print(paste(page_num, &quot;-th page&quot;, sep=&quot;&quot;))
 movie_text_sum &lt;- str_replace_all(movie_text_sum, &quot;\n|\n\r&quot;, &quot; &quot;)
 </code></pre>
 
-<p>--- .dark .segue .nobackground</p>
-
-<h2>4. 감정사전 불러오기</h2>
-
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-31" style="background:;">
+<slide class="dark segue nobackground" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>4. 감정사전 불러오기</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-32" style="background:;">
   <hgroup>
     <h2>4. 감정사전 불러오기</h2>
   </hgroup>
@@ -920,7 +926,7 @@ movie_text_sum &lt;- str_replace_all(movie_text_sum, &quot;\n|\n\r&quot;, &quot;
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-32" style="background:;">
+<slide class="new-background" id="slide-33" style="background:;">
   <hgroup>
     <h2>4. 감정사전 불러오기</h2>
   </hgroup>
@@ -944,7 +950,7 @@ neg_word &lt;- subset(emotion_dict, pos_neg==&quot;neg&quot;)[,&quot;words&quot;
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-33" style="background:;">
+<slide class="dark segue nobackground" id="slide-34" style="background:;">
   <hgroup>
     <h2>5. 키워드 파싱 및 추출</h2>
   </hgroup>
@@ -954,7 +960,7 @@ neg_word &lt;- subset(emotion_dict, pos_neg==&quot;neg&quot;)[,&quot;words&quot;
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-34" style="background:;">
+<slide class="new-background" id="slide-35" style="background:;">
   <hgroup>
     <h2>5. 키워드 파싱 및 추출</h2>
   </hgroup>
@@ -974,7 +980,7 @@ neg_word &lt;- subset(emotion_dict, pos_neg==&quot;neg&quot;)[,&quot;words&quot;
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-35" style="background:;">
+<slide class="new-background modal" id="slide-36" style="background:;">
   <hgroup>
     <h2>R에서 자연어 처리 문제</h2>
   </hgroup>
@@ -1006,7 +1012,7 @@ extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-36" style="background:;">
+<slide class="new-background modal" id="slide-37" style="background:;">
   <hgroup>
     <h2>키워드 추출 (집중!!)</h2>
   </hgroup>
@@ -1030,7 +1036,7 @@ result
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-37" style="background:;">
+<slide class="new-background" id="slide-38" style="background:;">
   <hgroup>
     <h2>키워드 추출 (집중!!)</h2>
   </hgroup>
@@ -1050,7 +1056,7 @@ result
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-38" style="background:;">
+<slide class="new-background" id="slide-39" style="background:;">
   <hgroup>
     <h2>키워드 추출 (집중!!)</h2>
   </hgroup>
@@ -1075,7 +1081,7 @@ result
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-39" style="background:;">
+<slide class="new-background" id="slide-40" style="background:;">
   <hgroup>
     <h2>키워드 추출 (집중!!)</h2>
   </hgroup>
@@ -1106,7 +1112,7 @@ result
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-40" style="background:;">
+<slide class="new-background" id="slide-41" style="background:;">
   <hgroup>
     <h2>키워드 추출 (어벤져스)</h2>
   </hgroup>
@@ -1130,7 +1136,7 @@ key_vec
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-41" style="background:;">
+<slide class="new-background" id="slide-42" style="background:;">
   <hgroup>
     <h2>키워드 추출 (어벤져스)</h2>
   </hgroup>
@@ -1150,7 +1156,7 @@ key_vec
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-42" style="background:;">
+<slide class="new-background modal" id="slide-43" style="background:;">
   <hgroup>
     <h2>키워드 추출 (어벤져스)</h2>
   </hgroup>
@@ -1183,7 +1189,7 @@ key_vec
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-43" style="background:;">
+<slide class="new-background" id="slide-44" style="background:;">
   <hgroup>
     <h2>키워드 추출 (어벤져스)</h2>
   </hgroup>
@@ -1203,7 +1209,7 @@ key_vec
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-44" style="background:;">
+<slide class="new-background modal" id="slide-45" style="background:;">
   <hgroup>
     <h2>키워드 추출 (어벤져스)</h2>
   </hgroup>
@@ -1237,7 +1243,7 @@ key_vec_sum[i] &lt;- paste(key_vec, collapse=&#39;  &#39;)  ##  두 칸 (윈도�
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-45" style="background:;">
+<slide class="dark segue nobackground" id="slide-46" style="background:;">
   <hgroup>
     <h2>6. Co-occurrence Matrix</h2>
   </hgroup>
@@ -1247,7 +1253,7 @@ key_vec_sum[i] &lt;- paste(key_vec, collapse=&#39;  &#39;)  ##  두 칸 (윈도�
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-46" style="background:;">
+<slide class="new-background" id="slide-47" style="background:;">
   <hgroup>
     <h2>6. Co-occurrence Matrix</h2>
   </hgroup>
@@ -1260,7 +1266,7 @@ key_vec_sum[i] &lt;- paste(key_vec, collapse=&#39;  &#39;)  ##  두 칸 (윈도�
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-47" style="background:;">
+<slide class="new-background" id="slide-48" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1291,7 +1297,7 @@ key_vec_sum[i] &lt;- paste(key_vec, collapse=&#39;  &#39;)  ##  두 칸 (윈도�
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-48" style="background:;">
+<slide class="new-background" id="slide-49" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1311,7 +1317,7 @@ key_vec_sum[i] &lt;- paste(key_vec, collapse=&#39;  &#39;)  ##  두 칸 (윈도�
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-49" style="background:;">
+<slide class="new-background" id="slide-50" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1336,7 +1342,7 @@ dim(key_vec_sum)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-50" style="background:;">
+<slide class="new-background" id="slide-51" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1366,7 +1372,7 @@ ex
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-51" style="background:;">
+<slide class="new-background" id="slide-52" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1390,7 +1396,7 @@ ex
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-52" style="background:;">
+<slide class="new-background modal" id="slide-53" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1413,9 +1419,9 @@ co_matrix[1:5,1:5]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-53" style="background:;">
+<slide class="new-background" id="slide-54" style="background:;">
   <hgroup>
-    <h2>TermxDocument Matrix와 감정 사전</h2>
+    <h2>Term x Document Matrix와 감정 사전</h2>
   </hgroup>
   <article data-timings="">
     <pre><code class="r">groups_list = list()
@@ -1435,7 +1441,7 @@ groups_list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-54" style="background:;">
+<slide class="new-background" id="slide-55" style="background:;">
   <hgroup>
     <h2>긍정과 부정 - 중복 단어</h2>
   </hgroup>
@@ -1455,7 +1461,7 @@ pos_neg_word[duplicated(pos_neg_word)]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-55" style="background:;">
+<slide class="new-background" id="slide-56" style="background:;">
   <hgroup>
     <h2>긍정과 부정 - 중복 단어</h2>
   </hgroup>
@@ -1479,7 +1485,7 @@ sapply(str_split(ex, &quot; &quot;)[[1]],
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-56" style="background:;">
+<slide class="dark segue nobackground" id="slide-57" style="background:;">
   <hgroup>
     <h2>7. 시각화</h2>
   </hgroup>
@@ -1489,7 +1495,7 @@ sapply(str_split(ex, &quot; &quot;)[[1]],
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-57" style="background:;">
+<slide class="new-background" id="slide-58" style="background:;">
   <hgroup>
     <h2>7. 시각화</h2>
   </hgroup>
@@ -1501,7 +1507,7 @@ sapply(str_split(ex, &quot; &quot;)[[1]],
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-58" style="background:;">
+<slide class="new-background" id="slide-59" style="background:;">
   <hgroup>
     <h2>Graph</h2>
   </hgroup>
@@ -1522,7 +1528,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-59" style="background:;">
+<slide class="new-background" id="slide-60" style="background:;">
   <hgroup>
     <h2>Graph</h2>
   </hgroup>
@@ -1533,7 +1539,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-60" style="background:;">
+<slide class="new-background" id="slide-61" style="background:;">
   <hgroup>
     <h2>Graph</h2>
   </hgroup>
@@ -1554,7 +1560,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-61" style="background:;">
+<slide class="new-background" id="slide-62" style="background:;">
   <hgroup>
     <h2>Graph</h2>
   </hgroup>
@@ -1763,7 +1769,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=33 title='5. 키워드 파싱 및 추출'>
+        data-slide=33 title='4. 감정사전 불러오기'>
          33
       </a>
     </li>
@@ -1775,13 +1781,13 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=35 title='R에서 자연어 처리 문제'>
+        data-slide=35 title='5. 키워드 파싱 및 추출'>
          35
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=36 title='키워드 추출 (집중!!)'>
+        data-slide=36 title='R에서 자연어 처리 문제'>
          36
       </a>
     </li>
@@ -1805,7 +1811,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=40 title='키워드 추출 (어벤져스)'>
+        data-slide=40 title='키워드 추출 (집중!!)'>
          40
       </a>
     </li>
@@ -1835,7 +1841,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=45 title='6. Co-occurrence Matrix'>
+        data-slide=45 title='키워드 추출 (어벤져스)'>
          45
       </a>
     </li>
@@ -1847,7 +1853,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=47 title='Term x Document Matrix'>
+        data-slide=47 title='6. Co-occurrence Matrix'>
          47
       </a>
     </li>
@@ -1871,7 +1877,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=51 title='Co-occurrence Matrix'>
+        data-slide=51 title='Term x Document Matrix'>
          51
       </a>
     </li>
@@ -1883,13 +1889,13 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=53 title='TermxDocument Matrix와 감정 사전'>
+        data-slide=53 title='Co-occurrence Matrix'>
          53
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=54 title='긍정과 부정 - 중복 단어'>
+        data-slide=54 title='Term x Document Matrix와 감정 사전'>
          54
       </a>
     </li>
@@ -1901,7 +1907,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=56 title='7. 시각화'>
+        data-slide=56 title='긍정과 부정 - 중복 단어'>
          56
       </a>
     </li>
@@ -1913,7 +1919,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=58 title='Graph'>
+        data-slide=58 title='7. 시각화'>
          58
       </a>
     </li>
@@ -1933,6 +1939,12 @@ title(movie_name, line = 3)
       <a href="#" target="_self" rel='tooltip' 
         data-slide=61 title='Graph'>
          61
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=62 title='Graph'>
+         62
       </a>
     </li>
   </ul>
