@@ -204,7 +204,7 @@ library("qgraph")
 
 <h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
 <h3b> - 웹사이트 배경지식</h3b>  
-<h3b> - Regualr Expression(REGEX)</h3b>  
+<h3b> - Regualr Expression (REGEX)</h3b>  
 <h3b> - 단일 페이지 웹크롤</h3b>  
 <h3b> - 복수 페이지 웹크롤</h3b>  
 
@@ -484,6 +484,10 @@ html_text(html_nodes(html_nodes(htxt, ".comment"),"a"))
 [14] "만드느라 고생했다 4점..                    "                                                                                                                                                                       
 [15] "짐 7시50분꺼 보고나왔는데지루하고산만하고                     "                                                                                                                                                    
 
+--- .dark .segue .nobackground
+
+## R 연습 (REGEX & FOR, IF)
+
 --- .new-background .modal
 
 ## REGEX (연습 1)
@@ -614,24 +618,9 @@ ex[ex!=""]
 ## [1] "아!! R이 왜 이렇게 재미있냐?" "졸리다..."
 ```
 
---- .new-background
-
-## 어벤져스 (1 페이지 웹크롤)
-
-
-
-
-```r
-movie_text <- html_text(html_nodes(html_nodes(htxt, ".comment"),"a"))
-
-movie_text <- str_replace_all(movie_text, "\\[[0-9]+\\]", "")  ##  영화평의 댓글 제거
-
-movie_text <- movie_text[movie_text!=""]  ##  영화평의 댓글 제거
-```
-
 --- .new-background .modal
 
-## FOR문 연습 & IF, break 연습
+## FOR & IF, break (연습 2)
 
 
 ```r
@@ -661,6 +650,21 @@ for (i in 1:100)
 ```
 ## [1] 1
 ## [1] 2
+```
+
+--- .new-background
+
+## 어벤져스 (1 페이지 웹크롤)
+
+
+
+
+```r
+movie_text <- html_text(html_nodes(html_nodes(htxt, ".comment"),"a"))
+
+movie_text <- str_replace_all(movie_text, "\\[[0-9]+\\]", "")  ##  영화평의 댓글 제거
+
+movie_text <- movie_text[movie_text!=""]  ##  영화평의 댓글 제거
 ```
 
 --- .new-background .modal
@@ -738,16 +742,22 @@ neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
 ## 5. 키워드 파싱 및 추출
 
 <h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+
 <h3b> - R에서 자연어 처리 문제</h3b>  
-<h3b> - 키워드 추출</h3b>
-- 문장 자르기
-- 앞글자 추출
-- 맞춤법 교정
-- 한 문장으로 합치기
 
---- .new-background .modal
+<h3b> - 키워드 추출 방법 1 (KoNLP 사용)</h3b>  
+- Step 1) POS Tagging  
+- Step 2) 체언(명사)과 용언(형용사/동사) 추출  
+- Step 3) 문장 자르기  
+- Step 4) 맞춤법 교정  
+- Step 5) 문장 합치기  
 
-## R에서 자연어 처리 문제
+<h3b> - 키워드 추출 방법 2 (앞 두 글자 자르기) - APPENDIX </h3b>
+
+
+--- .new-background
+
+## R에서 자연어 처리 (KoNLP)
 
 <font color="red">기대</font>했던 것보다 좀 <font color="red">지루</font>했음... 와이프는 
 <font color="red">재미있다</font>고...
@@ -763,28 +773,34 @@ extractNoun("기대했던 것보다 좀 지루했음... 와이프는 재미있�
 ```
 
 
-```r
-str_split("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...", " ")[[1]]
-```
 
-```
-## [1] "기대했던"      "것보다"        "좀"            "지루했음..."  
-## [5] "와이프는"      "재미있다고..."
-```
 
 ```r
-str_sub(str_split("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...", " ")[[1]],1,2)
+split_12("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
 ```
 
 ```
 ## [1] "기대" "것보" "좀"   "지루" "와이" "재미"
 ```
 
---- .new-background .modal
 
-## 키워드 추출 (집중!!)
 
-* Step 1) 문장 자르기(split)
+
+```r
+extractNounVerbAdj("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
+```
+
+```
+## [1] "기대 하 것  지루  와이프 재미있 "
+```
+
+--- .dark .segue .nobackground
+
+## R 연습
+
+--- .new-background
+
+## 문장 자르기(split) (연습 3)
 
 
 ```r
@@ -804,9 +820,7 @@ result
 
 --- .new-background
 
-## 키워드 추출 (집중!!)
-
-* Step 2) 앞 2글자 추출
+## 앞 2글자 추출 (연습 4)
 
 
 ```r
@@ -820,9 +834,8 @@ result
 
 --- .new-background
 
-## 키워드 추출 (집중!!)
+## 맞춤법 교정 (연습 5)
 
-* Step 3) 맞춤법 교정
 
 ```r
 plyr::revalue("재밌", c("재밌" =  "재미", "재믿" = "재미"), warn_missing=F)
@@ -842,9 +855,8 @@ plyr::revalue(result, c("재밌" =  "재미", "재믿" = "재미"), warn_missing
 
 --- .new-background
 
-## 키워드 추출 (집중!!)
+## 한 문장으로 합치기 (연습 6)
 
-* Step 4) 다시 한 문장으로 합치기
 
 ```r
 paste(c("하", "R은", "정말", "신나"), sep= ' ')
@@ -855,7 +867,7 @@ paste(c("하", "R은", "정말", "신나"), sep= ' ')
 ```
 
 ```r
-paste(c("하", "R은", "정말", "신나"),collapse=" ")
+paste(c("하", "R은", "정말", "신나"), collapse=" ")
 ```
 
 ```
@@ -863,12 +875,526 @@ paste(c("하", "R은", "정말", "신나"),collapse=" ")
 ```
 
 ```r
-paste(c("하", "R은", "정말", "신나"),collapse="+")
+paste(c("하", "R은", "정말", "신나"), collapse="+")
 ```
 
 ```
 ## [1] "하+R은+정말+신나"
 ```
+
+--- .new-background .modal
+
+## POS Tagging (연습 7)
+
+
+```r
+SimplePos09(ex)
+```
+
+```
+## $기대보다
+## [1] "기대/N+보다/J"
+## 
+## $아주
+## [1] "아주/M"
+## 
+## $재밌음
+## [1] "재밌음/N"
+## 
+## $`!!!!!`
+## [1] "!!!!!/S"
+## 
+## $`!!!`
+## [1] "!!!/S"
+## 
+## $`!!`
+## [1] "!!/S"
+## 
+## $꼭
+## [1] "꼭/M"
+## 
+## $`봐요~`
+## [1] "보/P+아/E+~/S"
+## 
+## $`>`
+## [1] ">/S"
+## 
+## $`<`
+## [1] "</S"
+## 
+## $`*`
+## [1] "*/S"
+```
+
+--- .new-background .modal
+
+## POS Tagging (연습 7)
+
+[태그 메뉴얼(pp.16 ~ 17)](http://kldp.net/projects/hannanum/forum/316173)
+
+
+```r
+result <- paste(SimplePos09(ex))
+result
+```
+
+```
+##  [1] "기대/N+보다/J" "아주/M"        "재밌음/N"      "!!!!!/S"      
+##  [5] "!!!/S"         "!!/S"          "꼭/M"          "보/P+아/E+~/S"
+##  [9] ">/S"           "</S"           "*/S"
+```
+
+--- .new-background .modal
+
+## POS Tagging (연습 7)
+
+- 체언(N)과 용언(P)만 추출  
+- 체언(N) : 보통명사 + 고유명사 + 의존명사 + 대명사 + 수사  
+- 용언(P) : 동사 + 형용사 + 보조용언
+
+
+```r
+result <- str_extract_all(result,"[가-힣]+/P|[가-힣]+/N")
+result
+```
+
+```
+## [[1]]
+## [1] "기대/N"
+## 
+## [[2]]
+## character(0)
+## 
+## [[3]]
+## [1] "재밌음/N"
+## 
+## [[4]]
+## character(0)
+## 
+## [[5]]
+## character(0)
+## 
+## [[6]]
+## character(0)
+## 
+## [[7]]
+## character(0)
+## 
+## [[8]]
+## [1] "보/P"
+## 
+## [[9]]
+## character(0)
+## 
+## [[10]]
+## character(0)
+## 
+## [[11]]
+## character(0)
+```
+
+--- .new-background .modal
+
+## 체언과 용언 추출 (연습 8)
+
+
+```r
+result <- paste(result, collapse = " ")
+result
+```
+
+```
+## [1] "기대/N character(0) 재밌음/N character(0) character(0) character(0) character(0) 보/P character(0) character(0) character(0)"
+```
+
+--- .new-background .modal
+
+## 체언과 용언 추출 (연습 8)
+
+
+```r
+result <- str_replace_all(result,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
+result
+```
+
+```
+## [1] "기대  재밌음     보   "
+```
+
+```r
+ex  ##  앞 두글자가 오히려 좋을 수도
+```
+
+```
+## [1] "기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ > < *"
+```
+
+--- .new-background
+
+## 키워드 추출 (어벤져스)
+
+* Step (1) POS Tagging
+
+
+
+
+```r
+key_vec <- SimplePos09(movie_text_sum[1])
+key_vec <- paste(SimplePos09(movie_text_sum[1]),"")
+key_vec
+```
+
+```
+##  [1] "괜찮/P+음/E "           "../S "                 
+##  [3] "시원한/N "              "액션/N "               
+##  [5] "../S "                  "개/P+ㄴ/E+적/N+으로/J "
+##  [7] "캡틴아메리카/N "        "너무/M "               
+##  [9] "좋/P+아/E+하/P+ㅁ/E "   "./S "                  
+## [11] "헐크도/N "              "좋/P+고/E "            
+## [13] "../S "                  "♥♥♥/N "
+```
+
+--- .new-background
+
+## 키워드 추출 (어벤져스)
+
+* Step (2) 체언(N)과 용언(P) 추출
+
+
+```r
+key_vec <- str_extract_all(key_vec,"[가-힣]+/P|[가-힣]+/N")
+key_vec <- paste(key_vec, collapse=" ")
+```
+
+--- .new-background .modal
+
+## 키워드 추출 (어벤져스)
+
+* Step (3) 파싱(문장 자르기)
+
+
+```r
+key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
+key_vec <- str_split(key_vec, " ")
+key_vec <- key_vec[[1]]
+```
+
+--- .new-background .modal
+
+## 키워드 추출 (어벤져스)
+
+* Step (4) 맞춤법 교정
+
+
+```r
+movie_name <- "어벤져스"
+key_vec <- plyr::revalue(key_vec, c("재밌" = "재미",
+                                    "재밋" = "재미",
+                                    "잼있" = "재미",
+                                    "재밌음" = "재미",
+                                    "재미있" = "재미",
+                                    "지루함" = "지루",
+                                    "좋" = "좋음",
+                                    "영화" = movie_name,
+                                    "캐릭" = "캐릭터"),
+                         warn_missing = F)
+key_vec
+```
+
+```
+##  [1] "괜찮"         ""             "시원한"       "액션"        
+##  [5] ""             "개"           "적"           "캡틴아메리카"
+##  [9] ""             "좋음"         "하"           ""            
+## [13] "헐크도"       "좋음"         ""             ""
+```
+
+--- .new-background
+
+## 키워드 추출 (어벤져스)
+
+* Step (5) 다시 한 문장으로 합치기
+
+
+```r
+key_vec <- paste(key_vec, collapse=" ")
+key_vec
+```
+
+```
+## [1] "괜찮  시원한 액션  개 적 캡틴아메리카  좋음 하  헐크도 좋음  "
+```
+
+--- .new-background .modal
+
+## 키워드 추출 (어벤져스)
+
+
+```r
+key_vec_sum <- c(); movie_name = "어벤져스"
+for (i in 1:length(movie_text_sum))
+{
+key_vec <- paste(SimplePos09(movie_text_sum[i]))
+key_vec <- str_extract_all(key_vec,"[가-힣]+/P|[가-힣]+/N")
+key_vec <- paste(key_vec, collapse=" ")
+key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
+key_vec <- str_split(key_vec, " ")
+key_vec <- key_vec[[1]]
+movie_name <- "어벤져스"
+key_vec <- plyr::revalue(key_vec, c("재밌" = "재미",
+                                     "재밋" = "재미",
+                                     "잼있" = "재미",
+                                     "재밌음" = "재미",
+                                     "재미있" = "재미",
+                                     "지루함" = "지루",
+                                     "좋" = "좋음",
+                                     "영화" = movie_name,
+                                     "캐릭" = "캐릭터"),
+                        warn_missing = F)
+key_vec <- c(key_vec, ' ')  ##  윈도우 tm 버그 때문
+key_vec_sum[i] <- paste(key_vec, collapse='  ')  ##  두 칸 (윈도우 tm 버그 때문)
+}
+```
+
+```
+## Warning: It's not kind of right sentence : '재미겁나.없음.스토리자체가어거지로맞츠는데, '
+## Warning: It's not kind of right sentence : '꾸벅꾸벅...........억지로봤네요.........'
+## Warning: It's not kind of right sentence : '저는개인적으로1편보단재밌게봤습니다솔직히첨부분은지루한점은있었는데중반부터재밌더라고요역시CG가대단합니다.서울에서찍은장면도기대이상이였습니다'
+## Warning: It's not kind of right sentence : '재미없다는사람들대체이때까지어떤영화를본거지....핵꿀잼이던데...'
+## Warning: It's not kind of right sentence : '그냥자다가다시일어나서보고ㅜ별로모르겟음ㅜㅜ'
+## Warning: It's not kind of right sentence : '계속지네들끼리싸우다가적하고싸우다가또지들끼리싸운다...그러다또적하고싸우고ㅡㅡ지루한건사실이다..새로운인물들이나타날때마다몰입도는떨어져갔다..그러나한국을알리는데는도움이될거같았다..씬도어느정도중요했고..음..딱히재미있는영화라고는못하겠다..그냥그냥볼만한영화?ㅎ그이상그이하도아닌거같았다'
+```
+
+--- .dark .segue .nobackground
+
+## 6. Co-occurrence Matrix
+
+--- .new-background
+
+## 6. Co-occurrence Matrix
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Term x Document Matrix</h3b>  
+<h3b> - Co-occurrence Matrix</h3b>
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+* 단어에 대하여 Weight
+* 문서 내 단어에 대하여 Weight 
+* 모형에 따라 다양한 방식으로 처리
+
+
+```r
+dim(key_vec_sum)
+```
+
+```
+## NULL
+```
+
+```r
+dim(as.data.frame(key_vec_sum))
+```
+
+```
+## [1] 1737    1
+```
+
+```r
+key_corpus <- Corpus(DataframeSource(as.data.frame(key_vec_sum)))
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거
+
+
+```r
+delete_dic <- c('그냥', '너무', '보고', '생각', '정말', '그래', '봤는',
+                '나오', '진짜', '평점', '보면', '사람', '중간', '느낌',
+                '이런', '보는', '보다', '편보', '많이', 
+                '모르', '우리', '그런', '아니', '이해', '그리', '하는',
+                '다음', '역시', '없다', '보이', '만들', '그러', '못하', '그렇',
+                '위하', '느끼')
+```
+
+--- .new-background .modal
+
+## Term x Document Matrix
+
+
+```r
+key_tdm <- TermDocumentMatrix(key_corpus,
+                              control = list(
+                              removeNumbers = TRUE,
+                              wordLengths = c(2,Inf),  ##  윈도우 작동 X
+                              removePunctuation = TRUE,
+                              stopwords = delete_dic,
+                              weighting = function(x) weightBin(x)))
+                                  
+key_tdm <- as.matrix(key_tdm)
+key_tdm <- key_tdm[nchar(rownames(key_tdm))!=1,]  ##  for windows
+dim(key_tdm)
+```
+
+```
+## [1] 5507 1737
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+* Binary Weight (boolean)
+
+
+```r
+ex <- matrix(c(1,1,1,0,
+               1,0,1,0,
+               0,1,0,1), 
+               nrow=4)
+rownames(ex) <- c("아이폰", "갤럭시", "좋다", "나쁘다")
+colnames(ex) <- c("사람1", "사람2", "사람3")
+ex
+```
+
+```
+##        사람1 사람2 사람3
+## 아이폰     1     1     0
+## 갤럭시     1     0     1
+## 좋다       1     1     0
+## 나쁘다     0     0     1
+```
+
+--- .new-background
+
+## Co-occurrence Matrix
+
+* 특정 단어와 다른 단어가 동시에 영화평 내에서 발생한 것을 Counts
+* 예시)
+
+
+```r
+ex %*% t(ex)
+```
+
+```
+##        아이폰 갤럭시 좋다 나쁘다
+## 아이폰      2      1    2      0
+## 갤럭시      1      2    1      1
+## 좋다        2      1    2      0
+## 나쁘다      0      1    0      1
+```
+
+
+--- .new-background .modal
+
+## Co-occurrence Matrix
+
+
+```r
+key_tdm <- key_tdm[order(rowSums(key_tdm), decreasing = T),][1:20,]
+co_matrix <- key_tdm %*% t(key_tdm)
+co_matrix[1:5,1:5]
+```
+
+```
+##           Terms
+## Terms      어벤져스 재미 기대 스토리 지루
+##   어벤져스      399   79   51     48   28
+##   재미           79  287   42     23   28
+##   기대           51   42  172     13   21
+##   스토리         48   23   13    143   17
+##   지루           28   28   21     17  137
+```
+
+--- .new-background
+
+## Term x Document Matrix와 감정 사전
+
+
+```r
+groups_list = list()
+groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
+groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
+groups_list
+```
+
+```
+## $비호감단어
+## [1]  2  3  5 12 13 19
+## 
+## $호감단어
+## [1]  2  3  6 12 17
+```
+
+--- .dark .segue .nobackground
+
+## 7. 시각화
+
+--- .new-background
+
+## 7. 시각화
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Graph 그리기(qgraph)</h3b>  
+
+--- .new-background
+
+## Graph
+
+
+```r
+qgraph(co_matrix, layout="spring", diag = F, 
+       labels = colnames(co_matrix), 
+       edge.color = "darkblue", 
+       legend.cex = .7, 
+       vsize = 5,
+       label.cex = 0.3, 
+       label.color = "black",
+       groups = groups_list)
+
+title(movie_name, line = 3)
+```
+
+--- .new-background
+
+## Graph
+
+<center><img src="assets/img/result_graph.png" height="500" width="500"></center>
+
+--- .new-background
+
+## Graph
+
+
+```r
+qgraph(co_matrix, layout="spring", diag = F, 
+       labels = colnames(co_matrix), 
+       edge.color = "darkblue", 
+       legend.cex = .7, 
+       vsize = log(diag(co_matrix)),
+       label.cex = 0.3, 
+       label.color = "black",
+       groups = groups_list)
+
+title(movie_name, line = 3)
+```
+
+--- .new-background
+
+## Graph
+
+<center><img src="assets/img/result_graph_2.png" height="500" width="500"></center>
+
+--- .dark .segue .nobackground
+
+## Appendix - 앞 2글자 자르기
 
 --- .new-background
 
@@ -984,174 +1510,6 @@ key_vec_sum[i] <- paste(key_vec, collapse='  ')  ##  두 칸 (윈도우 tm 버�
 }
 ```
 
---- .dark .segue .nobackground
-
-## 6. Co-occurrence Matrix
-
---- .new-background
-
-## 6. Co-occurrence Matrix
-
-<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
-<h3b> - Term x Document Matrix</h3b>  
-<h3b> - Co-occurrence Matrix</h3b>
-
---- .new-background
-
-## Term x Document Matrix
-
-* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
-* 단어에 대하여 Weight
-* 문서 내 단어에 대하여 Weight 
-* 모형에 따라 다양한 방식으로 처리
-
-
-```r
-dim(key_vec_sum)
-```
-
-```
-## NULL
-```
-
-```r
-dim(as.data.frame(key_vec_sum))
-```
-
-```
-## [1] 1737    1
-```
-
-```r
-key_vec_sum <- Corpus(DataframeSource(as.data.frame(key_vec_sum)))
-```
-
---- .new-background
-
-## Term x Document Matrix
-
-* 해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거
-
-
-```r
-delete_dic <- c('그냥', '너무', '보고', '생각', '정말', '그래', '봤는',
-                '나오', '진짜', '평점', '보면', '사람', '시간', '중간', '느낌',
-                '이런', '보는', '보다', '편보', '많이', 
-                '모르', '우리', '그런', '아니', '이해', '그리', '하는',
-                '다음', '역시', '없다')
-```
-
---- .new-background
-
-## Term x Document Matrix
-
-
-```r
-key_vec_sum <- TermDocumentMatrix(key_vec_sum,
-                                  control = list(
-                                  removeNumbers = TRUE,
-                                  wordLengths = c(2,Inf),  ##  윈도우 작동 X
-                                  removePunctuation = TRUE,
-                                  stopwords = delete_dic,
-                                  weighting = function(x) weightBin(x)))
-                                  
-key_vec_sum <- as.matrix(key_vec_sum)
-key_vec_sum <- key_vec_sum[nchar(rownames(key_vec_sum))!=1,]  ##  for windows
-dim(key_vec_sum)
-```
-
-```
-## [1] 4264 1737
-```
-
---- .new-background
-
-## Term x Document Matrix
-
-* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
-* Binary Weight (boolean)
-
-
-```r
-ex <- matrix(c(1,1,1,0,
-               1,0,1,0,
-               0,1,0,1), 
-               nrow=4)
-rownames(ex) <- c("아이폰", "갤럭시", "좋다", "나쁘다")
-colnames(ex) <- c("사람1", "사람2", "사람3")
-ex
-```
-
-```
-##        사람1 사람2 사람3
-## 아이폰     1     1     0
-## 갤럭시     1     0     1
-## 좋다       1     1     0
-## 나쁘다     0     0     1
-```
-
---- .new-background
-
-## Co-occurrence Matrix
-
-* 특정 단어와 다른 단어가 동시에 영화평 내에서 발생한 것을 Counts
-* 예시)
-
-
-```r
-ex %*% t(ex)
-```
-
-```
-##        아이폰 갤럭시 좋다 나쁘다
-## 아이폰      2      1    2      0
-## 갤럭시      1      2    1      1
-## 좋다        2      1    2      0
-## 나쁘다      0      1    0      1
-```
-
-
---- .new-background .modal
-
-## Co-occurrence Matrix
-
-
-```r
-key_vec_sum_d <- key_vec_sum[order(rowSums(key_vec_sum), decreasing = T),][1:20,]
-co_matrix <- key_vec_sum_d %*% t(key_vec_sum_d)
-co_matrix[1:5,1:5]
-```
-
-```
-##           Terms
-## Terms      어벤져스 재미 기대 지루 액션
-##   어벤져스      535  165   92   66   59
-##   재미          165  491   80   54   33
-##   기대           92   80  243   40   31
-##   지루           66   54   40  196   37
-##   액션           59   33   31   37  161
-```
-
---- .new-background
-
-## Term x Document Matrix와 감정 사전
-
-
-```r
-groups_list = list()
-groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
-groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
-groups_list
-```
-
-```
-## $비호감단어
-## [1]  2  3  4 14 15 16
-## 
-## $호감단어
-## [1]  2  3 13
-```
-
 --- .new-background
 
 ## 긍정과 부정 - 중복 단어
@@ -1189,63 +1547,3 @@ sapply(str_split(ex, " ")[[1]],
 ```
 ## [1] "재미없" "기대안" "헐크"   "웃기"   "웃음"
 ```
-
-
---- .dark .segue .nobackground
-
-## 7. 시각화
-
---- .new-background
-
-## 7. 시각화
-
-<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
-<h3b> - Graph 그리기(qgraph)</h3b>  
-
---- .new-background
-
-## Graph
-
-
-```r
-qgraph(co_matrix, layout="spring", diag = T, 
-       labels = colnames(co_matrix), 
-       edge.color = "darkblue", 
-       legend.cex = .7, 
-       vsize = 5,
-       label.cex = 0.3, 
-       label.color = "black",
-       groups = groups_list)
-
-title(movie_name, line = 3)
-```
-
---- .new-background
-
-## Graph
-
-<center><img src="assets/img/result_graph.png" height="500" width="500"></center>
-
---- .new-background
-
-## Graph
-
-
-```r
-qgraph(co_matrix, layout="spring", diag = F, 
-       labels = colnames(co_matrix), 
-       edge.color = "darkblue", 
-       legend.cex = .7, 
-       vsize = log(diag(co_matrix2)),
-       label.cex = 0.3, 
-       label.color = "black",
-       groups = groups_list)
-
-title(movie_name, line = 3)
-```
-
---- .new-background
-
-## Graph
-
-<center><img src="assets/img/result_graph_2.png" height="500" width="500"></center>
