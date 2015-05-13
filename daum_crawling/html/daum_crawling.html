@@ -1011,29 +1011,19 @@ extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미
     <h2>키워드 추출 (집중!!)</h2>
   </hgroup>
   <article data-timings="">
-    <p>ex &lt;- &quot;기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ &gt; &lt; *&quot;</p>
-
-<ul>
+    <ul>
 <li>Step 1) 문장 자르기(split)</li>
 </ul>
 
-<pre><code class="r">str_split(ex, &quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot; )
+<pre><code class="r">ex &lt;- &quot;기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ &gt; &lt; *&quot;
+</code></pre>
+
+<pre><code class="r">result &lt;- str_split(ex, &quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot; )
+result
 </code></pre>
 
 <pre><code>## [[1]]
-## [1] &quot;아&quot;       &quot;이&quot;       &quot;왜&quot;       &quot;이렇게&quot;   &quot;재미있냐&quot; &quot;&quot;        
-## 
-## [[2]]
-## [1] &quot;&quot;
-## 
-## [[3]]
-## [1] &quot;&quot;
-## 
-## [[4]]
-## [1] &quot;&quot;
-## 
-## [[5]]
-## [1] &quot;졸리다&quot; &quot;&quot;
+## [1] &quot;기대보다&quot; &quot;아주&quot;     &quot;재밌음&quot;   &quot;꼭&quot;       &quot;봐요&quot;     &quot;&quot;
 </code></pre>
 
   </article>
@@ -1049,10 +1039,11 @@ extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미
 <li>Step 2) 앞 2글자 추출</li>
 </ul>
 
-<pre><code class="r">str_sub(str_split(ex, &quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot; )[[1]], 1, 2)
+<pre><code class="r">result &lt;- str_sub(result[[1]], 1, 2)
+result
 </code></pre>
 
-<pre><code>## [1] &quot;아&quot;   &quot;이&quot;   &quot;왜&quot;   &quot;이렇&quot; &quot;재미&quot; &quot;&quot;
+<pre><code>## [1] &quot;기대&quot; &quot;아주&quot; &quot;재밌&quot; &quot;꼭&quot;   &quot;봐요&quot; &quot;&quot;
 </code></pre>
 
   </article>
@@ -1074,10 +1065,10 @@ extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미
 <pre><code>## [1] &quot;재미&quot;
 </code></pre>
 
-<pre><code class="r">plyr::revalue(&quot;재믿&quot;, c(&quot;재밌&quot; =  &quot;재미&quot;, &quot;재믿&quot; = &quot;재미&quot;), warn_missing=F)
+<pre><code class="r">plyr::revalue(result, c(&quot;재밌&quot; =  &quot;재미&quot;, &quot;재믿&quot; = &quot;재미&quot;), warn_missing=F)
 </code></pre>
 
-<pre><code>## [1] &quot;재미&quot;
+<pre><code>## [1] &quot;기대&quot; &quot;아주&quot; &quot;재미&quot; &quot;꼭&quot;   &quot;봐요&quot; &quot;&quot;
 </code></pre>
 
   </article>

@@ -458,12 +458,15 @@ str_sub(str_split("기대했던 것보다 좀 지루했음... 와이프는 재�
 
 ## 키워드 추출 (집중!!)
 
-ex <- "기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ > < *"
-
 * Step 1) 문장 자르기(split)
 
 ```{r, eval=T}
-str_split(ex, "([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+" ) 
+ex <- "기대보다 아주 재밌음!!!!!!!! !! 꼭 봐요~ > < *"
+```
+
+```{r, eval=T}
+result <- str_split(ex, "([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+" ) 
+result
 ```
 
 --- .new-background
@@ -473,7 +476,8 @@ str_split(ex, "([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+" )
 * Step 2) 앞 2글자 추출
 
 ```{r, eval=T}
-str_sub(str_split(ex, "([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+" )[[1]], 1, 2)
+result <- str_sub(result[[1]], 1, 2)
+result
 ```
 
 --- .new-background
@@ -483,7 +487,7 @@ str_sub(str_split(ex, "([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+" 
 * Step 3) 맞춤법 교정
 ```{r, eval=T}
 plyr::revalue("재밌", c("재밌" =  "재미", "재믿" = "재미"), warn_missing=F)
-plyr::revalue("재믿", c("재밌" =  "재미", "재믿" = "재미"), warn_missing=F)
+plyr::revalue(result, c("재밌" =  "재미", "재믿" = "재미"), warn_missing=F)
 ```
 
 --- .new-background
