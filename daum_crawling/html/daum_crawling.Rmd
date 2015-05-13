@@ -407,7 +407,7 @@ movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 
 ## 4. 감정사전 불러오기
 
-```{r, eval=T, echo=F}
+```{r, eval=T, echo=F, cache=F}
 emotion_dict <- read.csv(paste(user_path,"emotion_dict.csv",sep=""), 
                          header = T, 
                          fileEncoding = "UTF-8",
@@ -421,7 +421,7 @@ emotion_dict <- read.csv("emotion_dict.csv",
                          stringsAsFactors = F)
 ```
 
-```{r, eval=T, include=T}
+```{r, eval=T, include=T, cache=F}
 pos_word <- subset(emotion_dict, pos_neg=="pos")[,"words"]
 neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
 #emotion_dict[11:15,]; emotion_dict[1301:1305,];
@@ -805,7 +805,7 @@ co_matrix[1:5,1:5]
 
 ## Term x Document Matrix와 감정 사전
 
-```{r, eval=T}
+```{r, eval=T, cache=F}
 
 groups_list = list()
 groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
