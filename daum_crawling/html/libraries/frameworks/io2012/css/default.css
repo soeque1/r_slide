@@ -2,7 +2,7 @@
 
 /* line 17, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+h1, h2, h3, h3b, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -489,6 +489,14 @@ h3 {
   font-weight: inherit;
   color: #797979;
 }
+
+h3b {
+  font-size: 35px;
+  letter-spacing: -1px;
+  line-height: 2;
+  font-weight: inherit;
+}
+
 
 /* line 331, ../scss/default.scss */
 ul {

@@ -28,7 +28,32 @@ knit        : slidify::knit2slides
 <h3> Model </h3>
 * Lasso LM / LSA / LDA / Deep Learning  
 
----
+--- &twocol w1:50% w2:50% .new-background
+
+## 영화 자료를 이용한 분석 예시
+- Text
+
+*** =left
+<center><img src="assets/img/before_imitation.png" height="500" width="500"></center>
+
+*** =right
+<center><img src="assets/img/after_imitation.png" height="500" width="500"></center>
+
+--- .new-background
+
+## 영화 자료를 이용한 분석 예시
+- Self-Rating
+
+<center><img src="assets/img/foulball.png" height="800" width="750"></center>
+
+--- .new-background
+
+## 영화 자료를 이용한 분석 예시
+- Self-Rating & Text
+
+<center><img src="assets/img/sentiment.png" height="800" width="750"></center>
+
+--- .new-background
 
 ## 목차
 
@@ -37,10 +62,11 @@ knit        : slidify::knit2slides
 <h3 style="text-align:left">2. 패키지 인스톨</h3>    
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 <h3 style="text-align:left">4. 감정사전 불러오기</h3>  
-<h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>  
-<h3 style="text-align:left">6. 시각화</h3>  
+<h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>
+<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">7. 시각화</h3>  
 
---- &twocol w1:30% w2:70% .new-background
+--- &twocol w1:35% w2:65% .new-background
 
 ## 목차
 
@@ -51,40 +77,64 @@ knit        : slidify::knit2slides
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 <h3 style="text-align:left">4. 감정사전 불러오기</h3>  
 <h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>  
-<h3 style="text-align:left">6. 시각화</h3>  
+<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">7. 시각화</h3>  
 
 *** =right
 <center><img src="assets/img/result_graph.png" height="500" width="600"></center>
 ---
 
 --- .dark .segue .nobackground
+
 ## 1. R 기초 세팅
 
 --- .new-background
 
 ## 1. R 기초 세팅
 
-```r
-if (.Platform$OS.type == "unix") { 
-  ##  코드와 파일 디렉토리
-  user_path = "/Users/kimhyungjun/repo/daum_movie/" 
-  ##  그래프 폰트
-  graph_fonts = "Malgun Gothic"
-  par(family=graph_fonts)
-  ##  텍스트 인코딩
-  fileEncoding = "UTF-8"
-} else {
-  user_path = "C:/Users/kimhyungjun/repo/daum_movie/"   
-  windowsFonts(malgun = windowsFont("맑은고딕"))
-  graph_fonts = "malgun"
-  fileEncoding = "CP949"
-}
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - R에서 작업 디렉토리 설정하기</h3b>  
+<h3b> - MAC의 경우 그래픽 설정하기</h3b>
 
+--- .new-background
+
+## 1. R 기초 세팅
+
+- MAC
+
+
+```r
+##  사용자 경로
+user_path = "/Users/kimhyungjun/repo/daum_movie/" 
+par(family="AppleGothic")  ##  그림 출력시 한글폰트
+```
+
+- Windows
+
+
+```r
+user_path = "C:/Users/kimhyungjun/repo/daum_movie/"  
+```
+
+- MAC & Windows 공통
+
+
+```r
 setwd(user_path)
+```
+
 ```
 
 --- .dark .segue .nobackground
 ## 2. 패키지 인스톨
+
+--- .new-background
+
+## 2. 패키지 인스톨
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 패키지 인스톨</h3b>  
+<h3b> - 패키지 불러오기</h3b>
 
 --- .new-background .modal
 
@@ -148,16 +198,28 @@ library("qgraph")
 ```
 
 --- .dark .segue .nobackground
+
 ## 3. 어벤져스 웹크롤
 
 --- .new-background
 
 ## 3. 어벤져스 웹크롤
 
-* 웹사이트
-1. 웹브라우저 열기(e.g. Firefox, Chorme, Safari, Internet Explorer)
-2. 웹사이트 입력(e.g. http://movie.daum.net)
-- 사용자는 client (페이지, 이미지, 텍스트를 웹 서버로 요청함)
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 웹사이트 배경지식</h3b>  
+<h3b> - Regualr Expression(REGEX)</h3b>  
+<h3b> - 단일 페이지 웹크롤</h3b>  
+<h3b> - 복수 페이지 웹크롤</h3b>  
+
+--- .new-background
+
+## 3. 웹사이트 배경지식
+
+- 웹브라우저 열기(e.g. Firefox, Chorme, Safari, Internet Explorer)
+- 웹사이트 입력(e.g. http://movie.daum.net)
+
+<h4><br></h4>
+- 사용자는 client로 페이지, 이미지, 텍스트를 웹 서버로 요청함
 - 웹 서버 사용자에게 반응을 보냄
 - 사용자와 웹 서버는 프로토콜(e.g. HTTP)로 커뮤니케이션
 
@@ -175,11 +237,11 @@ GET("http://google.com/")  ##  Requset -> Resposne
 ```
 
 ```
-## Response [http://www.google.co.kr/?gfe_rd=cr&ei=A1hQVeWdJ4ig8wexx4DIDw]
-##   Date: 2015-05-11 16:19
+## Response [http://www.google.co.kr/?gfe_rd=cr&ei=gP5SVfymLurM8gf-soCABw]
+##   Date: 2015-05-13 16:34
 ##   Status: 200
 ##   Content-Type: text/html; charset=EUC-KR
-##   Size: 18.3 kB
+##   Size: 18.8 kB
 ## <!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" l...
 ## window.google.vel.lu&&window.google.vel.lu(a),d.src=a,google.li=g+1)};go...
 ## function _gjh(){!_gjuc()&&window.google&&google.x&&google.x({id:"GJH"},f...
@@ -187,7 +249,6 @@ GET("http://google.com/")  ##  Requset -> Resposne
 ## }
 ## })();</script><div id="mngb">    <div id=gbar><nobr><b class=gb1>검색</b> ...
 ## });})();</script> </div> </span><br clear="all" id="lgpd"><div id="lga">...
-## </div></div></div><br></div><form action="/search" name="f"><table cellp...
 ```
 
 --- .new-background
@@ -221,66 +282,72 @@ html_nodes(htxt, ".comment")
 [[1]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810919&amp;type=after" title="댓글달기">극장수만 왕창 차지하고 재미는 완죤히 없는 영화                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811563&amp;type=after" title="댓글달기">어벤져스 1편 윈터솔져 정도는 보고 가셔야 그나마 이해될듯..지금껏 관련 영화는 다보았기에 그나마 이해하며 봤지만..마블영웅에 적응이 돼서 그런가 감흥은 없는듯..하지만 다음편도 나오면 보게될듯..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[2]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810883&amp;type=after" title="댓글달기">역시 어벤져스였어요 깨고 부수고 싸우는 영화를 좋아해서 마블 영웅들 영화는 거의다 본 것 같은데 어벤져스는 그 영웅들이 다 나와서 눈이 혀강했어요 점점 발전하는 컴퓨터 그래픽과 캐릭터들을 볼 수 있어서 좋고 다음편이 기대돼요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811540&amp;type=after" title="댓글달기">괜찮음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[3]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810765&amp;type=after" title="댓글달기">제작비를 한국서 뽑아가려는 허리우드 영화.. 이제 그만보자.. 그저 혼란스러운 영화일 뿐..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811528&amp;type=after" title="댓글달기">여태까지 마블 무비의 팬이었고 군데군데 나오는 떡밥을 알아차릴수있다면 이영화는 굉장히 의미가&#13;
+큰영화가 될거다                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[4]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810764&amp;type=after" title="댓글달기">전편보다는 확실히 약하다. 하지만 마블 대서사시의 스토리 상 한번쯤은 캐릭터와 스토리 정리가 필요했다. 어벤저스3와 캡틴아메리카 시빌워를 위한 반석을 다져주는데 의미가 있는 작품. 쿠키 영상에서 타노스의 짧은 독백 "I'll do it myself" 한마디가 인피니티 워에 대한 기다림을 즐겁게 만들어 줬다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811525&amp;type=after" title="댓글달기">최초에 의미를 둔 슈퍼히어로 매쉬 업                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[5]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810755&amp;type=after" title="댓글달기">영화 메세지가 뭔지? 스릴도 없구 화려한 그래픽만...액션물 보면서 졸기는 처음이엇음...시간 돈낭비...비츄~~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811499&amp;type=after" title="댓글달기">좀 실망스러운 영화입니다. 내용도 없고 재미도 없구요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[6]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810754&amp;type=after" title="댓글달기">전편에 비해 이야기가 흘러가는 구성방식이 조금은 덜 재밌게 느껴지긴 하지만, 마블의 영웅들은 언제나 봐도 즐겁고 유쾌하다. 영화속에서라도 통쾌하고 시원함을 느끼게 해주는 캐릭터들에게 감사하며 아마 3편을 위한 작은 쉼이 아닐까 싶었던 2편이었다. 퀵실버가 허무하게 마무리된것이 다소아쉬운점...                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811488&amp;type=after" title="댓글달기">별로 재미는~~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[7]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810752&amp;type=after" title="댓글달기">블랙위도우가 헐크를 조련하는 맛!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811481&amp;type=after" title="댓글달기">재미있다기보다는, 내가 어벤져스를 봤구나? 이런기분.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[8]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810749&amp;type=after" title="댓글달기">기대했던 것보다 좀 지루했음... 볼거리야 뭐 어마어마 하지만 내용이 좀 한데 뭉쳐지지 않는? 그리고 툭툭 끊어진 기분? 여튼 1편이 훠어어얼씬 괜찮았음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811468&amp;type=after" title="댓글달기">여전히 멋져요..근데 한국은 억지로 끼워준 이 찜찜한 느낌은 뭐지..?ㅋㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[9]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810733&amp;type=after" title="댓글달기">1편 보셨거나 아니면 마블 히어로물 좋아하신다면 걍 별기대 없이 보세요.&#13;
-저같은 경우 마블 히어로물 다 봤고 마블영화는 다 보는편인데 그중에 제일 별로였네요.&#13;
-스토리를 억지로 풀어갈려고 대사가 너무 많음. 중간중간 다큐드라마임. ㅎㅎ&#13;
-여친은 옆에서 자네요. ㅋㅋㅋ 매드맥볼건 약간 후회도됨. ㅠㅠ&#13;
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811465&amp;type=after" title="댓글달기">재미있다.?
+재미없다.?
+양자택일 하면
+
+재미없다...!!
+또 한국국민만 특유의  쏠림현상
+
+미국특유의 B급 폭력영화
+억지영웅 만들기.미국전통문화컴플렉스에서 기인하는 영화
                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
@@ -288,43 +355,43 @@ html_nodes(htxt, ".comment")
 [[10]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810687&amp;type=after" title="댓글달기">1편 보고 2편 많이 기대했는데 짜임새가 많이 떨어지는 느낌이에요.  런닝타임이 굉장히 길게 느껴지고. 유머요소가 1편보다 훨씬 많아졌는데 웃기긴 했지만 영화자체는 산만하게 만드는듯 했어요. 그냥...보기 힘들었어요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811407&amp;type=after" title="댓글달기">솔직히 왜 볼까 싶다. 순전히 마케팅에 의한 것이지. 남들이 보니 군중 심리에 휩쓸려 보는...별 볼 것도 없었음. 아무 느낌이 없는 영화였고 평점 줄 것도 없음. 0점도 아까움!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[11]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810650&amp;type=after" title="댓글달기">볼만은 한데...쓸데없이 대사가 많아...                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811361&amp;type=after" title="댓글달기">40대 후반인데,.... 보느라 혼났내요 ^^  &#13;
+                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[12]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810638&amp;type=after" title="댓글달기">스크린독점영화. 우리나라 스크린 2281개중 1843개관을 차진한 영화. 우리나라 극장의 현실입니다. 명량,국제시장 등 스크린을 독신한 영화로 보고싶은 영화를 못보는 현실이 화가 납니다. 물론 영화도 별로 재미없습니다.                    <span class="em b">[1]</span>
-                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811356&amp;type=after" title="댓글달기">재밌더만 왜이리 평이 안좋은 지..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[13]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810619&amp;type=after" title="댓글달기">저는 앞사람 대갈통이 너무 큰지 아니면 그사람이 너무 허리와목을 쭉 빼고 보는건지 그사람 대가리에 자막이 절반이 가려서 환장하는줄..영화끝까지.. 일부러맨뒷줄에 자리잡았는데 되려 손해;  그러다 내용이 지루해서 졸뻔,, 서울배경은 정말 촌스러웠음                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811341&amp;type=after" title="댓글달기">할말이 없다..ㅜ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[14]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810614&amp;type=after" title="댓글달기">마블을 잘 모르는 사람에겐 스토리가 지루할수도 있고 산만할수도 있다 러닝타임이 꽤 긴편임에도 액션씬이 쉬지않고 나와 끝나고나면 정신없을수도 있다 하지만 마블팬이라면 재밌게 볼 수 있을법한 영화                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811325&amp;type=after" title="댓글달기">만드느라 고생했다 4점..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
 [[15]]
 <span class="comment article">
 					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810584&amp;type=after" title="댓글달기">그냥 평점이 너무 아깝다 ㅎㅎ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811324&amp;type=after" title="댓글달기">짐 7시50분꺼 보고나왔는데지루하고산만하고                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
 					</span> 
 
@@ -339,54 +406,60 @@ html_nodes(html_nodes(htxt, ".comment"),"a")
 ```
 
 [[1]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810919&amp;type=after" title="댓글달기">극장수만 왕창 차지하고 재미는 완죤히 없는 영화                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811563&amp;type=after" title="댓글달기">어벤져스 1편 윈터솔져 정도는 보고 가셔야 그나마 이해될듯..지금껏 관련 영화는 다보았기에 그나마 이해하며 봤지만..마블영웅에 적응이 돼서 그런가 감흥은 없는듯..하지만 다음편도 나오면 보게될듯..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[2]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810883&amp;type=after" title="댓글달기">역시 어벤져스였어요 깨고 부수고 싸우는 영화를 좋아해서 마블 영웅들 영화는 거의다 본 것 같은데 어벤져스는 그 영웅들이 다 나와서 눈이 혀강했어요 점점 발전하는 컴퓨터 그래픽과 캐릭터들을 볼 수 있어서 좋고 다음편이 기대돼요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811540&amp;type=after" title="댓글달기">괜찮음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[3]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810765&amp;type=after" title="댓글달기">제작비를 한국서 뽑아가려는 허리우드 영화.. 이제 그만보자.. 그저 혼란스러운 영화일 뿐..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811528&amp;type=after" title="댓글달기">여태까지 마블 무비의 팬이었고 군데군데 나오는 떡밥을 알아차릴수있다면 이영화는 굉장히 의미가&#13;
+큰영화가 될거다                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[4]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810764&amp;type=after" title="댓글달기">전편보다는 확실히 약하다. 하지만 마블 대서사시의 스토리 상 한번쯤은 캐릭터와 스토리 정리가 필요했다. 어벤저스3와 캡틴아메리카 시빌워를 위한 반석을 다져주는데 의미가 있는 작품. 쿠키 영상에서 타노스의 짧은 독백 "I'll do it myself" 한마디가 인피니티 워에 대한 기다림을 즐겁게 만들어 줬다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811525&amp;type=after" title="댓글달기">최초에 의미를 둔 슈퍼히어로 매쉬 업                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[5]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810755&amp;type=after" title="댓글달기">영화 메세지가 뭔지? 스릴도 없구 화려한 그래픽만...액션물 보면서 졸기는 처음이엇음...시간 돈낭비...비츄~~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811499&amp;type=after" title="댓글달기">좀 실망스러운 영화입니다. 내용도 없고 재미도 없구요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[6]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810754&amp;type=after" title="댓글달기">전편에 비해 이야기가 흘러가는 구성방식이 조금은 덜 재밌게 느껴지긴 하지만, 마블의 영웅들은 언제나 봐도 즐겁고 유쾌하다. 영화속에서라도 통쾌하고 시원함을 느끼게 해주는 캐릭터들에게 감사하며 아마 3편을 위한 작은 쉼이 아닐까 싶었던 2편이었다. 퀵실버가 허무하게 마무리된것이 다소아쉬운점...                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811488&amp;type=after" title="댓글달기">별로 재미는~~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[7]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810752&amp;type=after" title="댓글달기">블랙위도우가 헐크를 조련하는 맛!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811481&amp;type=after" title="댓글달기">재미있다기보다는, 내가 어벤져스를 봤구나? 이런기분.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[8]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810749&amp;type=after" title="댓글달기">기대했던 것보다 좀 지루했음... 볼거리야 뭐 어마어마 하지만 내용이 좀 한데 뭉쳐지지 않는? 그리고 툭툭 끊어진 기분? 여튼 1편이 훠어어얼씬 괜찮았음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811468&amp;type=after" title="댓글달기">여전히 멋져요..근데 한국은 억지로 끼워준 이 찜찜한 느낌은 뭐지..?ㅋㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[9]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810733&amp;type=after" title="댓글달기">1편 보셨거나 아니면 마블 히어로물 좋아하신다면 걍 별기대 없이 보세요.&#13;
-저같은 경우 마블 히어로물 다 봤고 마블영화는 다 보는편인데 그중에 제일 별로였네요.&#13;
-스토리를 억지로 풀어갈려고 대사가 너무 많음. 중간중간 다큐드라마임. ㅎㅎ&#13;
-여친은 옆에서 자네요. ㅋㅋㅋ 매드맥볼건 약간 후회도됨. ㅠㅠ&#13;
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811465&amp;type=after" title="댓글달기">재미있다.?
+재미없다.?
+양자택일 하면
+
+재미없다...!!
+또 한국국민만 특유의  쏠림현상
+
+미국특유의 B급 폭력영화
+억지영웅 만들기.미국전통문화컴플렉스에서 기인하는 영화
                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[10]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810687&amp;type=after" title="댓글달기">1편 보고 2편 많이 기대했는데 짜임새가 많이 떨어지는 느낌이에요.  런닝타임이 굉장히 길게 느껴지고. 유머요소가 1편보다 훨씬 많아졌는데 웃기긴 했지만 영화자체는 산만하게 만드는듯 했어요. 그냥...보기 힘들었어요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811407&amp;type=after" title="댓글달기">솔직히 왜 볼까 싶다. 순전히 마케팅에 의한 것이지. 남들이 보니 군중 심리에 휩쓸려 보는...별 볼 것도 없었음. 아무 느낌이 없는 영화였고 평점 줄 것도 없음. 0점도 아까움!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[11]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810650&amp;type=after" title="댓글달기">볼만은 한데...쓸데없이 대사가 많아...                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[12]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810638&amp;type=after" title="댓글달기">스크린독점영화. 우리나라 스크린 2281개중 1843개관을 차진한 영화. 우리나라 극장의 현실입니다. 명량,국제시장 등 스크린을 독신한 영화로 보고싶은 영화를 못보는 현실이 화가 납니다. 물론 영화도 별로 재미없습니다.                    <span class="em b">[1]</span>
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811361&amp;type=after" title="댓글달기">40대 후반인데,.... 보느라 혼났내요 ^^  &#13;
                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
+[[12]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811356&amp;type=after" title="댓글달기">재밌더만 왜이리 평이 안좋은 지..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
 [[13]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810619&amp;type=after" title="댓글달기">저는 앞사람 대갈통이 너무 큰지 아니면 그사람이 너무 허리와목을 쭉 빼고 보는건지 그사람 대가리에 자막이 절반이 가려서 환장하는줄..영화끝까지.. 일부러맨뒷줄에 자리잡았는데 되려 손해;  그러다 내용이 지루해서 졸뻔,, 서울배경은 정말 촌스러웠음                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811341&amp;type=after" title="댓글달기">할말이 없다..ㅜ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[14]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810614&amp;type=after" title="댓글달기">마블을 잘 모르는 사람에겐 스토리가 지루할수도 있고 산만할수도 있다 러닝타임이 꽤 긴편임에도 액션씬이 쉬지않고 나와 끝나고나면 정신없을수도 있다 하지만 마블팬이라면 재밌게 볼 수 있을법한 영화                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811325&amp;type=after" title="댓글달기">만드느라 고생했다 4점..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 [[15]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1810584&amp;type=after" title="댓글달기">그냥 평점이 너무 아깝다 ㅎㅎ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811324&amp;type=after" title="댓글달기">짐 7시50분꺼 보고나왔는데지루하고산만하고                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
 
 attr(,"class")
 [1] "XMLNodeSet"
@@ -398,21 +471,21 @@ attr(,"class")
 html_text(html_nodes(html_nodes(htxt, ".comment"),"a"))
 ```
 
- [1] "극장수만 왕창 차지하고 재미는 완죤히 없는 영화                    "                                                                                                                                                                                                                                                            
- [2] "역시 어벤져스였어요 깨고 부수고 싸우는 영화를 좋아해서 마블 영웅들 영화는 거의다 본 것 같은데 어벤져스는 그 영웅들이 다 나와서 눈이 혀강했어요 점점 발전하는 컴퓨터 그래픽과 캐릭터들을 볼 수 있어서 좋고 다음편이 기대돼요                    "                                                                               
- [3] "제작비를 한국서 뽑아가려는 허리우드 영화.. 이제 그만보자.. 그저 혼란스러운 영화일 뿐..                    "                                                                                                                                                                                                                    
- [4] "전편보다는 확실히 약하다. 하지만 마블 대서사시의 스토리 상 한번쯤은 캐릭터와 스토리 정리가 필요했다. 어벤저스3와 캡틴아메리카 시빌워를 위한 반석을 다져주는데 의미가 있는 작품. 쿠키 영상에서 타노스의 짧은 독백 \"I'll do it myself\" 한마디가 인피니티 워에 대한 기다림을 즐겁게 만들어 줬다.                    "           
- [5] "영화 메세지가 뭔지? 스릴도 없구 화려한 그래픽만...액션물 보면서 졸기는 처음이엇음...시간 돈낭비...비츄~~                    "                                                                                                                                                                                                  
- [6] "전편에 비해 이야기가 흘러가는 구성방식이 조금은 덜 재밌게 느껴지긴 하지만, 마블의 영웅들은 언제나 봐도 즐겁고 유쾌하다. 영화속에서라도 통쾌하고 시원함을 느끼게 해주는 캐릭터들에게 감사하며 아마 3편을 위한 작은 쉼이 아닐까 싶었던 2편이었다. 퀵실버가 허무하게 마무리된것이 다소아쉬운점...                    "            
- [7] "블랙위도우가 헐크를 조련하는 맛!                    "                                                                                                                                                                                                                                                                          
- [8] "기대했던 것보다 좀 지루했음... 볼거리야 뭐 어마어마 하지만 내용이 좀 한데 뭉쳐지지 않는? 그리고 툭툭 끊어진 기분? 여튼 1편이 훠어어얼씬 괜찮았음                    "                                                                                                                                                          
- [9] "1편 보셨거나 아니면 마블 히어로물 좋아하신다면 걍 별기대 없이 보세요.\r\n저같은 경우 마블 히어로물 다 봤고 마블영화는 다 보는편인데 그중에 제일 별로였네요.\r\n스토리를 억지로 풀어갈려고 대사가 너무 많음. 중간중간 다큐드라마임. ㅎㅎ\r\n여친은 옆에서 자네요. ㅋㅋㅋ 매드맥볼건 약간 후회도됨. ㅠㅠ\r\n                    "
-[10] "1편 보고 2편 많이 기대했는데 짜임새가 많이 떨어지는 느낌이에요.  런닝타임이 굉장히 길게 느껴지고. 유머요소가 1편보다 훨씬 많아졌는데 웃기긴 했지만 영화자체는 산만하게 만드는듯 했어요. 그냥...보기 힘들었어요                    "                                                                                            
-[11] "볼만은 한데...쓸데없이 대사가 많아...                    "                                                                                                                                                                                                                                                                     
-[12] "스크린독점영화. 우리나라 스크린 2281개중 1843개관을 차진한 영화. 우리나라 극장의 현실입니다. 명량,국제시장 등 스크린을 독신한 영화로 보고싶은 영화를 못보는 현실이 화가 납니다. 물론 영화도 별로 재미없습니다.                    [1]\n                    "                                                                   
-[13] "저는 앞사람 대갈통이 너무 큰지 아니면 그사람이 너무 허리와목을 쭉 빼고 보는건지 그사람 대가리에 자막이 절반이 가려서 환장하는줄..영화끝까지.. 일부러맨뒷줄에 자리잡았는데 되려 손해;  그러다 내용이 지루해서 졸뻔,, 서울배경은 정말 촌스러웠음                     "                                                           
-[14] "마블을 잘 모르는 사람에겐 스토리가 지루할수도 있고 산만할수도 있다 러닝타임이 꽤 긴편임에도 액션씬이 쉬지않고 나와 끝나고나면 정신없을수도 있다 하지만 마블팬이라면 재밌게 볼 수 있을법한 영화                    "                                                                                                            
-[15] "그냥 평점이 너무 아깝다 ㅎㅎ                    "                                                                                                                                                                                                                                                                              
+ [1] "어벤져스 1편 윈터솔져 정도는 보고 가셔야 그나마 이해될듯..지금껏 관련 영화는 다보았기에 그나마 이해하며 봤지만..마블영웅에 적응이 돼서 그런가 감흥은 없는듯..하지만 다음편도 나오면 보게될듯..                    "
+ [2] "괜찮음                    "                                                                                                                                                                                        
+ [3] "여태까지 마블 무비의 팬이었고 군데군데 나오는 떡밥을 알아차릴수있다면 이영화는 굉장히 의미가\r\n큰영화가 될거다                    "                                                                               
+ [4] "최초에 의미를 둔 슈퍼히어로 매쉬 업                    "                                                                                                                                                           
+ [5] "좀 실망스러운 영화입니다. 내용도 없고 재미도 없구요                    "                                                                                                                                           
+ [6] "별로 재미는~~                    "                                                                                                                                                                                 
+ [7] "재미있다기보다는, 내가 어벤져스를 봤구나? 이런기분.                    "                                                                                                                                           
+ [8] "여전히 멋져요..근데 한국은 억지로 끼워준 이 찜찜한 느낌은 뭐지..?ㅋㅋ                    "                                                                                                                         
+ [9] "재미있다.?\n재미없다.?\n양자택일 하면\n\n재미없다...!!\n또 한국국민만 특유의  쏠림현상\n\n미국특유의 B급 폭력영화\n억지영웅 만들기.미국전통문화컴플렉스에서 기인하는 영화\n                    "                   
+[10] "솔직히 왜 볼까 싶다. 순전히 마케팅에 의한 것이지. 남들이 보니 군중 심리에 휩쓸려 보는...별 볼 것도 없었음. 아무 느낌이 없는 영화였고 평점 줄 것도 없음. 0점도 아까움!                    "                         
+[11] "40대 후반인데,.... 보느라 혼났내요 ^^  \r\n                    "                                                                                                                                                   
+[12] "재밌더만 왜이리 평이 안좋은 지..                    "                                                                                                                                                              
+[13] "할말이 없다..ㅜ                    "                                                                                                                                                                               
+[14] "만드느라 고생했다 4점..                    "                                                                                                                                                                       
+[15] "짐 7시50분꺼 보고나왔는데지루하고산만하고                     "                                                                                                                                                    
 
 --- .new-background .modal
 
@@ -622,10 +695,17 @@ print(paste(page_num, "-th page", sep=""))
 
 movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 ```
-
 --- .dark .segue .nobackground
 
 ## 4. 감정사전 불러오기
+
+--- .new-background
+
+## 4. 감정사전 불러오기
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 파일 불러오기(read.csv)</h3b>  
+<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b>
 
 --- .new-background
 
@@ -655,9 +735,21 @@ neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
 
 ## 5. 키워드 파싱 및 추출
 
+--- .new-background
+
+## 5. 키워드 파싱 및 추출
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - R에서 자연어 처리 문제</h3b>  
+<h3b> - 키워드 추출</h3b>
+- 문장 자르기
+- 앞글자 추출
+- 맞춤법 교정
+- 한 문장으로 합치기
+
 --- .new-background .modal
 
-## 자연어 처리 문제
+## R에서 자연어 처리 문제
 
 <font color="red">기대</font>했던 것보다 좀 <font color="red">지루</font>했음... 와이프는 
 <font color="red">재미있다</font>고...
@@ -901,9 +993,26 @@ key_vec_sum[i] <- paste(key_vec, collapse='  ')  ##  두 칸 (윈도우 tm 버�
 }
 ```
 
+--- .dark .segue .nobackground
+
+## 6. Co-occurrence Matrix
+
 --- .new-background
 
-## Co-occurrence Matrix
+## 6. Co-occurrence Matrix
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Term x Document Matrix</h3b>  
+<h3b> - Co-occurrence Matrix</h3b>
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+* 단어에 대하여 Weight
+* 문서 내 단어에 대하여 Weight 
+* 모형에 따라 다양한 방식으로 처리
 
 
 ```r
@@ -928,7 +1037,9 @@ key_vec_sum <- Corpus(DataframeSource(as.data.frame(key_vec_sum)))
 
 --- .new-background
 
-## Co-occurrence Matrix
+## Term x Document Matrix
+
+* 해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거
 
 
 ```r
@@ -941,7 +1052,7 @@ delete_dic <- c('그냥', '너무', '보고', '생각', '정말', '그래', '봤
 
 --- .new-background
 
-## Co-occurrence Matrix
+## Term x Document Matrix
 
 
 ```r
@@ -964,6 +1075,53 @@ dim(key_vec_sum)
 
 --- .new-background
 
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+* Binary Weight (boolean)
+
+
+```r
+ex <- matrix(c(1,1,1,0,
+               1,0,1,0,
+               0,1,0,1), 
+               nrow=4)
+rownames(ex) <- c("아이폰", "갤럭시", "좋다", "나쁘다")
+colnames(ex) <- c("사람1", "사람2", "사람3")
+ex
+```
+
+```
+##        사람1 사람2 사람3
+## 아이폰     1     1     0
+## 갤럭시     1     0     1
+## 좋다       1     1     0
+## 나쁘다     0     0     1
+```
+
+--- .new-background
+
+## Co-occurrence Matrix
+
+* 특정 단어와 다른 단어가 동시에 영화평 내에서 발생한 것을 Counts
+* 예시)
+
+
+```r
+ex %*% t(ex)
+```
+
+```
+##        아이폰 갤럭시 좋다 나쁘다
+## 아이폰      2      1    2      0
+## 갤럭시      1      2    1      1
+## 좋다        2      1    2      0
+## 나쁘다      0      1    0      1
+```
+
+
+--- .new-background .modal
+
 ## Co-occurrence Matrix
 
 
@@ -985,8 +1143,7 @@ co_matrix[1:5,1:5]
 
 --- .new-background
 
-## Co-occurrence Matrix
-
+## TermxDocument Matrix와 감정 사전
 
 
 ```r
@@ -998,10 +1155,10 @@ groups_list
 
 ```
 ## $비호감단어
-## [1]  2  3  4 14 16
+## [1]  2  3  4 14 15 16
 ## 
 ## $호감단어
-## [1] 2 3
+## [1]  2  3 13
 ```
 
 --- .new-background
@@ -1042,6 +1199,18 @@ sapply(str_split(ex, " ")[[1]],
 ## [1] "재미없" "기대안" "헐크"   "웃기"   "웃음"
 ```
 
+
+--- .dark .segue .nobackground
+
+## 7. 시각화
+
+--- .new-background
+
+## 7. 시각화
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Graph 그리기(qgraph)</h3b>  
+
 --- .new-background
 
 ## Graph
@@ -1072,7 +1241,7 @@ title(movie_name, line = 3)
 
 
 ```r
-qgraph(co_matrix, layout="spring", diag = T, 
+qgraph(co_matrix, layout="spring", diag = F, 
        labels = colnames(co_matrix), 
        edge.color = "darkblue", 
        legend.cex = .7, 

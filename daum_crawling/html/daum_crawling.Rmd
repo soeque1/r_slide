@@ -28,7 +28,32 @@ knit        : slidify::knit2slides
 <h3> Model </h3>
 * Lasso LM / LSA / LDA / Deep Learning  
 
----
+--- &twocol w1:50% w2:50% .new-background
+
+## 영화 자료를 이용한 분석 예시
+- Text
+
+*** =left
+<center><img src="assets/img/before_imitation.png" height="500" width="500"></center>
+
+*** =right
+<center><img src="assets/img/after_imitation.png" height="500" width="500"></center>
+
+--- .new-background
+
+## 영화 자료를 이용한 분석 예시
+- Self-Rating
+
+<center><img src="assets/img/foulball.png" height="800" width="750"></center>
+
+--- .new-background
+
+## 영화 자료를 이용한 분석 예시
+- Self-Rating & Text
+
+<center><img src="assets/img/sentiment.png" height="800" width="750"></center>
+
+--- .new-background
 
 ## 목차
 
@@ -37,10 +62,11 @@ knit        : slidify::knit2slides
 <h3 style="text-align:left">2. 패키지 인스톨</h3>    
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 <h3 style="text-align:left">4. 감정사전 불러오기</h3>  
-<h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>  
-<h3 style="text-align:left">6. 시각화</h3>  
+<h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>
+<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">7. 시각화</h3>  
 
---- &twocol w1:30% w2:70% .new-background
+--- &twocol w1:35% w2:65% .new-background
 
 ## 목차
 
@@ -51,40 +77,61 @@ knit        : slidify::knit2slides
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 <h3 style="text-align:left">4. 감정사전 불러오기</h3>  
 <h3 style="text-align:left">5. 키워드 파싱 및 추출</h3>  
-<h3 style="text-align:left">6. 시각화</h3>  
+<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">7. 시각화</h3>  
 
 *** =right
 <center><img src="assets/img/result_graph.png" height="500" width="600"></center>
 ---
 
 --- .dark .segue .nobackground
+
 ## 1. R 기초 세팅
 
 --- .new-background
 
 ## 1. R 기초 세팅
-```{r, eval=T}
-if (.Platform$OS.type == "unix") { 
-  ##  코드와 파일 디렉토리
-  user_path = "/Users/kimhyungjun/repo/daum_movie/" 
-  ##  그래프 폰트
-  graph_fonts = "Malgun Gothic"
-  par(family=graph_fonts)
-  ##  텍스트 인코딩
-  fileEncoding = "UTF-8"
-} else {
-  user_path = "C:/Users/kimhyungjun/repo/daum_movie/"   
-  windowsFonts(malgun = windowsFont("맑은고딕"))
-  graph_fonts = "malgun"
-  fileEncoding = "CP949"
-}
 
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - R에서 작업 디렉토리 설정하기</h3b>  
+<h3b> - MAC의 경우 그래픽 설정하기</h3b>
+
+--- .new-background
+
+## 1. R 기초 세팅
+
+- MAC
+
+```{r, eval=T}
+##  사용자 경로
+user_path = "/Users/kimhyungjun/repo/daum_movie/" 
+par(family="AppleGothic")  ##  그림 출력시 한글폰트
+```
+
+- Windows
+
+```{r, eval=F}
+user_path = "C:/Users/kimhyungjun/repo/daum_movie/"  
+```
+
+- MAC & Windows 공통
+
+```{r, eval=T}
 setwd(user_path)
+```
 
 ```
 
 --- .dark .segue .nobackground
 ## 2. 패키지 인스톨
+
+--- .new-background
+
+## 2. 패키지 인스톨
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 패키지 인스톨</h3b>  
+<h3b> - 패키지 불러오기</h3b>
 
 --- .new-background .modal
 
@@ -146,16 +193,28 @@ library("qgraph")
 ```
 
 --- .dark .segue .nobackground
+
 ## 3. 어벤져스 웹크롤
 
 --- .new-background
 
 ## 3. 어벤져스 웹크롤
 
-* 웹사이트
-1. 웹브라우저 열기(e.g. Firefox, Chorme, Safari, Internet Explorer)
-2. 웹사이트 입력(e.g. http://movie.daum.net)
-- 사용자는 client (페이지, 이미지, 텍스트를 웹 서버로 요청함)
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 웹사이트 배경지식</h3b>  
+<h3b> - Regualr Expression(REGEX)</h3b>  
+<h3b> - 단일 페이지 웹크롤</h3b>  
+<h3b> - 복수 페이지 웹크롤</h3b>  
+
+--- .new-background
+
+## 3. 웹사이트 배경지식
+
+- 웹브라우저 열기(e.g. Firefox, Chorme, Safari, Internet Explorer)
+- 웹사이트 입력(e.g. http://movie.daum.net)
+
+<h4><br></h4>
+- 사용자는 client로 페이지, 이미지, 텍스트를 웹 서버로 요청함
 - 웹 서버 사용자에게 반응을 보냄
 - 사용자와 웹 서버는 프로토콜(e.g. HTTP)로 커뮤니케이션
 
@@ -326,10 +385,17 @@ print(paste(page_num, "-th page", sep=""))
 movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 
 ```
-
 --- .dark .segue .nobackground
 
 ## 4. 감정사전 불러오기
+
+--- .new-background
+
+## 4. 감정사전 불러오기
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 파일 불러오기(read.csv)</h3b>  
+<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b>
 
 --- .new-background
 
@@ -362,9 +428,21 @@ neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
 
 ## 5. 키워드 파싱 및 추출
 
+--- .new-background
+
+## 5. 키워드 파싱 및 추출
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - R에서 자연어 처리 문제</h3b>  
+<h3b> - 키워드 추출</h3b>
+- 문장 자르기
+- 앞글자 추출
+- 맞춤법 교정
+- 한 문장으로 합치기
+
 --- .new-background .modal
 
-## 자연어 처리 문제
+## R에서 자연어 처리 문제
 
 <font color="red">기대</font>했던 것보다 좀 <font color="red">지루</font>했음... 와이프는 
 <font color="red">재미있다</font>고...
@@ -518,9 +596,26 @@ key_vec_sum[i] <- paste(key_vec, collapse='  ')  ##  두 칸 (윈도우 tm 버�
 }
 ```
 
+--- .dark .segue .nobackground
+
+## 6. Co-occurrence Matrix
+
 --- .new-background
 
-## Co-occurrence Matrix
+## 6. Co-occurrence Matrix
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Term x Document Matrix</h3b>  
+<h3b> - Co-occurrence Matrix</h3b>
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+* 단어에 대하여 Weight
+* 문서 내 단어에 대하여 Weight 
+* 모형에 따라 다양한 방식으로 처리
 
 ```{r, eval=T}
 
@@ -532,7 +627,9 @@ key_vec_sum <- Corpus(DataframeSource(as.data.frame(key_vec_sum)))
 
 --- .new-background
 
-## Co-occurrence Matrix
+## Term x Document Matrix
+
+* 해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거
 
 ```{r, eval=T}
 delete_dic <- c('그냥', '너무', '보고', '생각', '정말', '그래', '봤는',
@@ -545,7 +642,7 @@ delete_dic <- c('그냥', '너무', '보고', '생각', '정말', '그래', '봤
 
 --- .new-background
 
-## Co-occurrence Matrix
+## Term x Document Matrix
 
 ```{r, eval=T}
 
@@ -565,6 +662,35 @@ dim(key_vec_sum)
 
 --- .new-background
 
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+* Binary Weight (boolean)
+
+```{r, eval=T}
+ex <- matrix(c(1,1,1,0,
+               1,0,1,0,
+               0,1,0,1), 
+               nrow=4)
+rownames(ex) <- c("아이폰", "갤럭시", "좋다", "나쁘다")
+colnames(ex) <- c("사람1", "사람2", "사람3")
+ex
+```
+
+--- .new-background
+
+## Co-occurrence Matrix
+
+* 특정 단어와 다른 단어가 동시에 영화평 내에서 발생한 것을 Counts
+* 예시)
+
+```{r, eval=T}
+ex %*% t(ex)
+```
+
+
+--- .new-background .modal
+
 ## Co-occurrence Matrix
 
 ```{r, eval=T}
@@ -577,8 +703,7 @@ co_matrix[1:5,1:5]
 
 --- .new-background
 
-## Co-occurrence Matrix
-
+## TermxDocument Matrix와 감정 사전
 
 ```{r, eval=T}
 
@@ -617,6 +742,18 @@ sapply(str_split(ex, " ")[[1]],
 
 ```
 
+
+--- .dark .segue .nobackground
+
+## 7. 시각화
+
+--- .new-background
+
+## 7. 시각화
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Graph 그리기(qgraph)</h3b>  
+
 --- .new-background
 
 ## Graph
@@ -648,7 +785,7 @@ title(movie_name, line = 3)
 
 ```{r, eval=F}
 
-qgraph(co_matrix, layout="spring", diag = T, 
+qgraph(co_matrix, layout="spring", diag = F, 
        labels = colnames(co_matrix), 
        edge.color = "darkblue", 
        legend.cex = .7, 
