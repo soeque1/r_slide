@@ -496,8 +496,8 @@ split_12("기대했던 것보다 좀 지루했음... 와이프는 재미있다�
 ```
 
 ```{r, eval=T, echo=F}
-k <- str_replace_all(paste(sapply(SimplePos09("기대했던 것보다 좀 지루했음... 와이프는 재미있다고..."), function(x) str_extract_all(x,"[가-힣]+/P|[가-힣]+/N")), collapse=" "),
-"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]]+","")
+k <- str_split(paste(sapply(SimplePos09("기대했던 것보다 좀 지루했음... 와이프는 재미있다고..."), function(x) str_extract_all(x,"[가-힣]+/P|[가-힣]+/N")), collapse=" "),
+"([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+")
 
 extractNounVerbAdj <- function(a)
 {
