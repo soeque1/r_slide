@@ -738,15 +738,6 @@ movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 ## 4. 감정사전 불러오기
 
 
-```
-## Warning: cannot open file
-## '/Users/kimhyungjun/repo/daum_movieemotion_dict.csv': No such file or
-## directory
-```
-
-```
-## Error: cannot open the connection
-```
 
 
 ```r
@@ -759,21 +750,7 @@ emotion_dict <- read.csv("emotion_dict.csv",
 
 ```r
 pos_word <- subset(emotion_dict, pos_neg=="pos")[,"words"]
-```
-
-```
-## Error: object 'emotion_dict' not found
-```
-
-```r
 neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
-```
-
-```
-## Error: object 'emotion_dict' not found
-```
-
-```r
 #emotion_dict[11:15,]; emotion_dict[1301:1305,];
 ```
 
@@ -1397,26 +1374,16 @@ co_matrix[1:5,1:5]
 ```r
 groups_list = list()
 groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
-```
-
-```
-## Error: object 'neg_word' not found
-```
-
-```r
 groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
-```
-
-```
-## Error: object 'pos_word' not found
-```
-
-```r
 groups_list
 ```
 
 ```
-## list()
+## $비호감단어
+## [1]  5 12 13 19
+## 
+## $호감단어
+## [1]  2  3  6 17
 ```
 
 --- .dark .segue .nobackground

@@ -428,7 +428,7 @@ movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 ## 4. 감정사전 불러오기
 
 ```{r, eval=T, echo=F, cache=F}
-emotion_dict <- read.csv(paste(user_path,"emotion_dict.csv",sep=""), 
+emotion_dict <- read.csv(paste(user_path,"/emotion_dict.csv",sep=""), 
                          header = T, 
                          fileEncoding = "UTF-8",
                          stringsAsFactors = F)
