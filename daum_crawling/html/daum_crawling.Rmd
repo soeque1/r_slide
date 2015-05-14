@@ -2,9 +2,9 @@
 title       : "텍스트에서 여론과 감정을 발견하기"
 subtitle    : "Using R"
 author      : "김형준"
-job         : "Data Analyst"
+job         : "Data Analyst : (주) 퀀트랩"
 biglogo     : logo_01.png
-logo        : logo_02.png
+logo        : logo_03.png
 license     : by
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 widgets     : []            # {mathjax, bootstrap, quiz}
@@ -17,6 +17,21 @@ knit        : slidify::knit2slides
 <center><img src="assets/img/quantlab.png" height=600px width=800px></center>
 
 --- .new-background
+
+## 빅데이터 경진 대회 금상
+
+<center><img src="assets/img/intro.png" height=550px width=700px></center>
+
+--- .new-background
+
+## 워크숍 관련 온라인 사이트
+
+http://course.mindscale.kr/course/text-analysis
+
+<left><img src="assets/img/intro2.png" height=300px width=600px></left>
+
+--- .new-background
+
 
 ## 영화 자료를 이용한 다양한 분석
 
@@ -85,6 +100,10 @@ knit        : slidify::knit2slides
 <center><img src="assets/img/result_graph.png" height="500" width="600"></center>
 ---
 
+--- .new-background
+
+<center><img src="assets/img/system.png" height="600" width="700"></center>
+
 --- .dark .segue .nobackground
 
 ## 1. R 기초 세팅
@@ -105,14 +124,14 @@ knit        : slidify::knit2slides
 
 ```{r, eval=T}
 ##  사용자 경로
-user_path = "/Users/kimhyungjun/repo/daum_movie/" 
+user_path = "/Users/kimhyungjun/repo/daum_movie" 
 par(family="AppleGothic")  ##  그림 출력시 한글폰트
 ```
 
 - Windows
 
 ```{r, eval=F}
-user_path = "C:/Users/kimhyungjun/repo/daum_movie/"  
+user_path = "C:/Users/kimhyungjun/repo/daum_movie"  
 ```
 
 - MAC & Windows 공통
@@ -177,7 +196,7 @@ setwd(user_path)
 ## 2. 패키지 인스톨
 
 ```{r, eval=F}
-install.packages(c("rvest","stringr","dplyr","tm","qgraph"),
+install.packages(c("rvest","stringr","dplyr","tm","qgraph", "KoNLP"),
                  repos="http://cran.nexr.com")
 ```
 
@@ -191,6 +210,7 @@ library("stringr")
 library("dplyr")
 library("tm")
 library("qgraph")
+library("KoNLP")
 ```
 
 --- .dark .segue .nobackground

@@ -2,9 +2,9 @@
 title       : "텍스트에서 여론과 감정을 발견하기"
 subtitle    : "Using R"
 author      : "김형준"
-job         : "Data Analyst"
+job         : "Data Analyst : (주) 퀀트랩"
 biglogo     : logo_01.png
-logo        : logo_02.png
+logo        : logo_03.png
 license     : by
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 widgets     : []            # {mathjax, bootstrap, quiz}
@@ -17,6 +17,21 @@ knit        : slidify::knit2slides
 <center><img src="assets/img/quantlab.png" height=600px width=800px></center>
 
 --- .new-background
+
+## 빅데이터 경진 대회 금상
+
+<center><img src="assets/img/intro.png" height=550px width=700px></center>
+
+--- .new-background
+
+## 워크숍 관련 온라인 사이트
+
+http://course.mindscale.kr/course/text-analysis
+
+<left><img src="assets/img/intro2.png" height=300px width=600px></left>
+
+--- .new-background
+
 
 ## 영화 자료를 이용한 다양한 분석
 
@@ -85,6 +100,10 @@ knit        : slidify::knit2slides
 <center><img src="assets/img/result_graph.png" height="500" width="600"></center>
 ---
 
+--- .new-background
+
+<center><img src="assets/img/system.png" height="600" width="700"></center>
+
 --- .dark .segue .nobackground
 
 ## 1. R 기초 세팅
@@ -106,7 +125,7 @@ knit        : slidify::knit2slides
 
 ```r
 ##  사용자 경로
-user_path = "/Users/kimhyungjun/repo/daum_movie/" 
+user_path = "/Users/kimhyungjun/repo/daum_movie" 
 par(family="AppleGothic")  ##  그림 출력시 한글폰트
 ```
 
@@ -114,7 +133,7 @@ par(family="AppleGothic")  ##  그림 출력시 한글폰트
 
 
 ```r
-user_path = "C:/Users/kimhyungjun/repo/daum_movie/"  
+user_path = "C:/Users/kimhyungjun/repo/daum_movie"  
 ```
 
 - MAC & Windows 공통
@@ -181,7 +200,7 @@ setwd(user_path)
 
 
 ```r
-install.packages(c("rvest","stringr","dplyr","tm","qgraph"),
+install.packages(c("rvest","stringr","dplyr","tm","qgraph", "KoNLP"),
                  repos="http://cran.nexr.com")
 ```
 
@@ -196,6 +215,7 @@ library("stringr")
 library("dplyr")
 library("tm")
 library("qgraph")
+library("KoNLP")
 ```
 
 --- .dark .segue .nobackground
@@ -718,6 +738,15 @@ movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 ## 4. 감정사전 불러오기
 
 
+```
+## Warning: cannot open file
+## '/Users/kimhyungjun/repo/daum_movieemotion_dict.csv': No such file or
+## directory
+```
+
+```
+## Error: cannot open the connection
+```
 
 
 ```r
@@ -730,7 +759,21 @@ emotion_dict <- read.csv("emotion_dict.csv",
 
 ```r
 pos_word <- subset(emotion_dict, pos_neg=="pos")[,"words"]
+```
+
+```
+## Error: object 'emotion_dict' not found
+```
+
+```r
 neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
+```
+
+```
+## Error: object 'emotion_dict' not found
+```
+
+```r
 #emotion_dict[11:15,]; emotion_dict[1301:1305,];
 ```
 
@@ -1354,16 +1397,26 @@ co_matrix[1:5,1:5]
 ```r
 groups_list = list()
 groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
+```
+
+```
+## Error: object 'neg_word' not found
+```
+
+```r
 groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
+```
+
+```
+## Error: object 'pos_word' not found
+```
+
+```r
 groups_list
 ```
 
 ```
-## $비호감단어
-## [1]  5 12 13 19
-## 
-## $호감단어
-## [1]  2  3  6 17
+## list()
 ```
 
 --- .dark .segue .nobackground
