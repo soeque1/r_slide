@@ -743,7 +743,7 @@ movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
 ```r
 emotion_dict <- read.csv("emotion_dict.csv", 
                          header = T, 
-                         fileEncoding = fileEncoding,
+                         fileEncoding = "UTF-8",
                          stringsAsFactors = F)
 ```
 
@@ -1037,12 +1037,13 @@ result
 
 
 ```r
-result <- str_replace_all(result,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
+result <- str_split(result,"([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+")
 result
 ```
 
 ```
-## [1] "기대  재밌음     보   "
+## [[1]]
+## [1] "기대"   "재밌음" "보"     ""
 ```
 
 ```r
@@ -1119,17 +1120,15 @@ key_vec
 
 
 ```r
-key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
-key_vec <- str_split(key_vec, " ")
+key_vec <- str_split(key_vec,"([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+")
 key_vec <- key_vec[[1]]
 key_vec
 ```
 
 ```
-##  [1] "괜찮"         ""             "시원한"       "액션"        
-##  [5] ""             "개"           "적"           "캡틴아메리카"
-##  [9] ""             "좋"           "하"           ""            
-## [13] "헐크도"       "좋"           ""             ""
+##  [1] "괜찮"         "시원한"       "액션"         "개"          
+##  [5] "적"           "캡틴아메리카" "좋"           "하"          
+##  [9] "헐크도"       "좋"           ""
 ```
 
 --- .new-background .modal
@@ -1189,8 +1188,7 @@ for (i in 1:length(movie_text_sum))
 key_vec <- paste(SimplePos09(movie_text_sum[i]))
 key_vec <- str_extract_all(key_vec,"[가-힣]+/P|[가-힣]+/N")
 key_vec <- paste(key_vec, collapse=" ")
-key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
-key_vec <- str_split(key_vec, " ")
+key_vec <- str_split(key_vec,"([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+")
 key_vec <- key_vec[[1]]
 movie_name <- "어벤져스"
 key_vec <- plyr::revalue(key_vec, c("재밌" = "재미",
@@ -1290,6 +1288,7 @@ key_tdm <- TermDocumentMatrix(key_corpus,
                               weighting = function(x) weightBin(x)))
                                   
 key_tdm <- as.matrix(key_tdm)
+rownames(key_tdm) <- str_trim(rownames(key_tdm))  ##  for windows
 key_tdm <- key_tdm[nchar(rownames(key_tdm))!=1,]  ##  for windows
 dim(key_tdm)
 ```

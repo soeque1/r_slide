@@ -984,7 +984,7 @@ movie_text_sum &lt;- str_replace_all(movie_text_sum, &quot;\n|\n\r&quot;, &quot;
   <article data-timings="">
     <pre><code class="r">emotion_dict &lt;- read.csv(&quot;emotion_dict.csv&quot;, 
                          header = T, 
-                         fileEncoding = fileEncoding,
+                         fileEncoding = &quot;UTF-8&quot;,
                          stringsAsFactors = F)
 </code></pre>
 
@@ -1301,11 +1301,12 @@ result
     <h2>체언과 용언 추출 (연습 8)</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">result &lt;- str_replace_all(result,&quot;[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot;,&quot;&quot;)
+    <pre><code class="r">result &lt;- str_split(result,&quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot;)
 result
 </code></pre>
 
-<pre><code>## [1] &quot;기대  재밌음     보   &quot;
+<pre><code>## [[1]]
+## [1] &quot;기대&quot;   &quot;재밌음&quot; &quot;보&quot;     &quot;&quot;
 </code></pre>
 
 <pre><code class="r">ex  ##  앞 두 글자가 오히려 좋을 수도
@@ -1387,16 +1388,14 @@ key_vec
 <li>Step (3) 파싱(문장 자르기)</li>
 </ul>
 
-<pre><code class="r">key_vec &lt;- str_replace_all(key_vec,&quot;[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot;,&quot;&quot;)
-key_vec &lt;- str_split(key_vec, &quot; &quot;)
+<pre><code class="r">key_vec &lt;- str_split(key_vec,&quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot;)
 key_vec &lt;- key_vec[[1]]
 key_vec
 </code></pre>
 
-<pre><code>##  [1] &quot;괜찮&quot;         &quot;&quot;             &quot;시원한&quot;       &quot;액션&quot;        
-##  [5] &quot;&quot;             &quot;개&quot;           &quot;적&quot;           &quot;캡틴아메리카&quot;
-##  [9] &quot;&quot;             &quot;좋&quot;           &quot;하&quot;           &quot;&quot;            
-## [13] &quot;헐크도&quot;       &quot;좋&quot;           &quot;&quot;             &quot;&quot;
+<pre><code>##  [1] &quot;괜찮&quot;         &quot;시원한&quot;       &quot;액션&quot;         &quot;개&quot;          
+##  [5] &quot;적&quot;           &quot;캡틴아메리카&quot; &quot;좋&quot;           &quot;하&quot;          
+##  [9] &quot;헐크도&quot;       &quot;좋&quot;           &quot;&quot;
 </code></pre>
 
   </article>
@@ -1467,8 +1466,7 @@ for (i in 1:length(movie_text_sum))
 key_vec &lt;- paste(SimplePos09(movie_text_sum[i]))
 key_vec &lt;- str_extract_all(key_vec,&quot;[가-힣]+/P|[가-힣]+/N&quot;)
 key_vec &lt;- paste(key_vec, collapse=&quot; &quot;)
-key_vec &lt;- str_replace_all(key_vec,&quot;[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot;,&quot;&quot;)
-key_vec &lt;- str_split(key_vec, &quot; &quot;)
+key_vec &lt;- str_split(key_vec,&quot;([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+&quot;)
 key_vec &lt;- key_vec[[1]]
 movie_name &lt;- &quot;어벤져스&quot;
 key_vec &lt;- plyr::revalue(key_vec, c(&quot;재밌&quot; = &quot;재미&quot;,
@@ -1587,6 +1585,7 @@ key_vec_sum[i] &lt;- paste(key_vec, collapse=&#39;  &#39;)  ##  두 칸 (윈도�
                               weighting = function(x) weightBin(x)))
 
 key_tdm &lt;- as.matrix(key_tdm)
+rownames(key_tdm) &lt;- str_trim(rownames(key_tdm))  ##  for windows
 key_tdm &lt;- key_tdm[nchar(rownames(key_tdm))!=1,]  ##  for windows
 dim(key_tdm)
 </code></pre>

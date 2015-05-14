@@ -437,7 +437,7 @@ emotion_dict <- read.csv(paste(user_path,"/emotion_dict.csv",sep=""),
 ```{r, eval=F}
 emotion_dict <- read.csv("emotion_dict.csv", 
                          header = T, 
-                         fileEncoding = fileEncoding,
+                         fileEncoding = "UTF-8",
                          stringsAsFactors = F)
 ```
 
@@ -497,7 +497,7 @@ split_12("기대했던 것보다 좀 지루했음... 와이프는 재미있다�
 
 ```{r, eval=T, echo=F}
 k <- str_replace_all(paste(sapply(SimplePos09("기대했던 것보다 좀 지루했음... 와이프는 재미있다고..."), function(x) str_extract_all(x,"[가-힣]+/P|[가-힣]+/N")), collapse=" "),
-"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
+"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]]+","")
 
 extractNounVerbAdj <- function(a)
 {
@@ -601,7 +601,7 @@ result
 ## 체언과 용언 추출 (연습 8)
 
 ```{r, eval=T}
-result <- str_replace_all(result,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
+result <- str_split(result,"([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+")
 result
 ex  ##  앞 두 글자가 오히려 좋을 수도
 split_12(ex)
@@ -647,8 +647,7 @@ key_vec
 * Step (3) 파싱(문장 자르기)
 
 ```{r, eval=T, include=T}
-key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
-key_vec <- str_split(key_vec, " ")
+key_vec <- str_split(key_vec,"([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+")
 key_vec <- key_vec[[1]]
 key_vec
 ```
@@ -696,8 +695,7 @@ for (i in 1:length(movie_text_sum))
 key_vec <- paste(SimplePos09(movie_text_sum[i]))
 key_vec <- str_extract_all(key_vec,"[가-힣]+/P|[가-힣]+/N")
 key_vec <- paste(key_vec, collapse=" ")
-key_vec <- str_replace_all(key_vec,"[ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+","")
-key_vec <- str_split(key_vec, " ")
+key_vec <- str_split(key_vec,"([ㄱ-ㅎㅏ-ㅢ]|[[:punct:]]|[0-9A-Za-z]|[[:space:]])+")
 key_vec <- key_vec[[1]]
 movie_name <- "어벤져스"
 key_vec <- plyr::revalue(key_vec, c("재밌" = "재미",
@@ -775,6 +773,7 @@ key_tdm <- TermDocumentMatrix(key_corpus,
                               weighting = function(x) weightBin(x)))
                                   
 key_tdm <- as.matrix(key_tdm)
+rownames(key_tdm) <- str_trim(rownames(key_tdm))  ##  for windows
 key_tdm <- key_tdm[nchar(rownames(key_tdm))!=1,]  ##  for windows
 dim(key_tdm)
 
