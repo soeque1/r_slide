@@ -363,6 +363,7 @@ body {
   /* background-image:url(http://demo.duotive.org/duotive-fortune/assets/01-black_01.jpg); */
   /* background-image:url(http://hdwallpaperia.com/wp-content/uploads/2014/01/Black-Wallpaper-High-Resolution-2014.jpg); */
   /*background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/Black-Wallpaper-High-Resolution-2014.jpg);*/
+  background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
 }
 .quiz-option label{
   display: inline;
@@ -451,6 +452,7 @@ padding-bottom: -10px ;
   /* background-image:url(http://fc05.deviantart.net/fs50/f/2009/327/3/7/Black_Smoke_by_DarkBelthazor.jpg); */
   /* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/black_smoke.jpg); */
   /* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/Background-Graphics.jpg); */
+  background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
 }
 
 .title-slide hgroup > h1{
@@ -464,10 +466,12 @@ padding-bottom: -10px ;
 
 .new-background {
 /*  background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/londonr_background_1100x700.jpg); */ 
+background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
 }
 
 .new-background-rev {
 /*  background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/londonr_background_1100x700_rev.jpg); */
+background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
 }
 
 
