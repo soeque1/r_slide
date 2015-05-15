@@ -177,6 +177,7 @@ setwd(user_path)
 
 <h4>텍스트 분석</h4>
 * [dplyr](http://cran.r-project.org/web/packages/dplyr/index.html)  
+* [KoNLP](http://cran.r-project.org/web/packages/KoNLP/index.html)  
 * [tm](http://cran.r-project.org/web/packages/tm/index.html)  
 
 <h4></br></h4>
