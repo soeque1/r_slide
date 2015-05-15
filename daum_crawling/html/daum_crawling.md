@@ -18,17 +18,11 @@ knit        : slidify::knit2slides
 
 --- .new-background
 
-## 빅데이터 경진 대회 금상
-
-<center><img src="assets/img/intro.png" height=550px width=700px></center>
-
---- .new-background
-
 ## 워크숍 관련 온라인 사이트
 
 http://course.mindscale.kr/course/text-analysis
 
-<left><img src="assets/img/intro2.png" height=300px width=600px></left>
+<left><img src="assets/img/intro2.png" height=450px width=600px></left>
 
 --- .new-background
 
@@ -170,8 +164,8 @@ setwd(user_path)
 <h4></br></h4>
 <h4></br></h4>
 
-<h4>감정 사전 (엑셀파일 읽기)</h4>
-* [readxl](http://cran.r-project.org/web/packages/readxl/index.html)  
+<h4>감정 사전 </h4>
+<!-- * [readxl](http://cran.r-project.org/web/packages/readxl/index.html)  -->
 * [한국어 감정 사전 1](http://word.snu.ac.kr/kosac/)  
 * [한국어 감정 사전 2](http://clab.snu.ac.kr/arssa/doku.php?id=app_dict_1.0)  
 * [참고 논문 모음 1](http://word.snu.ac.kr/kosac/publications.php)  
@@ -212,7 +206,7 @@ install.packages(c("rvest","stringr","dplyr","tm","qgraph", "KoNLP"),
 library("httr")
 library("rvest")
 library("stringr")
-library("dplyr")
+library("plyr")
 library("tm")
 library("qgraph")
 library("KoNLP")
@@ -228,7 +222,7 @@ library("KoNLP")
 
 <h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
 <h3b> - 웹사이트 배경지식</h3b>  
-<h3b> - Regualr Expression (REGEX)</h3b>  
+<!-- <h3b> - Regualr Expression (REGEX)</h3b> -->
 <h3b> - 단일 페이지 웹크롤</h3b>  
 <h3b> - 복수 페이지 웹크롤</h3b>  
 
@@ -298,7 +292,7 @@ http://movie.daum.net
 
 
 ```r
-urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&t__nil_NetizenPoint=tabName"
+urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
 r <- GET(urls_view)
 htxt <- html(r)
 ```
@@ -309,220 +303,1126 @@ htxt <- html(r)
 
 
 ```r
-html_nodes(htxt, ".comment")
+library("rvest")
 ```
 
-[[1]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811563&amp;type=after" title="댓글달기">어벤져스 1편 윈터솔져 정도는 보고 가셔야 그나마 이해될듯..지금껏 관련 영화는 다보았기에 그나마 이해하며 봤지만..마블영웅에 적응이 돼서 그런가 감흥은 없는듯..하지만 다음편도 나오면 보게될듯..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 
-					</span> 
+```r
+movie_text <- html_nodes(htxt, ".comment")
+```
 
-[[2]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811540&amp;type=after" title="댓글달기">괜찮음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+```
+## Warning: empty XML document
+## Warning: empty XML document
+```
 
-					</span> 
+```
+## Error: no applicable method for 'xmlNamespaceDefinitions' applied to an
+## object of class "NULL"
+```
 
-[[3]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811528&amp;type=after" title="댓글달기">여태까지 마블 무비의 팬이었고 군데군데 나오는 떡밥을 알아차릴수있다면 이영화는 굉장히 의미가&#13;
-큰영화가 될거다                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+```r
+movie_text
+```
 
-					</span> 
-
-[[4]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811525&amp;type=after" title="댓글달기">최초에 의미를 둔 슈퍼히어로 매쉬 업                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[5]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811499&amp;type=after" title="댓글달기">좀 실망스러운 영화입니다. 내용도 없고 재미도 없구요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[6]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811488&amp;type=after" title="댓글달기">별로 재미는~~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[7]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811481&amp;type=after" title="댓글달기">재미있다기보다는, 내가 어벤져스를 봤구나? 이런기분.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[8]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811468&amp;type=after" title="댓글달기">여전히 멋져요..근데 한국은 억지로 끼워준 이 찜찜한 느낌은 뭐지..?ㅋㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[9]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811465&amp;type=after" title="댓글달기">재미있다.?
-재미없다.?
-양자택일 하면
-
-재미없다...!!
-또 한국국민만 특유의  쏠림현상
-
-미국특유의 B급 폭력영화
-억지영웅 만들기.미국전통문화컴플렉스에서 기인하는 영화
-                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[10]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811407&amp;type=after" title="댓글달기">솔직히 왜 볼까 싶다. 순전히 마케팅에 의한 것이지. 남들이 보니 군중 심리에 휩쓸려 보는...별 볼 것도 없었음. 아무 느낌이 없는 영화였고 평점 줄 것도 없음. 0점도 아까움!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[11]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811361&amp;type=after" title="댓글달기">40대 후반인데,.... 보느라 혼났내요 ^^  &#13;
-                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[12]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811356&amp;type=after" title="댓글달기">재밌더만 왜이리 평이 안좋은 지..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[13]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811341&amp;type=after" title="댓글달기">할말이 없다..ㅜ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[14]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811325&amp;type=after" title="댓글달기">만드느라 고생했다 4점..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-[[15]]
-<span class="comment article">
-					
-										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811324&amp;type=after" title="댓글달기">짐 7시50분꺼 보고나왔는데지루하고산만하고                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
-
-					</span> 
-
-attr(,"class")
-[1] "XMLNodeSet"
+```
+## Error: object 'movie_text' not found
+```
 
 --- .new-background
 
 
 ```r
-html_nodes(html_nodes(htxt, ".comment"),"a")
+movie_text <- html_nodes(movie_text, "a")
 ```
 
-[[1]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811563&amp;type=after" title="댓글달기">어벤져스 1편 윈터솔져 정도는 보고 가셔야 그나마 이해될듯..지금껏 관련 영화는 다보았기에 그나마 이해하며 봤지만..마블영웅에 적응이 돼서 그런가 감흥은 없는듯..하지만 다음편도 나오면 보게될듯..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+```
+## Error: object 'movie_text' not found
+```
 
-[[2]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811540&amp;type=after" title="댓글달기">괜찮음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+```r
+movie_text
+```
 
-[[3]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811528&amp;type=after" title="댓글달기">여태까지 마블 무비의 팬이었고 군데군데 나오는 떡밥을 알아차릴수있다면 이영화는 굉장히 의미가&#13;
-큰영화가 될거다                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[4]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811525&amp;type=after" title="댓글달기">최초에 의미를 둔 슈퍼히어로 매쉬 업                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[5]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811499&amp;type=after" title="댓글달기">좀 실망스러운 영화입니다. 내용도 없고 재미도 없구요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[6]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811488&amp;type=after" title="댓글달기">별로 재미는~~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[7]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811481&amp;type=after" title="댓글달기">재미있다기보다는, 내가 어벤져스를 봤구나? 이런기분.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[8]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811468&amp;type=after" title="댓글달기">여전히 멋져요..근데 한국은 억지로 끼워준 이 찜찜한 느낌은 뭐지..?ㅋㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[9]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811465&amp;type=after" title="댓글달기">재미있다.?
-재미없다.?
-양자택일 하면
-
-재미없다...!!
-또 한국국민만 특유의  쏠림현상
-
-미국특유의 B급 폭력영화
-억지영웅 만들기.미국전통문화컴플렉스에서 기인하는 영화
-                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[10]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811407&amp;type=after" title="댓글달기">솔직히 왜 볼까 싶다. 순전히 마케팅에 의한 것이지. 남들이 보니 군중 심리에 휩쓸려 보는...별 볼 것도 없었음. 아무 느낌이 없는 영화였고 평점 줄 것도 없음. 0점도 아까움!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[11]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811361&amp;type=after" title="댓글달기">40대 후반인데,.... 보느라 혼났내요 ^^  &#13;
-                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[12]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811356&amp;type=after" title="댓글달기">재밌더만 왜이리 평이 안좋은 지..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[13]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811341&amp;type=after" title="댓글달기">할말이 없다..ㅜ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[14]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811325&amp;type=after" title="댓글달기">만드느라 고생했다 4점..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-[[15]]
-<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811324&amp;type=after" title="댓글달기">짐 7시50분꺼 보고나왔는데지루하고산만하고                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
-
-attr(,"class")
-[1] "XMLNodeSet"
+```
+## Error: object 'movie_text' not found
+```
 
 --- .new-background 
 
 
 ```r
-html_text(html_nodes(html_nodes(htxt, ".comment"),"a"))
+movie_text <- html_text(movie_text)
 ```
 
- [1] "어벤져스 1편 윈터솔져 정도는 보고 가셔야 그나마 이해될듯..지금껏 관련 영화는 다보았기에 그나마 이해하며 봤지만..마블영웅에 적응이 돼서 그런가 감흥은 없는듯..하지만 다음편도 나오면 보게될듯..                    "
- [2] "괜찮음                    "                                                                                                                                                                                        
- [3] "여태까지 마블 무비의 팬이었고 군데군데 나오는 떡밥을 알아차릴수있다면 이영화는 굉장히 의미가\r\n큰영화가 될거다                    "                                                                               
- [4] "최초에 의미를 둔 슈퍼히어로 매쉬 업                    "                                                                                                                                                           
- [5] "좀 실망스러운 영화입니다. 내용도 없고 재미도 없구요                    "                                                                                                                                           
- [6] "별로 재미는~~                    "                                                                                                                                                                                 
- [7] "재미있다기보다는, 내가 어벤져스를 봤구나? 이런기분.                    "                                                                                                                                           
- [8] "여전히 멋져요..근데 한국은 억지로 끼워준 이 찜찜한 느낌은 뭐지..?ㅋㅋ                    "                                                                                                                         
- [9] "재미있다.?\n재미없다.?\n양자택일 하면\n\n재미없다...!!\n또 한국국민만 특유의  쏠림현상\n\n미국특유의 B급 폭력영화\n억지영웅 만들기.미국전통문화컴플렉스에서 기인하는 영화\n                    "                   
-[10] "솔직히 왜 볼까 싶다. 순전히 마케팅에 의한 것이지. 남들이 보니 군중 심리에 휩쓸려 보는...별 볼 것도 없었음. 아무 느낌이 없는 영화였고 평점 줄 것도 없음. 0점도 아까움!                    "                         
-[11] "40대 후반인데,.... 보느라 혼났내요 ^^  \r\n                    "                                                                                                                                                   
-[12] "재밌더만 왜이리 평이 안좋은 지..                    "                                                                                                                                                              
-[13] "할말이 없다..ㅜ                    "                                                                                                                                                                               
-[14] "만드느라 고생했다 4점..                    "                                                                                                                                                                       
-[15] "짐 7시50분꺼 보고나왔는데지루하고산만하고                     "                                                                                                                                                    
+```
+## Error: object 'movie_text' not found
+```
+
+```r
+movie_text
+```
+
+```
+## Error: object 'movie_text' not found
+```
+
+--- .new-background
+
+## 어벤져스 (1 페이지 웹크롤)
+
+
+```r
+urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
+r <- GET(urls_view)
+htxt <- html(r)
+movie_text <- html_nodes(htxt, ".comment")
+movie_text <- html_nodes(movie_text, "a")
+movie_text <- html_text(movie_text)
+length(html_nodes(htxt, ".comment"))
+```
+
+```
+## [1] 15
+```
 
 --- .dark .segue .nobackground
 
-## R 연습 (REGEX & FOR, IF)
+## R 연습 - FOR & IF, paste
+
+--- .new-background .modal
+
+## FOR & IF, break (연습 1)
+
+
+```r
+for (i in 1:5)
+{
+    print(i)
+}
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+```
+
+
+```r
+for (i in 1:100)
+{
+    if(i==3) break
+    print(i)
+}
+```
+
+```
+## [1] 1
+## [1] 2
+```
+
+--- .new-background
+
+## c, paste (연습 2)
+
+
+```r
+ex1 <- c("어벤져스 재밌다")
+ex2 <- c("졸리다")
+ex_sum <- c(ex1, ex2)
+ex_sum
+```
+
+```
+## [1] "어벤져스 재밌다" "졸리다"
+```
+
+--- .new-background .modal
+
+## c, paste (연습 2)
+
+
+```r
+paste("page=", 1)
+```
+
+```
+## [1] "page= 1"
+```
+
+```r
+paste("page=", 1, sep="")
+```
+
+```
+## [1] "page=1"
+```
+
+
+```r
+page_num = 1
+paste("page=", page_num, sep="")
+```
+
+```
+## [1] "page=1"
+```
+
+```r
+page_num = 2
+paste("page=", page_num, sep="")
+```
+
+```
+## [1] "page=2"
+```
+
+--- .new-background
+
+## c, paste (연습 2)
+
+
+```r
+ex <- c("어벤져스", ex2)
+paste(ex, collapse="")
+```
+
+```
+## [1] "어벤져스졸리다"
+```
+
+```r
+paste(ex, collapse=" ")
+```
+
+```
+## [1] "어벤져스 졸리다"
+```
+
+```r
+paste(ex, collapse=" + ")
+```
+
+```
+## [1] "어벤져스 + 졸리다"
+```
+
+--- .new-background
+
+
+
+```r
+urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=130"
+r <- GET(urls_view)
+htxt <- html(r)
+length(html_nodes(htxt, ".comment"))
+```
+
+```
+## [1] 0
+```
+
+
+--- .new-background .modal
+
+## 어벤져스 전체 페이지 웹크롤
+
+
+```r
+movie_text_sum <- c()
+
+for (page_num in 1:1000)
+{
+urls_view <- 
+paste("http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=",
+page_num,sep="")
+r <- GET(urls_view)
+htxt <- html(r)
+
+movie_text <-  html_nodes(htxt, ".comment")
+movie_text <-  html_nodes(movie_text, "a")
+movie_text <-  html_text(movie_text)
+
+if(length(movie_text)==0) break;
+
+movie_text_sum <- c(movie_text_sum, movie_text)
+print(paste(page_num, "-th page", sep=""))    
+}
+```
+
+--- .dark .segue .nobackground
+
+## 4. 감정사전 불러오기
+
+--- .new-background
+
+## 4. 감정사전 불러오기
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 파일 불러오기(read.csv)</h3b>  
+<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b>
+
+--- .new-background
+
+## 4. 감정사전 불러오기
+
+
+
+
+```r
+emotion_dict <- read.csv("emotion_dict.csv", 
+                         header = T, 
+                         fileEncoding = "UTF-8",
+                         stringsAsFactors = F)
+```
+
+
+```r
+pos_word <- subset(emotion_dict, pos_neg=="pos")[,"words"]
+neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
+#emotion_dict[11:15,]; emotion_dict[1301:1305,];
+```
+
+<h4><br></h4>
+[감정사전](https://www.dropbox.com/s/okv4mjiq0wlhgbl/emotion_dict.csv?dl=0)
+
+--- .dark .segue .nobackground
+
+## 5. 키워드 파싱 및 추출
+
+--- .new-background
+
+## 5. 키워드 파싱 및 추출
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+
+<h3b> - R에서 자연어 처리 문제</h3b>  
+
+<h3b> - 키워드 추출 방법 I (KoNLP - ExtracNoun)</h3b>
+
+<h3b> - 키워드 추출 방법 II (KoNLP - POStagging) - APPENDIX II </h3b>  
+
+<h3b> - 키워드 추출 방법 III (앞 두 글자 자르기) - APPENDIX III </h3b>
+
+--- .new-background
+
+## R에서 자연어 처리 (KoNLP)
+
+<font color="red">기대</font>했던 것보다 좀 <font color="red">지루</font>했음... 와이프는 
+<font color="red">재미있다</font>고...
+
+
+```r
+library("KoNLP")
+extractNoun("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
+```
+
+```
+## [1] "것"     "지루"   "와이프"
+```
+
+
+
+
+```r
+split_12("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
+```
+
+```
+## [1] "기대" "것보" "좀"   "지루" "와이" "재미"
+```
+
+
+
+
+```r
+extractNounVerbAdj("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
+```
+
+```
+## [[1]]
+## [1] ""       "기대"   "하"     "것"     "지루"   "와이프" "재미있" ""
+```
+
+--- .dark .segue .nobackground
+
+## R 연습 - extractNoun, nchar, revalue
+
+--- .new-background
+
+## extractNoun (연습 3)
+
+
+```r
+ex <- "어 헐크 대박이네 ㅋ 잼슴"
+ex <- extractNoun(ex)
+ex
+```
+
+```
+## [1] "어"   "헐크" "대박" "ㅋ"   "잼슴"
+```
+
+--- .new-background
+
+## nchar로 1글자 제거 (연습 4)
+
+
+```r
+ex
+```
+
+```
+## [1] "어"   "헐크" "대박" "ㅋ"   "잼슴"
+```
+
+```r
+nchar(ex)
+```
+
+```
+## [1] 1 2 2 1 2
+```
+
+```r
+ex <- ex[nchar(ex) > 1]
+ex
+```
+
+```
+## [1] "헐크" "대박" "잼슴"
+```
+
+--- .new-background
+
+## revalue로 맞춤법 교정 (연습 5)
+
+
+```r
+ex
+```
+
+```
+## [1] "헐크" "대박" "잼슴"
+```
+
+
+```r
+library("plyr")
+```
+
+
+```r
+revalue(ex, c("잼슴" ="재미"))
+```
+
+```
+## [1] "헐크" "대박" "재미"
+```
+
+
+```r
+revalue(ex, c("대박"="완전", "잼슴"="재미"))
+```
+
+```
+## [1] "헐크" "완전" "재미"
+```
+
+--- .new-background
+
+## 키워드 추출 (어벤져스)
+
+* Step (1) extractNoun
+
+
+
+
+```r
+movie_text_sum[1]
+```
+
+```
+## [1] "괜찮음.. 시원한 액션.. 갠적으로 캡틴아메리카 너무 좋아함. 헐크도 좋고.. ♥♥♥"
+```
+
+```r
+key_vec <- extractNoun(movie_text_sum[1])
+key_vec
+```
+
+```
+## [1] "시원"         "한"           "액션"         "적"          
+## [5] "캡틴아메리카" "헐크도"       "♥♥♥"
+```
+
+--- .new-background
+
+## 키워드 추출 (어벤져스)
+
+* Step (2) 한 글자 제거
+
+
+```r
+key_vec <- key_vec[nchar(key_vec) > 1]
+key_vec
+```
+
+```
+## [1] "시원"         "액션"         "캡틴아메리카" "헐크도"      
+## [5] "♥♥♥"
+```
+
+--- .new-background
+
+## 키워드 추출 (어벤져스)
+
+* Step (3) 맞춤법 교정
+
+
+```r
+movie_name <- "어벤져스"
+key_vec <- revalue(key_vec, c("재밌" = "재미",
+                              "재밋" = "재미",
+                              "잼있" = "재미",
+                              "영화" = movie_name),
+                   warn_missing = F)
+key_vec
+```
+
+```
+## [1] "시원"         "액션"         "캡틴아메리카" "헐크도"      
+## [5] "♥♥♥"
+```
+
+--- .new-background
+
+## 키워드 추출 (어벤져스)
+
+* Step (4) 다시 한 문장으로 합치기
+
+
+```r
+key_vec <- paste(key_vec, collapse=" ")
+key_vec
+```
+
+```
+## [1] "시원 액션 캡틴아메리카 헐크도 ♥♥♥"
+```
+
+--- .new-background .modal
+
+## 키워드 추출 (어벤져스)
+
+
+```r
+key_vec_sum <- c(); 
+movie_name = "어벤져스"
+
+for (i in 1:length(movie_text_sum))
+{
+key_vec <- extractNoun(movie_text_sum[i])
+
+key_vec <- revalue(key_vec, c("재밌" = "재미",
+                              "재밋" = "재미",
+                              "잼있" = "재미",
+                              "영화" = movie_name),
+                   warn_missing = F)
+
+key_vec <- key_vec[nchar(key_vec) > 1]
+key_vec <- c(key_vec, ' ')  ##  윈도우 tm 버그 때문
+key_vec_sum[i] <- paste(key_vec, collapse='  ')  ##  두 칸 (윈도우 tm 버그 때문)
+}
+```
+
+```
+## Warning: It's not kind of right sentence : '재미겁나.없음.스토리자체가어거지로맞츠는데, '
+## Warning: It's not kind of right sentence : '꾸벅꾸벅...........억지로봤네요.........'
+## Warning: It's not kind of right sentence : '저는개인적으로1편보단재밌게봤습니다솔직히첨부분은지루한점은있었는데중반부터재밌더라고요역시CG가대단합니다.서울에서찍은장면도기대이상이였습니다'
+## Warning: It's not kind of right sentence : '재미없다는사람들대체이때까지어떤영화를본거지....핵꿀잼이던데...'
+## Warning: It's not kind of right sentence : '그냥자다가다시일어나서보고ㅜ별로모르겟음ㅜㅜ'
+## Warning: It's not kind of right sentence : '계속지네들끼리싸우다가적하고싸우다가또지들끼리싸운다...그러다또적하고싸우고ㅡㅡ지루한건사실이다..새로운인물들이나타날때마다몰입도는떨어져갔다..그러나한국을알리는데는도움이될거같았다..씬도어느정도중요했고..음..딱히재미있는영화라고는못하겠다..그냥그냥볼만한영화?ㅎ그이상그이하도아닌거같았다'
+```
+
+--- .dark .segue .nobackground
+
+## 6. Co-occurrence Matrix
+
+--- .new-background
+
+## 6. Co-occurrence Matrix
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Term x Document Matrix</h3b>  
+<h3b> - Co-occurrence Matrix</h3b>
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+* 단어에 대하여 Weight
+* 문서 내 단어에 대하여 Weight 
+* 모형에 따라 다양한 방식으로 처리
+
+
+```r
+library("tm")
+```
+
+
+```r
+key_corpus <- Corpus(DataframeSource(as.data.frame(key_vec_sum)))
+key_corpus
+```
+
+```
+## <<VCorpus (documents: 1737, metadata (corpus/indexed): 0/0)>>
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+
+```r
+key_tdm <- TermDocumentMatrix(key_corpus)
+key_tdm
+```
+
+```
+## <<TermDocumentMatrix (terms: 3442, documents: 1737)>>
+## Non-/sparse entries: 5632/5973122
+## Sparsity           : 100%
+## Maximal term length: 152
+## Weighting          : term frequency (tf)
+```
+
+--- .new-background .modal
+
+## Term x Document Matrix
+
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="어벤져스"]
+```
+
+```
+## [1] "어벤져스"
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="헐크"]
+```
+
+```
+## character(0)
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="등등"]
+```
+
+```
+## character(0)
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="ㅡ.ㅡ"]
+```
+
+```
+## [1] "ㅡ.ㅡ"
+```
+
+
+--- .new-background
+
+## Term x Document Matrix
+
+
+```r
+key_tdm <- TermDocumentMatrix(key_corpus,
+                              control = list(
+                              removeNumbers = TRUE,
+                              removePunctuation = TRUE))
+```
+
+--- .new-background .modal
+
+## Term x Document Matrix
+
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="어벤져스"]
+```
+
+```
+## [1] "어벤져스"
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="헐크"]
+```
+
+```
+## character(0)
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="등등"]
+```
+
+```
+## character(0)
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="ㅡ.ㅡ"]
+```
+
+```
+## character(0)
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+
+```r
+?TermDocumentMatrix
+?TermFreq
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+
+```r
+key_tdm <- TermDocumentMatrix(key_corpus,
+                              control = list(
+                              removeNumbers = TRUE,
+                              removePunctuation = TRUE,
+                              wordLengths = c(2,Inf)))
+```
+
+--- .new-background .modal
+
+## Term x Document Matrix
+
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="어벤져스"]
+```
+
+```
+## [1] "어벤져스"
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="헐크"]
+```
+
+```
+## [1] "헐크"
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="등등"]
+```
+
+```
+## [1] "등등"
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="ㅡ.ㅡ"]
+```
+
+```
+## character(0)
+```
+
+--- .new-background
+
+## 불필요 단어제거
+
+
+```r
+stopwords()
+```
+
+```
+##   [1] "i"          "me"         "my"         "myself"     "we"        
+##   [6] "our"        "ours"       "ourselves"  "you"        "your"      
+##  [11] "yours"      "yourself"   "yourselves" "he"         "him"       
+##  [16] "his"        "himself"    "she"        "her"        "hers"      
+##  [21] "herself"    "it"         "its"        "itself"     "they"      
+##  [26] "them"       "their"      "theirs"     "themselves" "what"      
+##  [31] "which"      "who"        "whom"       "this"       "that"      
+##  [36] "these"      "those"      "am"         "is"         "are"       
+##  [41] "was"        "were"       "be"         "been"       "being"     
+##  [46] "have"       "has"        "had"        "having"     "do"        
+##  [51] "does"       "did"        "doing"      "would"      "should"    
+##  [56] "could"      "ought"      "i'm"        "you're"     "he's"      
+##  [61] "she's"      "it's"       "we're"      "they're"    "i've"      
+##  [66] "you've"     "we've"      "they've"    "i'd"        "you'd"     
+##  [71] "he'd"       "she'd"      "we'd"       "they'd"     "i'll"      
+##  [76] "you'll"     "he'll"      "she'll"     "we'll"      "they'll"   
+##  [81] "isn't"      "aren't"     "wasn't"     "weren't"    "hasn't"    
+##  [86] "haven't"    "hadn't"     "doesn't"    "don't"      "didn't"    
+##  [91] "won't"      "wouldn't"   "shan't"     "shouldn't"  "can't"     
+##  [96] "cannot"     "couldn't"   "mustn't"    "let's"      "that's"    
+## [101] "who's"      "what's"     "here's"     "there's"    "when's"    
+## [106] "where's"    "why's"      "how's"      "a"          "an"        
+## [111] "the"        "and"        "but"        "if"         "or"        
+## [116] "because"    "as"         "until"      "while"      "of"        
+## [121] "at"         "by"         "for"        "with"       "about"     
+## [126] "against"    "between"    "into"       "through"    "during"    
+## [131] "before"     "after"      "above"      "below"      "to"        
+## [136] "from"       "up"         "down"       "in"         "out"       
+## [141] "on"         "off"        "over"       "under"      "again"     
+## [146] "further"    "then"       "once"       "here"       "there"     
+## [151] "when"       "where"      "why"        "how"        "all"       
+## [156] "any"        "both"       "each"       "few"        "more"      
+## [161] "most"       "other"      "some"       "such"       "no"        
+## [166] "nor"        "not"        "only"       "own"        "same"      
+## [171] "so"         "than"       "too"        "very"
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거
+
+
+```r
+delete_dic <- c("그냥", "등등", "중간")
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+
+```r
+key_tdm <- TermDocumentMatrix(key_corpus,
+                              control = list(
+                              removeNumbers = TRUE,
+                              removePunctuation = TRUE,
+                              wordLengths = c(2,Inf),
+                              stopwords = delete_dic))
+```
+
+--- .new-background .modal
+
+## Term x Document Matrix
+
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="어벤져스"]
+```
+
+```
+## [1] "어벤져스"
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="헐크"]
+```
+
+```
+## [1] "헐크"
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="등등"]
+```
+
+```
+## character(0)
+```
+
+```r
+rownames(key_tdm)[rownames(key_tdm)=="ㅡ.ㅡ"]
+```
+
+```
+## character(0)
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+
+```r
+key_tdm_m <- as.matrix(key_tdm)
+rownames(key_tdm_m) <- str_trim(rownames(key_tdm_m))  ##  for windows
+dim(key_tdm)
+```
+
+```
+## [1] 4940 1737
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
+
+
+```r
+ex <- matrix(c(1,1,1,0,
+               1,0,1,0,
+               0,1,0,1), 
+               nrow=4)
+rownames(ex) <- c("아이폰", "갤럭시", "좋다", "나쁘다")
+colnames(ex) <- c("사람1", "사람2", "사람3")
+```
+
+--- .new-background
+
+## Co-occurrence Matrix
+
+* 특정 단어와 다른 단어가 동시에 영화평 내에서 발생한 것을 Counts
+* 예시)
+
+
+```r
+ex %*% t(ex)
+```
+
+```
+##        아이폰 갤럭시 좋다 나쁘다
+## 아이폰      2      1    2      0
+## 갤럭시      1      2    1      1
+## 좋다        2      1    2      0
+## 나쁘다      0      1    0      1
+```
+
+--- .new-background .modal
+
+## Co-occurrence Matrix
+
+
+```r
+rowSums(key_tdm_m)[1:5]
+```
+
+```
+##            and an개인적으로는       avengers            bad            bbb 
+##              2              1              1              1              1
+```
+
+```r
+order(rowSums(key_tdm_m), decreasing = T)[1:5]
+```
+
+```
+## [1] 2797 3584 4013  528 2292
+```
+
+```r
+key_tdm_m <- key_tdm_m[order(rowSums(key_tdm_m), decreasing = T),]
+```
+
+--- .new-background .modal
+
+## Co-occurrence Matrix
+
+
+```r
+key_tdm_m <- key_tdm_m[1:20, ]
+co_matrix <- key_tdm_m %*% t(key_tdm_m)
+co_matrix[1:5,1:5]
+```
+
+```
+##           Terms
+## Terms      어벤져스 재미 지루 기대 스토리
+##   어벤져스      988  104   75   66     99
+##   재미          104  282   35   29     24
+##   지루           75   35  212   28     25
+##   기대           66   29   28  206     11
+##   스토리         99   24   25   11    192
+```
+
+--- .new-background
+
+## Term x Document Matrix와 감정 사전
+
+
+```r
+groups_list = list()
+groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
+groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
+groups_list
+```
+
+```
+## $비호감단어
+## [1]  3 18 20
+## 
+## $호감단어
+## [1] 2 4
+```
+
+--- .dark .segue .nobackground
+
+## 7. 시각화
+
+--- .new-background
+
+## 7. 시각화
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - Graph 그리기(qgraph)</h3b>  
+
+--- .new-background
+
+## Graph
+
+
+```r
+library("qgraph")
+```
+
+
+```r
+qgraph(co_matrix, labels = colnames(co_matrix), diag=F)
+```
+
+--- .new-background
+
+<center><img src="assets/img/result_graph_00.png" height="600" width="700"></center>
+
+--- .new-background
+
+
+```r
+qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+      layout="spring")
+```
+
+--- .new-background
+
+<center><img src="assets/img/result_graph_01.png" height="600" width="700"></center>
+
+--- .new-background
+
+
+
+```r
+qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+      layout="spring", 
+      edge.color = "darkblue")
+```
+
+--- .new-background
+
+<center><img src="assets/img/result_graph_02.png" height="600" width="700"></center>
+
+--- .new-background
+
+
+```r
+qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+      layout="spring", 
+      edge.color = "darkblue",
+      groups = groups_list)
+```
+
+--- .new-background
+
+<center><img src="assets/img/result_graph_03.png" height="600" width="700"></center>
+
+--- .new-background
+
+
+```r
+qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+      layout = "spring", 
+      edge.color = "darkblue",
+      groups = groups_list,
+      vsize = 5,
+      legend.cex = .7)
+      
+title(movie_name, line = 3)
+```
+
+--- .new-background
+
+<center><img src="assets/img/result_graph.png" height="600" width="700"></center>
+
+--- .new-background
+
+
+```r
+qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+      layout = "spring", 
+      edge.color = "darkblue",
+      groups = groups_list,
+      size = log(diag(co_matrix)),
+      legend.cex = .7)
+
+title(movie_name, line = 3)
+```
+
+--- .new-background
+
+<center><img src="assets/img/result_graph_2.png" height="600" width="700"></center>
+
+--- .new-background
+
+## 의문 단어 찾아보기(상관관계)
+
+
+```r
+head(findAssocs(key_tdm, "서울", 0))
+```
+
+```
+##          서울
+## 후진국   0.31
+## 배경     0.28
+## 이미지가 0.27
+## 건물외관 0.25
+## 뉴스방송 0.25
+## 당근     0.25
+```
+
+--- .new-background
+
+## 의문 단어 찾아보기(상관관계)
+
+
+```r
+head(findAssocs(key_tdm, "다음", 0))
+```
+
+```
+##            다음
+## 검색       0.36
+## 개봉많이   0.35
+## 네이버보다 0.35
+## 물타기알바 0.35
+## 본사람들   0.35
+## 빵점       0.35
+```
+
+
+--- .dark .segue .nobackground
+
+## APPENDIX I - R 연습 (REGEX)
 
 --- .new-background .modal
 
@@ -541,13 +1441,13 @@ str_replace_all(ex, '!', '')
 ```
 
 ```r
-str_replace_all(ex, "!|\\.", "")
+str_replace_all(ex, "! | \\.", "")
 ```
 
 ```
-## [1] "아 R이 왜 이렇게 재미있냐?" "[1]"                       
+## [1] "아!R이 왜 이렇게 재미있냐?" "[1]"                       
 ## [3] "[2]"                        "[20]"                      
-## [5] "졸리다"
+## [5] "졸리다..."
 ```
 
 ```r
@@ -593,6 +1493,15 @@ str_replace_all(ex, "\\[1\\]", "")
 ## [1] "아!! R이 왜 이렇게 재미있냐?" ""                            
 ## [3] "[2]"                          "[20]"                        
 ## [5] "졸리다..."
+```
+
+--- .new-background .modal
+
+## REGEX (연습 1)
+
+
+```r
+?regex
 ```
 
 --- .new-background
@@ -654,183 +1563,10 @@ ex[ex!=""]
 ## [1] "아!! R이 왜 이렇게 재미있냐?" "졸리다..."
 ```
 
---- .new-background .modal
-
-## FOR & IF, break (연습 2)
-
-
-```r
-for (i in 1:5)
-{
-    print(i)
-}
-```
-
-```
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-```
-
-
-```r
-for (i in 1:100)
-{
-    if(i==3) break
-    print(i)
-}
-```
-
-```
-## [1] 1
-## [1] 2
-```
-
---- .new-background
-
-## 어벤져스 (1 페이지 웹크롤)
-
-
-
-
-```r
-movie_text <- html_text(html_nodes(html_nodes(htxt, ".comment"),"a"))
-
-movie_text <- str_replace_all(movie_text, "\\[[0-9]+\\]", "")  ##  영화평의 댓글 제거
-
-movie_text <- movie_text[movie_text!=""]  ##  영화평의 댓글 제거
-```
-
---- .new-background .modal
-
-## 어벤져스 전체 페이지 웹크롤
-
-
-```r
-movie_text_sum <- c();
-
-for (page_num in 1:1000)
-{
-urls_view <- paste("http://movie.daum.net/review/netizen_point/movieNetizenPoint.do?type=after&op=movieId&searchValue=73750&page=",page_num,sep="")
-r <- GET(urls_view)
-htxt <- html(r)
-
-movie_text <-  html_nodes(htxt, ".comment")
-movie_text <-  html_nodes(movie_text, "a")
-movie_text <-  html_text(movie_text)
-#movie_text <-  html_text(html_nodes(html_nodes(htxt, ".comment"),"a"))
-
-if(length(movie_text)==0) break;
-
-movie_text <- str_replace_all(movie_text, "\\[[0-9]+\\]", "")  ##  영화평의 댓글 제거
-movie_text <- movie_text[movie_text!=""]
-movie_text_sum <- c(movie_text_sum, movie_text)
-print(paste(page_num, "-th page", sep=""))    
-}
-
-movie_text_sum <- str_replace_all(movie_text_sum, "\n|\n\r", " ")
-```
 
 --- .dark .segue .nobackground
 
-## 4. 감정사전 불러오기
-
---- .new-background
-
-## 4. 감정사전 불러오기
-
-<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
-<h3b> - 파일 불러오기(read.csv)</h3b>  
-<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b>
-
---- .new-background
-
-## 4. 감정사전 불러오기
-
-
-
-
-```r
-emotion_dict <- read.csv("emotion_dict.csv", 
-                         header = T, 
-                         fileEncoding = "UTF-8",
-                         stringsAsFactors = F)
-```
-
-
-```r
-pos_word <- subset(emotion_dict, pos_neg=="pos")[,"words"]
-neg_word <- subset(emotion_dict, pos_neg=="neg")[,"words"]
-#emotion_dict[11:15,]; emotion_dict[1301:1305,];
-```
-
-<h4><br></h4>
-[감정사전](https://www.dropbox.com/s/okv4mjiq0wlhgbl/emotion_dict.csv?dl=0)
-
---- .dark .segue .nobackground
-
-## 5. 키워드 파싱 및 추출
-
---- .new-background
-
-## 5. 키워드 파싱 및 추출
-
-<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
-
-<h3b> - R에서 자연어 처리 문제</h3b>  
-
-<h3b> - 키워드 추출 방법 1 (KoNLP 사용)</h3b>  
-- Step 1) POS Tagging  
-- Step 2) 체언(명사)과 용언(형용사/동사) 추출  
-- Step 3) 문장 자르기  
-- Step 4) 맞춤법 교정  
-- Step 5) 문장 합치기  
-
-<h3b> - 키워드 추출 방법 2 (앞 두 글자 자르기) - APPENDIX </h3b>
-
-
---- .new-background
-
-## R에서 자연어 처리 (KoNLP)
-
-<font color="red">기대</font>했던 것보다 좀 <font color="red">지루</font>했음... 와이프는 
-<font color="red">재미있다</font>고...
-
-
-```r
-library("KoNLP")
-extractNoun("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
-```
-
-```
-## [1] "것"     "지루"   "와이프"
-```
-
-
-
-
-```r
-split_12("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
-```
-
-```
-## [1] "기대" "것보" "좀"   "지루" "와이" "재미"
-```
-
-
-
-
-```r
-extractNounVerbAdj("기대했던 것보다 좀 지루했음... 와이프는 재미있다고...")
-```
-
-```
-## [1] "기대 하 것  지루  와이프 재미있 "
-```
-
---- .dark .segue .nobackground
+## APPENDIX II  - POS-TAGGING 이용 
 
 ## R 연습
 
@@ -1166,10 +1902,9 @@ key_vec
 ```
 
 ```
-##  [1] "괜찮"         ""             "시원한"       "액션"        
-##  [5] ""             "개"           "적"           "캡틴아메리카"
-##  [9] ""             "좋음"         "하"           ""            
-## [13] "헐크도"       "좋음"         ""             ""
+##  [1] "괜찮"         "시원한"       "액션"         "개"          
+##  [5] "적"           "캡틴아메리카" "좋음"         "하"          
+##  [9] "헐크도"       "좋음"         ""
 ```
 
 --- .new-background
@@ -1185,7 +1920,7 @@ key_vec
 ```
 
 ```
-## [1] "괜찮  시원한 액션  개 적 캡틴아메리카  좋음 하  헐크도 좋음  "
+## [1] "괜찮 시원한 액션 개 적 캡틴아메리카 좋음 하 헐크도 좋음 "
 ```
 
 --- .new-background .modal
@@ -1229,236 +1964,7 @@ key_vec_sum[i] <- paste(key_vec, collapse='  ')  ##  두 칸 (윈도우 tm 버�
 
 --- .dark .segue .nobackground
 
-## 6. Co-occurrence Matrix
-
---- .new-background
-
-## 6. Co-occurrence Matrix
-
-<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
-<h3b> - Term x Document Matrix</h3b>  
-<h3b> - Co-occurrence Matrix</h3b>
-
---- .new-background
-
-## Term x Document Matrix
-
-* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
-* 단어에 대하여 Weight
-* 문서 내 단어에 대하여 Weight 
-* 모형에 따라 다양한 방식으로 처리
-
-
-```r
-dim(key_vec_sum)
-```
-
-```
-## NULL
-```
-
-```r
-dim(as.data.frame(key_vec_sum))
-```
-
-```
-## [1] 1737    1
-```
-
-```r
-key_corpus <- Corpus(DataframeSource(as.data.frame(key_vec_sum)))
-```
-
---- .new-background
-
-## Term x Document Matrix
-
-* 해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거
-
-
-```r
-delete_dic <- c('그냥', '너무', '보고', '생각', '정말', '그래', '봤는',
-                '나오', '진짜', '평점', '보면', '사람', '중간', '느낌',
-                '이런', '보는', '보다', '편보', '많이', 
-                '모르', '우리', '그런', '아니', '이해', '그리', '하는',
-                '다음', '역시', '없다', '보이', '만들', '그러', '못하', '그렇',
-                '위하', '느끼')
-```
-
---- .new-background .modal
-
-## Term x Document Matrix
-
-
-```r
-key_tdm <- TermDocumentMatrix(key_corpus,
-                              control = list(
-                              removeNumbers = TRUE,
-                              wordLengths = c(2,Inf),  ##  윈도우 작동 X
-                              removePunctuation = TRUE,
-                              stopwords = delete_dic,
-                              weighting = function(x) weightBin(x)))
-                                  
-key_tdm <- as.matrix(key_tdm)
-rownames(key_tdm) <- str_trim(rownames(key_tdm))  ##  for windows
-key_tdm <- key_tdm[nchar(rownames(key_tdm))!=1,]  ##  for windows
-dim(key_tdm)
-```
-
-```
-## [1] 5507 1737
-```
-
---- .new-background
-
-## Term x Document Matrix
-
-* 행(row)은 Term(단어들), 열(col)은 Document(개인들)로 이루어진 Matrix
-* Binary Weight (boolean)
-
-
-```r
-ex <- matrix(c(1,1,1,0,
-               1,0,1,0,
-               0,1,0,1), 
-               nrow=4)
-rownames(ex) <- c("아이폰", "갤럭시", "좋다", "나쁘다")
-colnames(ex) <- c("사람1", "사람2", "사람3")
-ex
-```
-
-```
-##        사람1 사람2 사람3
-## 아이폰     1     1     0
-## 갤럭시     1     0     1
-## 좋다       1     1     0
-## 나쁘다     0     0     1
-```
-
---- .new-background
-
-## Co-occurrence Matrix
-
-* 특정 단어와 다른 단어가 동시에 영화평 내에서 발생한 것을 Counts
-* 예시)
-
-
-```r
-ex %*% t(ex)
-```
-
-```
-##        아이폰 갤럭시 좋다 나쁘다
-## 아이폰      2      1    2      0
-## 갤럭시      1      2    1      1
-## 좋다        2      1    2      0
-## 나쁘다      0      1    0      1
-```
-
-
---- .new-background .modal
-
-## Co-occurrence Matrix
-
-
-```r
-key_tdm <- key_tdm[order(rowSums(key_tdm), decreasing = T),][1:20,]
-co_matrix <- key_tdm %*% t(key_tdm)
-co_matrix[1:5,1:5]
-```
-
-```
-##           Terms
-## Terms      어벤져스 재미 기대 스토리 지루
-##   어벤져스      399   79   51     48   28
-##   재미           79  287   42     23   28
-##   기대           51   42  172     13   21
-##   스토리         48   23   13    143   17
-##   지루           28   28   21     17  137
-```
-
---- .new-background
-
-## Term x Document Matrix와 감정 사전
-
-
-```r
-groups_list = list()
-groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
-groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
-groups_list
-```
-
-```
-## $비호감단어
-## [1]  5 12 13 19
-## 
-## $호감단어
-## [1]  2  3  6 17
-```
-
---- .dark .segue .nobackground
-
-## 7. 시각화
-
---- .new-background
-
-## 7. 시각화
-
-<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
-<h3b> - Graph 그리기(qgraph)</h3b>  
-
---- .new-background
-
-## Graph
-
-
-```r
-qgraph(co_matrix, layout="spring", diag = F, 
-       labels = colnames(co_matrix), 
-       edge.color = "darkblue", 
-       legend.cex = .7, 
-       vsize = 5,
-       label.cex = 0.3, 
-       label.color = "black",
-       groups = groups_list)
-
-title(movie_name, line = 3)
-```
-
---- .new-background
-
-## Graph
-
-<center><img src="assets/img/result_graph.png" height="500" width="500"></center>
-
---- .new-background
-
-## Graph
-
-
-```r
-qgraph(co_matrix, layout="spring", diag = F, 
-       labels = colnames(co_matrix), 
-       edge.color = "darkblue", 
-       legend.cex = .7, 
-       vsize = log(diag(co_matrix)),
-       label.cex = 0.3, 
-       label.color = "black",
-       groups = groups_list)
-
-title(movie_name, line = 3)
-```
-
---- .new-background
-
-## Graph
-
-<center><img src="assets/img/result_graph_2.png" height="500" width="500"></center>
-
---- .dark .segue .nobackground
-
-## Appendix - 앞 2글자 자르기
+## Appendix III  - 앞 2글자 자르기
 
 --- .new-background
 
@@ -1467,6 +1973,15 @@ title(movie_name, line = 3)
 * Step 1) 문장 자르기(split)
 
 
+```
+## Warning: cannot open file
+## '/Users/kimhyungjun/repo/daum_movieavengers_text.csv': No such file or
+## directory
+```
+
+```
+## Error: cannot open the connection
+```
 
 
 ```r
@@ -1585,11 +2100,10 @@ pos_neg_word[duplicated(pos_neg_word)]
 ```
 
 ```
-##  [1] "구슬" "기대" "기회" "긴장" "꺼리" "너무" "논리" "눈물" "대단" "매력"
-## [11] "무지" "바람" "반성" "벅차" "불가" "사상" "새삼" "서글" "서운" "설득"
-## [21] "섭섭" "소용" "수작" "시원" "쓸모" "아깝" "아리" "애끓" "애처" "애타"
-## [31] "에이" "염려" "예의" "오차" "욕심" "유머" "유행" "의미" "이변" "이상"
-## [41] "재미" "지식" "탈피" "탐나" "태평" "특징" "필요" "후회" "희망"
+##  [1] "구슬프"   "벅차"     "사상"     "새삼스럽" "서글프"   "서운"    
+##  [7] "섭섭하"   "수작"     "아리"     "애끓"     "애처롭"   "애타"    
+## [13] "염려"     "욕심나"   "유행"     "이변"     "탈피"     "탐나"    
+## [19] "태평"
 ```
 
 --- .new-background
