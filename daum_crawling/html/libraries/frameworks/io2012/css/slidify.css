@@ -362,8 +362,8 @@ body {
   /* background-image:url(http://fin6.com/wp-content/uploads/2014/01/994dabcd4447f473f30d18208b1cf9778.jpg); */
   /* background-image:url(http://demo.duotive.org/duotive-fortune/assets/01-black_01.jpg); */
   /* background-image:url(http://hdwallpaperia.com/wp-content/uploads/2014/01/Black-Wallpaper-High-Resolution-2014.jpg); */
-  /*background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/Black-Wallpaper-High-Resolution-2014.jpg);*/
-  background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
+  /* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/Black-Wallpaper-High-Resolution-2014.jpg) */
+  /* background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);*/
 }
 .quiz-option label{
   display: inline;
@@ -451,8 +451,8 @@ padding-bottom: -10px ;
   /* background-image:url(http://wallzpop.com/wp-content/uploads/Black-Smoke-Art-HD-Wallpapers.jpg); */
   /* background-image:url(http://fc05.deviantart.net/fs50/f/2009/327/3/7/Black_Smoke_by_DarkBelthazor.jpg); */
   /* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/black_smoke.jpg); */
-  /* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/Background-Graphics.jpg); */
-  background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
+  /* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/Background-Graphics.jpg);*/
+  /*  background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg); */
 }
 
 .title-slide hgroup > h1{
@@ -465,13 +465,13 @@ padding-bottom: -10px ;
 }
 
 .new-background {
-/*  background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/londonr_background_1100x700.jpg); */ 
-background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
+/* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/londonr_background_1100x700.jpg); */
+ background-image:url(https://dl-web.dropbox.com/get/r_lecture/mydeck/r_slide/daum_crawling/html/assets/fig/Background-Graphics.jpg?_subject_uid=54712557&w=AAALOM6m7EI-DRomvw0xCQp1fz9M8Uw822PIfoxWlJocZQ);
 }
 
 .new-background-rev {
-/*  background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/londonr_background_1100x700_rev.jpg); */
-background-image:url(https://www.dropbox.com/s/gtysjgfonmgpqk5/Background-Graphics.jpg);
+/* background-image:url(https://dl.dropboxusercontent.com/u/103222/presentations/images/londonr_background_1100x700_rev.jpg); */
+background-image:url(https://dl-web.dropbox.com/get/r_lecture/mydeck/r_slide/daum_crawling/html/assets/fig/Background-Graphics.jpg?_subject_uid=54712557&w=AAALOM6m7EI-DRomvw0xCQp1fz9M8Uw822PIfoxWlJocZQ);
 }
 
 
