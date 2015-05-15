@@ -300,72 +300,223 @@ htxt <- html(r)
 --- .new-background .modal
 
 
-
-
 ```r
 library("rvest")
 ```
 
 
+
+
+
 ```r
 movie_text <- html_nodes(htxt, ".comment")
-```
-
-```
-## Warning: empty XML document
-## Warning: empty XML document
-```
-
-```
-## Error: no applicable method for 'xmlNamespaceDefinitions' applied to an
-## object of class "NULL"
-```
-
-```r
 movie_text
 ```
 
-```
-## Error: object 'movie_text' not found
-```
+[[1]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812546&amp;type=after" title="댓글달기">정말 지루한 영화~ 비추                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[2]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812529&amp;type=after" title="댓글달기">어벤져스2 에서 가장 웃겼던 장면은 아이언맨이 헐크버스터를 입고 헐크랑 싸울때 헐크 눞혀놓고&#13;
+왼쪽 주먹으로 콩콩콩 때리면서 기절해~기절해~기절해~ 하면서 때리는 장면....ㅋㅋㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[3]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812510&amp;type=after" title="댓글달기">ㅋㅋ 난 아이언맨이 가장 강할줄 알앗는데.. 완전 반전!!&#13;
+헐크가 더 쎄...&#13;
+역시..                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[4]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812504&amp;type=after" title="댓글달기">정말 수준 낮고 내용없고 극장의 횡포를  보여준 영화다 다른 영화를 고를 기회를 주지 않는이런 대기업은 망해야한다                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[5]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812475&amp;type=after" title="댓글달기">사람들 하품하고 옆자리 초딩도 지루하다고..ㅋㅋㅋ 잡다하게 영웅들이 몽땅들 출연해 잔챙이 로봇들과 계속 싸워요 그와중에 느린 활쏘기ㅋ.. 엔딩역시 지리멸렬 무슨 자긍심인지 캐릭터 스스로들 셀프 감동ㅋ 스케일만 크면 좋은 영화인가ㅋ 내용도 하나도 없다ㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[6]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812452&amp;type=after" title="댓글달기">진짜 극장 독점 그만좀해라......... 다른영화는 시간대 오전이나 밤이라 볼수가 없네 쓰벌...&#13;
+관객이 만아서 스크린 독점한게 아니라 다른거 못보게 스크린 다 차지하니까 울며겨자먹기로&#13;
+이것만 볼수박에;;;;;;;;;;;;;;;;;;;;  나도 히어로물 왕팬인데 이건아니지;;;;;;;;;;;;;;&#13;
+베트맨이나 스파이더맨 발도 못따라가                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[7]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812420&amp;type=after" title="댓글달기">그냥 가벼운 소재의 오락물이라고 봄                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[8]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812413&amp;type=after" title="댓글달기">어벤져스를 잘 모르면, 엄청 재미없을 듯~ 알아도 그저 그런                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[9]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812411&amp;type=after" title="댓글달기">수현은 극중 비중은 꽤 중요한 역이나 등장씬이 너무 적음                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[10]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812275&amp;type=after" title="댓글달기">기대가 너무 컸었나봐요.....                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[11]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812255&amp;type=after" title="댓글달기">개쓰레기영화 영화끝나기 기다리면서 디진줄알앟네~
+쓰레기영화가 상영시간은 또 겁나게길어요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[12]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812208&amp;type=after" title="댓글달기">그래픽 폭력영화수준..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[13]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812189&amp;type=after" title="댓글달기">히어로물은 언제나 관심이 가. 인간 능력 밖의 놀라운 세계를 영상으로 만난다는건 지금을 사는 우리가 누릴 수 있는 선물중에 하나 아닐까? 그러므로 평점은 좀 높게 줬어. 때론 좀 잊고 빠져들어보는것도 좋겠지                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[14]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812028&amp;type=after" title="댓글달기">꿀잼!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&#13;
+                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+[[15]]
+<span class="comment article">
+					
+										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811988&amp;type=after" title="댓글달기">간만에  재밌는 영화봤어요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+
+					</span> 
+
+attr(,"class")
+[1] "XMLNodeSet"
 
 --- .new-background
 
 
 ```r
 movie_text <- html_nodes(movie_text, "a")
-```
-
-```
-## Error: object 'movie_text' not found
-```
-
-```r
 movie_text
 ```
 
-```
-## Error: object 'movie_text' not found
-```
+[[1]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812546&amp;type=after" title="댓글달기">정말 지루한 영화~ 비추                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[2]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812529&amp;type=after" title="댓글달기">어벤져스2 에서 가장 웃겼던 장면은 아이언맨이 헐크버스터를 입고 헐크랑 싸울때 헐크 눞혀놓고&#13;
+왼쪽 주먹으로 콩콩콩 때리면서 기절해~기절해~기절해~ 하면서 때리는 장면....ㅋㅋㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[3]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812510&amp;type=after" title="댓글달기">ㅋㅋ 난 아이언맨이 가장 강할줄 알앗는데.. 완전 반전!!&#13;
+헐크가 더 쎄...&#13;
+역시..                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[4]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812504&amp;type=after" title="댓글달기">정말 수준 낮고 내용없고 극장의 횡포를  보여준 영화다 다른 영화를 고를 기회를 주지 않는이런 대기업은 망해야한다                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[5]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812475&amp;type=after" title="댓글달기">사람들 하품하고 옆자리 초딩도 지루하다고..ㅋㅋㅋ 잡다하게 영웅들이 몽땅들 출연해 잔챙이 로봇들과 계속 싸워요 그와중에 느린 활쏘기ㅋ.. 엔딩역시 지리멸렬 무슨 자긍심인지 캐릭터 스스로들 셀프 감동ㅋ 스케일만 크면 좋은 영화인가ㅋ 내용도 하나도 없다ㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[6]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812452&amp;type=after" title="댓글달기">진짜 극장 독점 그만좀해라......... 다른영화는 시간대 오전이나 밤이라 볼수가 없네 쓰벌...&#13;
+관객이 만아서 스크린 독점한게 아니라 다른거 못보게 스크린 다 차지하니까 울며겨자먹기로&#13;
+이것만 볼수박에;;;;;;;;;;;;;;;;;;;;  나도 히어로물 왕팬인데 이건아니지;;;;;;;;;;;;;;&#13;
+베트맨이나 스파이더맨 발도 못따라가                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[7]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812420&amp;type=after" title="댓글달기">그냥 가벼운 소재의 오락물이라고 봄                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[8]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812413&amp;type=after" title="댓글달기">어벤져스를 잘 모르면, 엄청 재미없을 듯~ 알아도 그저 그런                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[9]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812411&amp;type=after" title="댓글달기">수현은 극중 비중은 꽤 중요한 역이나 등장씬이 너무 적음                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[10]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812275&amp;type=after" title="댓글달기">기대가 너무 컸었나봐요.....                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[11]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812255&amp;type=after" title="댓글달기">개쓰레기영화 영화끝나기 기다리면서 디진줄알앟네~
+쓰레기영화가 상영시간은 또 겁나게길어요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[12]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812208&amp;type=after" title="댓글달기">그래픽 폭력영화수준..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[13]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812189&amp;type=after" title="댓글달기">히어로물은 언제나 관심이 가. 인간 능력 밖의 놀라운 세계를 영상으로 만난다는건 지금을 사는 우리가 누릴 수 있는 선물중에 하나 아닐까? 그러므로 평점은 좀 높게 줬어. 때론 좀 잊고 빠져들어보는것도 좋겠지                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[14]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812028&amp;type=after" title="댓글달기">꿀잼!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&#13;
+                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+[[15]]
+<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1811988&amp;type=after" title="댓글달기">간만에  재밌는 영화봤어요                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a> 
+
+attr(,"class")
+[1] "XMLNodeSet"
 
 --- .new-background 
 
 
+
 ```r
 movie_text <- html_text(movie_text)
-```
-
-```
-## Error: object 'movie_text' not found
-```
-
-```r
 movie_text
 ```
 
-```
-## Error: object 'movie_text' not found
-```
+ [1] "정말 지루한 영화~ 비추                    "                                                                                                                                                                                                                                                                                           
+ [2] "어벤져스2 에서 가장 웃겼던 장면은 아이언맨이 헐크버스터를 입고 헐크랑 싸울때 헐크 눞혀놓고\r\n왼쪽 주먹으로 콩콩콩 때리면서 기절해~기절해~기절해~ 하면서 때리는 장면....ㅋㅋㅋ                    "                                                                                                                                   
+ [3] "ㅋㅋ 난 아이언맨이 가장 강할줄 알앗는데.. 완전 반전!!\r\n헐크가 더 쎄...\r\n역시..                     "                                                                                                                                                                                                                              
+ [4] "정말 수준 낮고 내용없고 극장의 횡포를  보여준 영화다 다른 영화를 고를 기회를 주지 않는이런 대기업은 망해야한다                    "                                                                                                                                                                                                   
+ [5] "사람들 하품하고 옆자리 초딩도 지루하다고..ㅋㅋㅋ 잡다하게 영웅들이 몽땅들 출연해 잔챙이 로봇들과 계속 싸워요 그와중에 느린 활쏘기ㅋ.. 엔딩역시 지리멸렬 무슨 자긍심인지 캐릭터 스스로들 셀프 감동ㅋ 스케일만 크면 좋은 영화인가ㅋ 내용도 하나도 없다ㅋ                    "                                                           
+ [6] "진짜 극장 독점 그만좀해라......... 다른영화는 시간대 오전이나 밤이라 볼수가 없네 쓰벌...\r\n관객이 만아서 스크린 독점한게 아니라 다른거 못보게 스크린 다 차지하니까 울며겨자먹기로\r\n이것만 볼수박에;;;;;;;;;;;;;;;;;;;;  나도 히어로물 왕팬인데 이건아니지;;;;;;;;;;;;;;\r\n베트맨이나 스파이더맨 발도 못따라가                    "
+ [7] "그냥 가벼운 소재의 오락물이라고 봄                    "                                                                                                                                                                                                                                                                               
+ [8] "어벤져스를 잘 모르면, 엄청 재미없을 듯~ 알아도 그저 그런                    "                                                                                                                                                                                                                                                         
+ [9] "수현은 극중 비중은 꽤 중요한 역이나 등장씬이 너무 적음                     "                                                                                                                                                                                                                                                          
+[10] "기대가 너무 컸었나봐요.....                    "                                                                                                                                                                                                                                                                                      
+[11] "개쓰레기영화 영화끝나기 기다리면서 디진줄알앟네~\n쓰레기영화가 상영시간은 또 겁나게길어요                    "                                                                                                                                                                                                                        
+[12] "그래픽 폭력영화수준..                    "                                                                                                                                                                                                                                                                                            
+[13] "히어로물은 언제나 관심이 가. 인간 능력 밖의 놀라운 세계를 영상으로 만난다는건 지금을 사는 우리가 누릴 수 있는 선물중에 하나 아닐까? 그러므로 평점은 좀 높게 줬어. 때론 좀 잊고 빠져들어보는것도 좋겠지                    "                                                                                                           
+[14] "꿀잼!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n                    "                                                                                                                                                                                                                                                                           
+[15] "간만에  재밌는 영화봤어요                    "                                                                                                                                                                                                                                                                                        
 
 --- .new-background
 

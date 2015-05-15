@@ -277,31 +277,33 @@ htxt <- html(r)
 
 --- .new-background .modal
 
-```{r, echo=F, include=T}
+```{r, message=F}
+library("rvest")
+```
+
+```{r, echo=F, eval=T}
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
 r <- GET(urls_view)
 htxt <- html(r)
 ```
 
-```{r, message=F}
-library("rvest")
-```
 
-```{r, results='asis'}
+```{r, echo=T, results='asis', include=T}
 movie_text <- html_nodes(htxt, ".comment")
 movie_text
 ```
 
 --- .new-background
 
-```{r, results='asis', include=T}
+```{r, echo=T, results='asis', include=T}
 movie_text <- html_nodes(movie_text, "a")
 movie_text
 ```
 
 --- .new-background 
 
-```{r, results='asis', include=T}
+
+```{r, echo=T, results='asis', include=T}
 movie_text <- html_text(movie_text)
 movie_text
 ```
