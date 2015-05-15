@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R 패키지 설치</title>
+</head>
+<p>1. R이나 RStudio의 명령 창에서 다음 명령을 붙여넣기하고 엔터를 치면 모두 설치됩니다.</p>
+
+<div>
+<pre><code>install.packages(c(&#39;rvest&#39;, &#39;httr&#39;, &#39;stringr&#39;, &#39;readxl&#39;, &#39;dplyr&#39;, &#39;tm&#39;, &#39;qgraph&#39;), repos=&#39;http://cran.nexr.com&#39;)
+</code></pre>
+
+<p>2. KoNLP의 경우 먼저 JAVA를 설치 후 KoNLP 패키지를 설치하시기 바랍니다. </p>
+<pre><a href="https://www.dropbox.com/s/ag1ktz4ysiw1aqr/Install_java_win.pdf?dl=0" target="_blank"><font color="blue">윈도우의 경우 JAVA 설치법</font></a></pre>
+<pre><a href="https://www.dropbox.com/s/mjr9yjg76sh92e9/Install_java_mac.pdf?dl=0" target="_blank"><font color="blue">MAC의 경우 JAVA 설치법</font></a></pre>
+
+<pre><code>install.packages(&#39;KoNLP&#39;, repos=&#39;http://cran.nexr.com&#39;)
+</code></pre>
+
+
+<h4>윈도에서 RStudio가 패키지 설치를 못할 경우</h4>
+
+<p>윈도에서 사용자 이름이 한글인 경우 RStudio에서 설치가 잘 되지 않을 수 있습니다. 이때는 다음 둘 중 한 가지 방법을 사용하세요.</p>
+
+<ul>
+<li>R에서 설치하시면 잘 됩니다.</li>
+<li>TEMP와 TMP 환경 변수를 한글이 없는 경로(예: <code>C:\TEMP</code> 등)로 설정하면 RStudio에서도 설치가 잘 됩니다
+
+<ul>
+<li>환경변수는 <code>제어판</code>에서 <code>사용자 계정</code>을 선택 후 <code>환경변수 변경</code>을 선택하면 설정할 수 있습니다.</li>
+</ul></li>
+</ul>
+</div>
+
+
+    </div><!-- /container -->
+    <footer class="footer">
+    </footer>    
+  </body>
+</html>
+
