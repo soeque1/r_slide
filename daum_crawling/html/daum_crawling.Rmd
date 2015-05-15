@@ -961,7 +961,7 @@ qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
       layout = "spring", 
       edge.color = "darkblue",
       groups = groups_list,
-      size = log(diag(co_matrix)),
+      vsize = log(diag(co_matrix)),
       legend.cex = .7)
 
 title(movie_name, line = 3)
