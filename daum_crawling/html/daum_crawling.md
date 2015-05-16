@@ -119,7 +119,7 @@ http://course.mindscale.kr/course/text-analysis
 
 ```r
 ##  사용자 경로
-user_path = "/Users/kimhyungjun/repo/daum_movie" 
+user_path = "/Users/kimhyungjun/Dropbox/repo/daum_movie/mac" 
 par(family="AppleGothic")  ##  그림 출력시 한글폰트
 ```
 
@@ -294,8 +294,7 @@ http://movie.daum.net
 
 ```r
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
-r <- GET(urls_view)
-htxt <- html(r)
+htxt <- html(urls_view)
 ```
 
 --- .new-background .modal
@@ -306,6 +305,9 @@ library("rvest")
 ```
 
 
+```
+## Error: object 'r' not found
+```
 
 
 
@@ -526,8 +528,7 @@ movie_text
 
 ```r
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
-r <- GET(urls_view)
-htxt <- html(r)
+htxt <- html(urls_view)
 movie_text <- html_nodes(htxt, ".comment")
 movie_text <- html_nodes(movie_text, "a")
 movie_text <- html_text(movie_text)
@@ -691,8 +692,7 @@ for (page_num in 1:1000)
 urls_view <- 
 paste("http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=",
 page_num,sep="")
-r <- GET(urls_view)
-htxt <- html(r)
+htxt <- html(urls_view)
 
 movie_text <-  html_nodes(htxt, ".comment")
 movie_text <-  html_nodes(movie_text, "a")
@@ -1415,8 +1415,8 @@ co_matrix[1:5,1:5]
 
 ```r
 groups_list = list()
-groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
-groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
+groups_list$비호감단어 = which(rownames(co_matrix) %in% neg_word)
+groups_list$호감단어 = which(rownames(co_matrix) %in% pos_word)
 groups_list
 ```
 
@@ -1450,7 +1450,7 @@ library("qgraph")
 
 
 ```r
-qgraph(co_matrix, labels = colnames(co_matrix), diag=F)
+qgraph(co_matrix, labels = rownames(co_matrix), diag=F)
 ```
 
 --- .new-background
@@ -1461,7 +1461,7 @@ qgraph(co_matrix, labels = colnames(co_matrix), diag=F)
 
 
 ```r
-qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout="spring")
 ```
 
@@ -1474,7 +1474,7 @@ qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
 
 
 ```r
-qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout="spring", 
       edge.color = "darkblue")
 ```
@@ -1487,7 +1487,7 @@ qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
 
 
 ```r
-qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout="spring", 
       edge.color = "darkblue",
       groups = groups_list)
@@ -1501,7 +1501,7 @@ qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
 
 
 ```r
-qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout = "spring", 
       edge.color = "darkblue",
       groups = groups_list,
@@ -1519,7 +1519,7 @@ title(movie_name, line = 3)
 
 
 ```r
-qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout = "spring", 
       edge.color = "darkblue",
       groups = groups_list,

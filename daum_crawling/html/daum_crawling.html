@@ -245,7 +245,7 @@
 </ul>
 
 <pre><code class="r">##  사용자 경로
-user_path = &quot;/Users/kimhyungjun/repo/daum_movie&quot; 
+user_path = &quot;/Users/kimhyungjun/Dropbox/repo/daum_movie/mac&quot; 
 par(family=&quot;AppleGothic&quot;)  ##  그림 출력시 한글폰트
 </code></pre>
 
@@ -507,8 +507,7 @@ GET(&quot;http://google.com/&quot;)  ##  Requset -&gt; Resposne
   </hgroup>
   <article data-timings="">
     <pre><code class="r">urls_view &lt;- &quot;http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&amp;searchType=all&amp;type=after&amp;page=1&quot;
-r &lt;- GET(urls_view)
-htxt &lt;- html(r)
+htxt &lt;- html(urls_view)
 </code></pre>
 
   </article>
@@ -518,6 +517,9 @@ htxt &lt;- html(r)
 <slide class="new-background modal" id="slide-26" style="background:;">
   <article data-timings="">
     <pre><code class="r">library(&quot;rvest&quot;)
+</code></pre>
+
+<pre><code>## Error: object &#39;r&#39; not found
 </code></pre>
 
 <pre><code class="r">movie_text &lt;- html_nodes(htxt, &quot;.comment&quot;)
@@ -765,8 +767,7 @@ movie_text
   </hgroup>
   <article data-timings="">
     <pre><code class="r">urls_view &lt;- &quot;http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&amp;searchType=all&amp;type=after&amp;page=1&quot;
-r &lt;- GET(urls_view)
-htxt &lt;- html(r)
+htxt &lt;- html(urls_view)
 movie_text &lt;- html_nodes(htxt, &quot;.comment&quot;)
 movie_text &lt;- html_nodes(movie_text, &quot;a&quot;)
 movie_text &lt;- html_text(movie_text)
@@ -931,8 +932,7 @@ for (page_num in 1:1000)
 urls_view &lt;- 
 paste(&quot;http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&amp;searchType=all&amp;type=after&amp;page=&quot;,
 page_num,sep=&quot;&quot;)
-r &lt;- GET(urls_view)
-htxt &lt;- html(r)
+htxt &lt;- html(urls_view)
 
 movie_text &lt;-  html_nodes(htxt, &quot;.comment&quot;)
 movie_text &lt;-  html_nodes(movie_text, &quot;a&quot;)
@@ -1715,8 +1715,8 @@ co_matrix[1:5,1:5]
   </hgroup>
   <article data-timings="">
     <pre><code class="r">groups_list = list()
-groups_list$비호감단어 = which(colnames(co_matrix) %in% neg_word)
-groups_list$호감단어 = which(colnames(co_matrix) %in% pos_word)
+groups_list$비호감단어 = which(rownames(co_matrix) %in% neg_word)
+groups_list$호감단어 = which(rownames(co_matrix) %in% pos_word)
 groups_list
 </code></pre>
 
@@ -1761,7 +1761,7 @@ groups_list
     <pre><code class="r">library(&quot;qgraph&quot;)
 </code></pre>
 
-<pre><code class="r">qgraph(co_matrix, labels = colnames(co_matrix), diag=F)
+<pre><code class="r">qgraph(co_matrix, labels = rownames(co_matrix), diag=F)
 </code></pre>
 
   </article>
@@ -1778,7 +1778,7 @@ groups_list
 
 <slide class="new-background" id="slide-76" style="background:;">
   <article data-timings="">
-    <pre><code class="r">qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+    <pre><code class="r">qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout=&quot;spring&quot;)
 </code></pre>
 
@@ -1796,7 +1796,7 @@ groups_list
 
 <slide class="new-background" id="slide-78" style="background:;">
   <article data-timings="">
-    <pre><code class="r">qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+    <pre><code class="r">qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout=&quot;spring&quot;, 
       edge.color = &quot;darkblue&quot;)
 </code></pre>
@@ -1815,7 +1815,7 @@ groups_list
 
 <slide class="new-background" id="slide-80" style="background:;">
   <article data-timings="">
-    <pre><code class="r">qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+    <pre><code class="r">qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout=&quot;spring&quot;, 
       edge.color = &quot;darkblue&quot;,
       groups = groups_list)
@@ -1835,7 +1835,7 @@ groups_list
 
 <slide class="new-background" id="slide-82" style="background:;">
   <article data-timings="">
-    <pre><code class="r">qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+    <pre><code class="r">qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout = &quot;spring&quot;, 
       edge.color = &quot;darkblue&quot;,
       groups = groups_list,
@@ -1859,7 +1859,7 @@ title(movie_name, line = 3)
 
 <slide class="new-background" id="slide-84" style="background:;">
   <article data-timings="">
-    <pre><code class="r">qgraph(co_matrix, labels = colnames(co_matrix), diag=F,
+    <pre><code class="r">qgraph(co_matrix, labels = rownames(co_matrix), diag=F,
       layout = &quot;spring&quot;, 
       edge.color = &quot;darkblue&quot;,
       groups = groups_list,
