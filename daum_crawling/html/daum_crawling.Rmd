@@ -281,14 +281,16 @@ htxt <- html(urls_view)
 library("rvest")
 ```
 
-```{r, echo=F, eval=T}
+```{r, echo=F, eval=T, cache=F}
+library("rvest")
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
 htxt <- html(urls_view)
+movie_text <- html_nodes(htxt, "span.comment.article")
+movie_text
 ```
 
-
 ```{r, echo=T, results='asis', include=T}
-movie_text <- html_nodes(htxt, ".comment")
+movie_text <- html_nodes(htxt, "span.comment.article")
 movie_text
 ```
 
@@ -314,10 +316,10 @@ movie_text
 ```{r}
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
 htxt <- html(urls_view)
-movie_text <- html_nodes(htxt, ".comment")
+movie_text <- html_nodes(htxt, "span.comment.article")
 movie_text <- html_nodes(movie_text, "a")
 movie_text <- html_text(movie_text)
-length(html_nodes(htxt, ".comment"))
+length(html_nodes(htxt, "span.comment.article"))
 ```
 
 --- .dark .segue .nobackground
@@ -389,7 +391,7 @@ paste(ex, collapse=" + ")
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=130"
 r <- GET(urls_view)
 htxt <- html(r)
-length(html_nodes(htxt, ".comment"))
+length(html_nodes(htxt, "span.comment.article"))
 ```
 
 
@@ -408,7 +410,7 @@ paste("http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=7375
 page_num,sep="")
 htxt <- html(urls_view)
 
-movie_text <-  html_nodes(htxt, ".comment")
+movie_text <-  html_nodes(htxt, "span.comment.article")
 movie_text <-  html_nodes(movie_text, "a")
 movie_text <-  html_text(movie_text)
 
