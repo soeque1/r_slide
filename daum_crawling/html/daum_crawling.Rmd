@@ -283,7 +283,7 @@ library("rvest")
 
 ```{r, echo=F, eval=T}
 urls_view <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
-htxt <- html(r)
+htxt <- html(urls_view)
 ```
 
 

@@ -305,9 +305,6 @@ library("rvest")
 ```
 
 
-```
-## Error: object 'r' not found
-```
 
 
 
