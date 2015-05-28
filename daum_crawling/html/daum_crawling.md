@@ -5,7 +5,7 @@ author      : "김형준"
 job         : "Data Analyst : (주) 퀀트랩"
 biglogo     : logo_01.png
 logo        : logo_03.png
-license     : by
+license     : by-nc-sa
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 widgets     : []            # {mathjax, bootstrap, quiz}
 mode        : selfcontained
@@ -309,108 +309,110 @@ library("rvest")
 ## [[1]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812957&amp;type=after" title="댓글달기">일주러 개같은 평점을 주는 놈들때문에10점줌 영화국제시장따위보다 100000배는낫다.최소한 편집을 그지같이한 영화를1600만이 본 국민들이 어벤져스를욕하다니 웃끼잖아                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1815178&amp;type=after" title="댓글달기">돈이 아까웠다. 미국영화를 본다는 건 늘 피곤하고 쓸모없고 유치한 기분이다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[2]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812946&amp;type=after" title="댓글달기">별로임..식상함..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1815122&amp;type=after" title="댓글달기">부수는 영화치고 지루한 이유는.....                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[3]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812935&amp;type=after" title="댓글달기">1점도 아까운 쓰레기페기물급 영화                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1815119&amp;type=after" title="댓글달기">정말 지루하고 이해안가는 영화...                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[4]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812909&amp;type=after" title="댓글달기">업그레이드 된 액션씬. 현존하는 최고 블록버스터 시리즈물의 품격. 눈이 즐거운건 사실인데... 한편의 영화를 이해하기 위해 점점 더 많은 사전 지식을 요구하고, 자매품을 엮어 판매할려는 전략이 부담스러워진다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814846&amp;type=after" title="댓글달기">ㅋㅋㅋㅋㅋㅋ그냥 영화로 개봉해주고......시리즈 나와주는거에 너무 감사합니당ㅋㅋㅋ왕잼!!!!!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[5]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812899&amp;type=after" title="댓글달기">이딴거 만들려고 우왕좌왕했더거냐? 평점에 하도 재미없대서 재밌게 봐줄려고 엄청 다짐하고 갔더니 영화보는 동안 시계를 몇번이나 봤으며 중간에 나간사람들도 있던 영화. 한국 불과 몇분밖에 안나오고 수현도 그렇게 비중 높은 역활아님. 이 영화는 아예 스토리도 액션도 없고 차라리 매드맥스가 천만번 났다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814808&amp;type=after" title="댓글달기">마블 팬이라 그런지 지루한거 모르고 봤음..ㅋ 마지막에 뭉쳐서 싸우는 장면 굿~!                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[6]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812864&amp;type=after" title="댓글달기">아무리 '소문난 잔치에 먹을 것 없다'해도 소문난 잔치는 다르다. 난 재밌게 봤다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814791&amp;type=after" title="댓글달기">두시간이 넘는영화...좀길다.그래도 영어잘하는 수현은 예뻤다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[7]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812856&amp;type=after" title="댓글달기">완죤 재밌어요-
-## 시리즈별로 다시보기 할려구욧 
-##                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814711&amp;type=after" title="댓글달기">넘 부왕부왕하고 지루해 참고 보느라죽는 줄 알았네 차라리악의연대기가훨씬재밌음서울나온다길래봤더니 도시가넘후져서실망이고뭔내용인지 극장나온순간통기억이나지않네                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[8]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812834&amp;type=after" title="댓글달기">기대를 많이 했나...?                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814675&amp;type=after" title="댓글달기">꿀잼&#13;
+##                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[9]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812807&amp;type=after" title="댓글달기">딱 기대한 만큼의 재미를 준 영화..헐리웃 블럭버스터가 무엇인지 정확하게 알려주는 영화..&#13;
-## 우리나라에서 촬영한 부분이 좀 아쉽네..                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814599&amp;type=after" title="댓글달기">우리나라나오는건 신기~
+## 후반부엔 지루~                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[10]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812789&amp;type=after" title="댓글달기">기대정말 많이 하고 봤는데 내용도없고 액션도 별루고 지루했다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814473&amp;type=after" title="댓글달기">우워.... 나중에 집에서 볼껄.... ㅎㅎ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[11]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812754&amp;type=after" title="댓글달기">생각보다 재미있어서 깜놀 ㄷㄷ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814472&amp;type=after" title="댓글달기">그냥 오락영화&#13;
+## 내용별로 액션만 굿&#13;
+## 한국에모습은 너무 촌스럽고 저기서 헐크랑나타샤가 주인공같네요 ㅎ&#13;
+## 내용으로보다는 액션                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[12]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812728&amp;type=after" title="댓글달기">진짜 헐크버스터가 헐크갖다가 주먹으로 콩콩때리는거 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 진심 개웃겨서 극장에서 왕창피 ㅋㅋㅋㅋㅋ 근데 매드맥스 그렇게 재밋지도 않든데? 뭐가 그렇게 재밋는지 평점에 다 매드맥스 얘기만 하는대 전 그때 하품하면서 졸려서 뒤질뻔햇음.어벤져스가 훨씬 재밋음. 근데 초능력자가 좀 아쉽.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814436&amp;type=after" title="댓글달기">그냥 즐기면되는 영화!                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[13]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812726&amp;type=after" title="댓글달기">시작부터 잠이 쏟아지게 만든 영화. 시간과 영화비가 낭비다 낭비. 스토리도 그렇고 이건 쓰레기영화다.                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814358&amp;type=after" title="댓글달기">한국장면이 아쉬웠고 뜬금없는 러브라인도 당황스럽긴 했지만  볼거리는 풍부했음                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[14]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812721&amp;type=after" title="댓글달기">그냥 예고편보며 예상하고 기대했던 그 수준,,, 더 이상의 특별함은 못 느꼈다만 비전과 헐크에 대한 궁금증은 다음 시리즈를 기대하게 하는군~ ㅋ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814346&amp;type=after" title="댓글달기">내용 괜찮은데요~~~                     <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 
 ## [[15]]
 ## <span class="comment article">
 ## 					
-## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1812695&amp;type=after" title="댓글달기">매드맥스 보고나니 애케 유치해유ㅠㅠ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
+## 										<a href="http://movie.daum.net/moviedetail/moviedetailNetizenPointComment.do?movieId=73750&amp;ratingId=1814256&amp;type=after" title="댓글달기">진짜 재미있게 봤네요. 너무 재미있어서 한번 보고 또 보고 모레에 또 보러 갑니다.^^ 새로 나온 캐릭터들도 너무너무 마음에 들고요 ㅎㅎ                    <img src="http://i1.daumcdn.net/img-contents/movie/2008_home/board/rewrite_btn02.gif" width="13" height="13" alt="댓글달기" class="btn_reply"/></a>
 ## 
 ## 					</span> 
 ## 

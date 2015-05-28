@@ -5,7 +5,7 @@ author      : "김형준"
 job         : "Data Analyst : (주) 퀀트랩"
 biglogo     : logo_01.png
 logo        : logo_03.png
-license     : by
+license     : by-nc-sa
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 widgets     : []            # {mathjax, bootstrap, quiz}
 mode        : selfcontained
