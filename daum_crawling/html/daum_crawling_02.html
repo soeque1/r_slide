@@ -1097,27 +1097,6 @@ library(plyr)
 </slide>
 
 <slide class="new-background" id="slide-44" style="background:;">
-  <article data-timings="">
-    <pre><code class="r">ko.words &lt;- function(doc){
-  d &lt;- as.character(doc)
-  pos &lt;- paste(SimplePos09(d))
-  extracted &lt;- str_match(pos, &#39;([가-힣]+)/[NP]&#39;)
-  keyword &lt;- extracted[,2]
-  keyword &lt;- keyword[!is.na(keyword)]
-  keyword &lt;- revalue(keyword, c(&quot;재밌&quot; = &quot;재미&quot;,
-                                &quot;재밋&quot; = &quot;재미&quot;,
-                                &quot;잼있&quot; = &quot;재미&quot;,
-                                &quot;영화&quot; = &quot;어벤져스&quot;),
-                     warn_missing = F)
-  keyword
-}
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-45" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1129,7 +1108,7 @@ library(plyr)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-46" style="background:;">
+<slide class="new-background" id="slide-45" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1146,7 +1125,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-47" style="background:;">
+<slide class="new-background modal" id="slide-46" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1179,7 +1158,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-48" style="background:;">
+<slide class="new-background" id="slide-47" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1192,7 +1171,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-49" style="background:;">
+<slide class="new-background" id="slide-48" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1210,7 +1189,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-50" style="background:;">
+<slide class="new-background modal" id="slide-49" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1243,7 +1222,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-51" style="background:;">
+<slide class="new-background" id="slide-50" style="background:;">
   <hgroup>
     <h2>불필요 단어제거</h2>
   </hgroup>
@@ -1292,7 +1271,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-52" style="background:;">
+<slide class="new-background" id="slide-51" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1308,7 +1287,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-53" style="background:;">
+<slide class="new-background" id="slide-52" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1327,7 +1306,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-54" style="background:;">
+<slide class="new-background modal" id="slide-53" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1360,7 +1339,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-55" style="background:;">
+<slide class="new-background" id="slide-54" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1383,7 +1362,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-56" style="background:;">
+<slide class="new-background" id="slide-55" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1407,7 +1386,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-57" style="background:;">
+<slide class="new-background modal" id="slide-56" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1416,7 +1395,7 @@ tdm &lt;- TermDocumentMatrix(cps,
 order(rowSums(tdm.m), decreasing = T)[1:5]
 </code></pre>
 
-<pre><code>## [1] 3261 4184  537  695 2679
+<pre><code>## [1] 2902 3717 4161 2385  550
 </code></pre>
 
 <pre><code class="r">tdm.m &lt;- tdm.m[order(rowSums(tdm.m), decreasing = T),]
@@ -1426,7 +1405,7 @@ order(rowSums(tdm.m), decreasing = T)[1:5]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-58" style="background:;">
+<slide class="new-background" id="slide-57" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1437,19 +1416,19 @@ co.mat[1:5,1:5]
 </code></pre>
 
 <pre><code>##           Terms
-## Terms      어벤져스 재미 기대 나오 스토리
-##   어벤져스      826   98   74   89     82
-##   재미           98  279   29   42     22
-##   기대           74   29  227   30     17
-##   나오           89   42   30  264     15
-##   스토리         82   22   17   15    180
+## Terms      어벤져스 재미 지루 스토리 기대
+##   어벤져스     1057  113   77    107   64
+##   재미          113  292   35     24   29
+##   지루           77   35  217     25   29
+##   스토리        107   24   25    196   11
+##   기대           64   29   29     11  205
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-59" style="background:;">
+<slide class="new-background modal" id="slide-58" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix와 감정 사전</h2>
   </hgroup>
@@ -1457,7 +1436,7 @@ co.mat[1:5,1:5]
     <pre><code class="r">rownames(co.mat)[rownames(co.mat) %in% neg.word]
 </code></pre>
 
-<pre><code>## [1] &quot;지루&quot; &quot;아깝&quot;
+<pre><code>## [1] &quot;지루&quot; &quot;실망&quot; &quot;산만&quot;
 </code></pre>
 
 <pre><code class="r">rownames(co.mat)[rownames(co.mat) %in% pos.word]
@@ -1473,17 +1452,17 @@ groups.list
 </code></pre>
 
 <pre><code>## $비호감단어
-## [1] 10 20
+## [1]  3 17 20
 ## 
 ## $호감단어
-## [1] 2 3
+## [1] 2 5
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-60" style="background:;">
+<slide class="dark segue nobackground" id="slide-59" style="background:;">
   <hgroup>
     <h2>7. 시각화</h2>
   </hgroup>
@@ -1493,7 +1472,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-61" style="background:;">
+<slide class="new-background" id="slide-60" style="background:;">
   <hgroup>
     <h2>7. 시각화</h2>
   </hgroup>
@@ -1505,7 +1484,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-62" style="background:;">
+<slide class="new-background" id="slide-61" style="background:;">
   <hgroup>
     <h2>Graph</h2>
   </hgroup>
@@ -1520,7 +1499,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-63" style="background:;">
+<slide class="new-background" id="slide-62" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_00.png" height="600" width="700"></center></p>
 
@@ -1528,7 +1507,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-64" style="background:;">
+<slide class="new-background" id="slide-63" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
       layout=&quot;spring&quot;)
@@ -1538,7 +1517,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-65" style="background:;">
+<slide class="new-background" id="slide-64" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_01.png" height="600" width="700"></center></p>
 
@@ -1546,7 +1525,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-66" style="background:;">
+<slide class="new-background" id="slide-65" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
       layout=&quot;spring&quot;, 
@@ -1557,7 +1536,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-67" style="background:;">
+<slide class="new-background" id="slide-66" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_02.png" height="600" width="700"></center></p>
 
@@ -1565,7 +1544,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-68" style="background:;">
+<slide class="new-background" id="slide-67" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
       layout=&quot;spring&quot;, 
@@ -1577,7 +1556,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-69" style="background:;">
+<slide class="new-background" id="slide-68" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_03.png" height="600" width="700"></center></p>
 
@@ -1585,7 +1564,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-70" style="background:;">
+<slide class="new-background" id="slide-69" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
       layout = &quot;spring&quot;, 
@@ -1601,7 +1580,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-71" style="background:;">
+<slide class="new-background" id="slide-70" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph.png" height="600" width="700"></center></p>
 
@@ -1609,7 +1588,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-72" style="background:;">
+<slide class="new-background" id="slide-71" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
       layout = &quot;spring&quot;, 
@@ -1625,7 +1604,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-73" style="background:;">
+<slide class="new-background" id="slide-72" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_2.png" height="600" width="700"></center></p>
 
@@ -1633,7 +1612,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-74" style="background:;">
+<slide class="new-background" id="slide-73" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
       layout = &quot;spring&quot;, 
@@ -1648,11 +1627,32 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-75" style="background:;">
+<slide class="new-background" id="slide-74" style="background:;">
   <article data-timings="">
     <p><a href="https://www.nceas.ucsb.edu/%7Efrazier/RSpatialGuides/colorPaletteCheatsheet.pdf">Tips</a></p>
 
 <p><center><img src="assets/img/result_graph_04.png" height="600" width="700"></center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-75" style="background:;">
+  <hgroup>
+    <h2>의문 단어 찾아보기(상관관계)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">head(findAssocs(tdm, &quot;서울&quot;, 0))
+</code></pre>
+
+<pre><code>##          서울
+## 후진국   0.31
+## 배경     0.28
+## 이미지가 0.27
+## 건물외관 0.25
+## 뉴스방송 0.25
+## 당근     0.25
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -1663,44 +1663,23 @@ title(movie_name, line = 3)
     <h2>의문 단어 찾아보기(상관관계)</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">head(findAssocs(tdm, &quot;서울&quot;, 0))
-</code></pre>
-
-<pre><code>##          서울
-## 후진국   0.31
-## 배경     0.30
-## 오그라들 0.28
-## 이미지가 0.26
-## 촌스럽   0.26
-## 건물외관 0.25
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-77" style="background:;">
-  <hgroup>
-    <h2>의문 단어 찾아보기(상관관계)</h2>
-  </hgroup>
-  <article data-timings="">
     <pre><code class="r">head(findAssocs(tdm, &quot;다음&quot;, 0))
 </code></pre>
 
 <pre><code>##            다음
-## 개봉많이   0.48
-## 검색       0.48
-## 네이버보다 0.48
-## 물타기알바 0.48
-## 본사람들   0.48
-## 빵점       0.48
+## 검색       0.35
+## 개봉많이   0.34
+## 네이버보다 0.34
+## 물타기알바 0.34
+## 본사람들   0.34
+## 빵점       0.34
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-78" style="background:;">
+<slide class="dark segue nobackground" id="slide-77" style="background:;">
   <hgroup>
     <h2>감사합니다</h2>
   </hgroup>
@@ -1974,7 +1953,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=44 title=''>
+        data-slide=44 title='Term x Document Matrix'>
          44
       </a>
     </li>
@@ -2010,13 +1989,13 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=50 title='Term x Document Matrix'>
+        data-slide=50 title='불필요 단어제거'>
          50
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=51 title='불필요 단어제거'>
+        data-slide=51 title='Term x Document Matrix'>
          51
       </a>
     </li>
@@ -2040,7 +2019,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=55 title='Term x Document Matrix'>
+        data-slide=55 title='Co-occurrence Matrix'>
          55
       </a>
     </li>
@@ -2058,13 +2037,13 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=58 title='Co-occurrence Matrix'>
+        data-slide=58 title='Term x Document Matrix와 감정 사전'>
          58
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=59 title='Term x Document Matrix와 감정 사전'>
+        data-slide=59 title='7. 시각화'>
          59
       </a>
     </li>
@@ -2076,13 +2055,13 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=61 title='7. 시각화'>
+        data-slide=61 title='Graph'>
          61
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=62 title='Graph'>
+        data-slide=62 title=''>
          62
       </a>
     </li>
@@ -2160,7 +2139,7 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=75 title=''>
+        data-slide=75 title='의문 단어 찾아보기(상관관계)'>
          75
       </a>
     </li>
@@ -2172,14 +2151,8 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=77 title='의문 단어 찾아보기(상관관계)'>
+        data-slide=77 title='감사합니다'>
          77
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=78 title='감사합니다'>
-         78
       </a>
     </li>
   </ul>

@@ -529,25 +529,6 @@ ko.words <- function(doc){
 
 --- .new-background
 
-```{r, eval=T}
-ko.words <- function(doc){
-  d <- as.character(doc)
-  pos <- paste(SimplePos09(d))
-  extracted <- str_match(pos, '([가-힣]+)/[NP]')
-  keyword <- extracted[,2]
-  keyword <- keyword[!is.na(keyword)]
-  keyword <- revalue(keyword, c("재밌" = "재미",
-                                "재밋" = "재미",
-                                "잼있" = "재미",
-                                "영화" = "어벤져스"),
-                     warn_missing = F)
-  keyword
-}
-```
-
-
---- .new-background
-
 ## Term x Document Matrix
 
 ```{r, eval=T}
