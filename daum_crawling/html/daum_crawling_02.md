@@ -1131,7 +1131,7 @@ qgraph(co.mat, labels = rownames(co.mat), diag=F,
        vsize = 5,
        legend.cex = .7)
       
-title(movie_name, line = 3)
+title("어벤져스", line = 3)
 ```
 
 --- .new-background
@@ -1149,7 +1149,7 @@ qgraph(co.mat, labels = rownames(co.mat), diag=F,
        vsize = log(diag(co.mat)),
        legend.cex = .7)
 
-title(movie_name, line = 3)
+title("어벤져스", line = 3)
 ```
 
 --- .new-background
