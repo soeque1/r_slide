@@ -63,19 +63,15 @@ http://course.mindscale.kr/course/text-analysis
 
 <center><img src="assets/img/sentiment.png" height="600" width="650"></center>
 
---- .new-background
+--- &twocol w1:40% w2:60% .new-background
 
-## 목차
+## Think!!
 
+*** =left
 <h4><br></h4>
-<h3 style="text-align:left">1. R 기초 세팅</h3>
-<h3 style="text-align:left">2. 패키지 인스톨</h3>    
-<h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
-<h3 style="text-align:left">4. 키워드 파싱 및 추출</h3>  
-<h3 style="text-align:left">5. Co-occurrence Matrix</h3>  
-<h3 style="text-align:left">6. 감정사전 불러오기</h3>  
-<h3 style="text-align:left">7. 시각화</h3>  
 
+*** =right
+<center><img src="assets/img/result_graph.png" height="500" width="600"></center>
 
 --- &twocol w1:40% w2:60% .new-background
 
@@ -93,7 +89,6 @@ http://course.mindscale.kr/course/text-analysis
 
 *** =right
 <center><img src="assets/img/result_graph.png" height="500" width="600"></center>
----
 
 --- .new-background
 
