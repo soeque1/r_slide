@@ -1216,7 +1216,7 @@ head(findAssocs(tdm, "다음", 0))
 --- .new-background
 
 <div align="center">
-<iframe width="560" height="315"
+<iframe width="100%" height="315"
 src="http://soeque1.github.io/r_slide/daum_crawling/html/graph.html" allowfullscreen>
     </iframe></div>
 
