@@ -71,10 +71,11 @@ http://course.mindscale.kr/course/text-analysis
 <h3 style="text-align:left">1. R 기초 세팅</h3>
 <h3 style="text-align:left">2. 패키지 인스톨</h3>    
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
-<h3 style="text-align:left">4. 웹크롤 연습</h3>  
-<h3 style="text-align:left">5. 감정사전 불러오기</h3>  
-<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">4. 키워드 파싱 및 추출</h3>  
+<h3 style="text-align:left">5. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">6. 감정사전 불러오기</h3>  
 <h3 style="text-align:left">7. 시각화</h3>  
+
 
 --- &twocol w1:40% w2:60% .new-background
 
@@ -85,9 +86,9 @@ http://course.mindscale.kr/course/text-analysis
 <h3 style="text-align:left">1. R 기초 세팅</h3>
 <h3 style="text-align:left">2. 패키지 인스톨</h3>    
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
-<h3 style="text-align:left">4. 웹크롤 연습</h3>  
-<h3 style="text-align:left">5. 감정사전 불러오기</h3>  
-<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">4. 키워드 파싱 및 추출</h3>  
+<h3 style="text-align:left">5. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">6. 감정사전 불러오기</h3>  
 <h3 style="text-align:left">7. 시각화</h3>  
 
 *** =right
@@ -114,7 +115,7 @@ http://course.mindscale.kr/course/text-analysis
 
 ## 1. R 기초 세팅
 
-### Session -> Set Working Directory -> To Source File Location
+### Session -> Set Working Directory -> Choose Directory
 
 - MAC
 
@@ -235,7 +236,7 @@ http://movie.daum.net
 ## 어벤져스 (1 페이지 웹크롤)
 
 ```{r, echo=T, eval=T, results='asis'}
-url<- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
+url <- "http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&searchType=all&type=after&page=1"
 htxt <- html(url)
 ```
 
@@ -314,121 +315,11 @@ print(paste(page_num, "-th page", sep=""))
 
 --- .dark .segue .nobackground
 
-## 3. 웹크롤 예제 
+## 4. 키워드 파싱 및 추출
 
 --- .new-background
 
-## 3. 웹크롤 예제
-보배드림 - http://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K
-
-```{r}
-url<- "http://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K"
-htxt <- html(url)
-title <- html_text(html_nodes(htxt, ".title a"))
-title <- title[title!="찜"]
-price <- html_text(html_nodes(htxt, ".centeralign .redbold02"))
-title.price <- cbind(title, price)
-title.price
-```
-
---- .new-background
-
-## 3. 웹크롤 예제
-
-네이트 뉴스 - http://news.nate.com/section?mid=n0200
-
-```{r}
-url <- "http://news.nate.com/section?mid=n0200"
-htxt <- html(url)
-news_list <- html_attr(html_nodes(htxt,".speechLink .f_clear a"), "href")
-html_text(html_nodes(html(news_list[1]), ".mduSubjectContent strong"))
-html_text(html_nodes(html(news_list[2]), ".mduSubjectContent strong"))
-#repair_encoding(html_text(html_nodes(html(news_list[1]), ".mduSubjectContent strong")))
-#repair_encoding(html_text(html_nodes(html(news_list[2]), ".mduSubjectContent strong")))
-```
-
---- .new-background
-
-## 3. 웹크롤 예제
-
-네이버 뉴스
-
-```{r}
-r <- "http://news.naver.com/main/ranking/popularDay.nhn?rankingType=popular_day&sectionId=101&date=20150526"
-htxt <- html(r)
-title <- html_text(html_nodes(htxt,".ranking_top3 a"))
-title <- title[title!=""]
-title <- c(title, html_attr(html_nodes(htxt,".all_ranking li dl a"), "title"))
-title
-#repair_encoding(title)  ##  for windows # iconv(x, "UTF-8", "CP949")
-```
-
---- .new-background
-
-## 3. 웹크롤 예제
-
-네이버 뉴스
-
-```{r, echo=F}
-url <- "http://news.naver.com/main/ranking/popularDay.nhn?rankingType=popular_day&sectionId=101&date=20150526"
-htxt <- html(url)
-```
-
-```{r}
-link <- unique(html_attr(html_nodes(htxt,".ranking_top3 a"), "href"))
-link <- c(link, html_attr(html_nodes(htxt,".all_ranking li dl a"), "href"))
-htxt <- html(paste("http://news.naver.com/",link[1],sep=""))
-html_text(html_nodes(htxt,".article_body div")[[1]])
-#repair_encoding(html_text(html_nodes(htxt,".article_body div")[[1]]))
-```
-
---- .dark .segue .nobackground
-
-## 4. 감정사전 불러오기
-
---- .new-background
-
-## 4. 감정사전 불러오기
-
-<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
-<h3b> - 파일 불러오기(read.csv)</h3b>  
-<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b>
-
---- .new-background
-
-## 4. 감정사전 불러오기
-
-```{r, eval=T, echo=F, cache=F}
-user.path = "/Users/kimhyungjun/Dropbox/repo/daum_movie/mac"
-emotion.dict <- read.csv(paste(user.path,"/emotion_dict.csv", sep=""),
-                         header = T, 
-                         fileEncoding = "UTF-8",
-                         stringsAsFactors = F)
-```
-
-```{r, eval=F}
-emotion.dict <- read.csv("emotion_dict.csv", 
-                         header = T, 
-                         fileEncoding = "UTF-8",
-                         stringsAsFactors = F)
-```
-
-```{r, eval=T, include=T, cache=F}
-pos.word <- subset(emotion.dict, pos_neg=="pos")[,"words"]
-neg.word <- subset(emotion.dict, pos_neg=="neg")[,"words"]
-#emotion.dict[11:15,]; emotion.dict[1301:1305,];
-```
-
-<h4><br></h4>
-[감정사전](https://www.dropbox.com/s/okv4mjiq0wlhgbl/emotion_dict.csv?dl=0)
-
---- .dark .segue .nobackground
-
-## 5. 키워드 파싱 및 추출
-
---- .new-background
-
-## 5. 키워드 파싱 및 추출
+## 4. 키워드 파싱 및 추출
 
 <h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
 
@@ -480,11 +371,11 @@ extractNounVerbAdj("기대했던 것보다 좀 지루했음... 와이프는 재�
 
 --- .dark .segue .nobackground
 
-## 6. Co-occurrence Matrix
+## 5. Co-occurrence Matrix
 
 --- .new-background
 
-## 6. Co-occurrence Matrix
+## 5. Co-occurrence Matrix
 
 <h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
 <h3b> - Term x Document Matrix</h3b>  
@@ -505,16 +396,9 @@ library(KoNLP)
 library(plyr)
 ```
 
-```{r, echo=F, include=T}
-all.reviews <- read.csv(paste(user.path,"/avengers_text_mac.csv",sep=""), 
-                           header = T, 
-                           stringsAsFactors = F)
-all.reviews <- all.reviews[[1]]
-```
-
 --- .new-background
 
-```{r, eval=T}
+```{r, eval=T, include=T}
 ko.words <- function(doc){
   d <- as.character(doc)
   keyword <- extractNoun(d)
@@ -531,7 +415,19 @@ ko.words <- function(doc){
 
 ## Term x Document Matrix
 
-```{r, eval=T}
+```{r, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+```{r, echo=F, cache=F}
+user.path = "/Users/kimhyungjun/Dropbox/repo/daum_movie/mac"
+all.reviews <- read.csv(paste(user.path,"/avengers_text_mac.csv",sep=""), 
+                        header = T, 
+                        stringsAsFactors = F)
+all.reviews <- all.reviews[[1]]
+```
+
+```{r, include=T}
 cps <- Corpus(VectorSource(all.reviews))
 ```
 
@@ -539,13 +435,16 @@ cps <- Corpus(VectorSource(all.reviews))
 
 ## Term x Document Matrix
 
-```{r, eval=T, warning=F}
+```{r, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+```{r, eval=T, warning=F, include=T }
 options(mc.cores=1)
 tdm <- TermDocumentMatrix(cps,
-                              control=list(
-                              tokenize=ko.words,
-                              removeNumbers=TRUE,
-                              removePunctuation=TRUE))
+                          control=list(
+                          tokenize=ko.words,
+                          weighting=weightBin))
 ```
 
 --- .new-background .modal
@@ -573,14 +472,43 @@ rownames(tdm)[rownames(tdm)=="ㅡ.ㅡ"]
 
 ## Term x Document Matrix
 
-```{r, eval=T, warning=F}
+```{r, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+
+```{r, eval=T, warning=F, include=T}
 options(mc.cores=1)
 tdm <- TermDocumentMatrix(cps,
-                              control = list(
-                              tokenize=ko.words,    
-                              removeNumbers=TRUE,
-                              removePunctuation=TRUE,
-                              wordLengths=c(2,Inf)))
+                          control=list(
+                          tokenize=ko.words,    
+                          wordLengths=c(2,Inf),
+                          weighting=weightBin))
+```
+
+--- .new-background .modal
+
+## Term x Document Matrix
+
+```{r, eval=T}
+rownames(tdm)[rownames(tdm)=="어벤져스"]
+rownames(tdm)[rownames(tdm)=="헐크"]
+rownames(tdm)[rownames(tdm)=="등등"]
+rownames(tdm)[rownames(tdm)=="ㅡ.ㅡ"]
+```
+
+--- .new-background
+
+## Term x Document Matrix
+
+```{r, eval=T, warning=F, include=T}
+options(mc.cores=1)
+tdm <- TermDocumentMatrix(cps,
+                          control=list(
+                          tokenize=ko.words,    
+                          wordLengths=c(2,Inf),
+                          weighting=weightBin,
+                          removePunctuation=T))
 ```
 
 --- .new-background .modal
@@ -609,22 +537,22 @@ stopwords()
 * 해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거
 
 ```{r, eval=T}
-delete_dic <- c("그냥", "등등", "중간")
+delete.dict <- c("그냥", "등등", "중간")
 ```
 
 --- .new-background
 
 ## Term x Document Matrix
 
-```{r, eval=T, warning=F}
+```{r, eval=T, warning=F, include=T}
 options(mc.cores=1)
 tdm <- TermDocumentMatrix(cps,
-                              control = list(
-                              tokenize=ko.words, 
-                              removeNumbers = TRUE,
-                              removePunctuation = TRUE,
-                              wordLengths = c(2,Inf),
-                              stopwords = delete_dic))
+                          control=list(
+                          tokenize=ko.words, 
+                          wordLengths=c(2,Inf),
+                          weighting=weightBin,
+                          removePunctuation=T,
+                          stopwords=delete.dict))
 ```
 
 --- .new-background .modal
@@ -672,12 +600,12 @@ ex %*% t(ex)
 ```{r, eval=T, echo=F, warning=F}
 options(mc.cores=1)
 tdm <- TermDocumentMatrix(cps,
-                              control = list(
-                              tokenize=ko.words, 
-                              removeNumbers = TRUE,
-                              removePunctuation = TRUE,
-                              wordLengths = c(2,Inf),
-                              stopwords = delete_dic))
+                          control=list(
+                          tokenize=ko.words, 
+                          wordLengths=c(2,Inf),
+                          weighting=weightBin,
+                          removePunctuation=T,
+                          stopwords=delete.dict))
 ```
 
 
@@ -697,15 +625,52 @@ co.mat <- tdm.m %*% t(tdm.m)
 co.mat[1:5,1:5]
 ```
 
+--- .dark .segue .nobackground
+
+## 6. 감정사전 불러오기
+
+--- .new-background
+
+## 6. 감정사전 불러오기
+
+<h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  
+<h3b> - 파일 불러오기(read.csv)</h3b>  
+<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b>
+
+--- .new-background
+
+## 6. 감정사전 불러오기
+
+```{r, eval=T, echo=F, cache=F}
+user.path = "/Users/kimhyungjun/Dropbox/repo/daum_movie/mac"
+emotion.dict <- read.csv(paste(user.path,"/emotion_dict_mac.csv", sep=""),
+                         header = T, 
+                         stringsAsFactors = F)
+```
+
+```{r, eval=F}
+emotion.dict <- read.csv("emotion_dict_mac.csv", 
+                         header = T, 
+                         stringsAsFactors = F)
+```
+
+```{r, eval=T, include=T, cache=F}
+pos.word <- subset(emotion.dict, pos_neg=="pos")[,"words"]
+neg.word <- subset(emotion.dict, pos_neg=="neg")[,"words"]
+#emotion.dict[11:15,]; emotion.dict[1301:1305,];
+```
+
+<h4><br></h4>
+[감정사전](https://www.dropbox.com/s/okv4mjiq0wlhgbl/emotion_dict_mac.csv?dl=0)
+
 --- .new-background .modal
 
 ## Term x Document Matrix와 감정 사전
 
 ```{r, echo=F}
-user.path = "/Users/kimhyungjun/Dropbox/repo/daum_movie/mac"
-emotion.dict <- read.csv(paste(user.path,"/emotion_dict.csv", sep=""),
+user.path <- "/Users/kimhyungjun/Dropbox/repo/daum_movie/mac"
+emotion.dict <- read.csv(paste(user.path,"/emotion_dict_mac.csv", sep=""),
                          header = T, 
-                         fileEncoding = "UTF-8",
                          stringsAsFactors = F)
 pos.word <- subset(emotion.dict, pos_neg=="pos")[,"words"]
 neg.word <- subset(emotion.dict, pos_neg=="neg")[,"words"]
@@ -716,8 +681,8 @@ rownames(co.mat)[rownames(co.mat) %in% neg.word]
 rownames(co.mat)[rownames(co.mat) %in% pos.word]
 
 groups.list = list()
-groups.list$비호감단어 = which(rownames(co.mat) %in% neg.word)
-groups.list$호감단어 = which(rownames(co.mat) %in% pos.word)
+groups.list$비호감단어 <- which(rownames(co.mat) %in% neg.word)
+groups.list$호감단어 <- which(rownames(co.mat) %in% pos.word)
 groups.list
 ```
 
@@ -752,7 +717,7 @@ qgraph(co.mat, labels = rownames(co.mat), diag=F)
 
 ```{r, eval=F}
 qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout="spring")
+       layout="spring")
 ```
 
 --- .new-background
@@ -764,8 +729,8 @@ qgraph(co.mat, labels = rownames(co.mat), diag=F,
 
 ```{r, eval=F}
 qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout="spring", 
-      edge.color = "darkblue")
+       layout="spring", 
+       edge.color = "darkblue")
 ```
 
 --- .new-background
@@ -776,9 +741,9 @@ qgraph(co.mat, labels = rownames(co.mat), diag=F,
 
 ```{r, eval=F}
 qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout="spring", 
-      edge.color = "darkblue",
-      groups = groups.list)
+       layout="spring", 
+       edge.color = "darkblue",
+       groups = groups.list)
 ```
 
 --- .new-background
@@ -789,11 +754,11 @@ qgraph(co.mat, labels = rownames(co.mat), diag=F,
 
 ```{r, eval=F}
 qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout = "spring", 
-      edge.color = "darkblue",
-      groups = groups.list,
-      vsize = 5,
-      legend.cex = .7)
+       layout = "spring", 
+       edge.color = "darkblue",
+       groups = groups.list,
+       vsize = 5,
+       legend.cex = .7)
       
 title(movie_name, line = 3)
 ```
@@ -807,11 +772,11 @@ title(movie_name, line = 3)
 ```{r, eval=F}
 
 qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout = "spring", 
-      edge.color = "darkblue",
-      groups = groups.list,
-      vsize = log(diag(co.mat)),
-      legend.cex = .7)
+       layout = "spring", 
+       edge.color = "darkblue",
+       groups = groups.list,
+       vsize = log(diag(co.mat)),
+       legend.cex = .7)
 
 title(movie_name, line = 3)
 
@@ -826,12 +791,12 @@ title(movie_name, line = 3)
 ```{r, eval=F}
 
 qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout = "spring", 
-      edge.color = "darkblue",
-      groups = groups.list,
-      vsize = log(diag(co.mat)),
-      legend.cex = .7,
-      color=c("gold", "lightblue"))
+       layout = "spring", 
+       edge.color = "darkblue",
+       groups = groups.list,
+       vsize = log(diag(co.mat)),
+       legend.cex = .7,
+       color=c("gold", "lightblue"))
 
 ```
 

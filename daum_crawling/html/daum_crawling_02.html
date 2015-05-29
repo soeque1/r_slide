@@ -160,11 +160,11 @@
 
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 
-<h3 style="text-align:left">4. 웹크롤 연습</h3>  
+<h3 style="text-align:left">4. 키워드 파싱 및 추출</h3>  
 
-<h3 style="text-align:left">5. 감정사전 불러오기</h3>  
+<h3 style="text-align:left">5. Co-occurrence Matrix</h3>  
 
-<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">6. 감정사전 불러오기</h3>  
 
 <h3 style="text-align:left">7. 시각화</h3>  
 
@@ -187,11 +187,11 @@
 
 <h3 style="text-align:left">3. 어벤져스 웹크롤</h3>  
 
-<h3 style="text-align:left">4. 웹크롤 연습</h3>  
+<h3 style="text-align:left">4. 키워드 파싱 및 추출</h3>  
 
-<h3 style="text-align:left">5. 감정사전 불러오기</h3>  
+<h3 style="text-align:left">5. Co-occurrence Matrix</h3>  
 
-<h3 style="text-align:left">6. Co-occurrence Matrix</h3>  
+<h3 style="text-align:left">6. 감정사전 불러오기</h3>  
 
 <h3 style="text-align:left">7. 시각화</h3>  
 
@@ -240,7 +240,7 @@
     <h2>1. R 기초 세팅</h2>
   </hgroup>
   <article data-timings="">
-    <h3>Session -&gt; Set Working Directory -&gt; To Source File Location</h3>
+    <h3>Session -&gt; Set Working Directory -&gt; Choose Directory</h3>
 
 <ul>
 <li>MAC</li>
@@ -438,7 +438,7 @@ library(KoNLP)
     <h2>어벤져스 (1 페이지 웹크롤)</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">url&lt;- &quot;http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&amp;searchType=all&amp;type=after&amp;page=1&quot;
+    <pre><code class="r">url &lt;- &quot;http://movie.daum.net/moviedetail/moviedetailNetizenPoint.do?movieId=73750&amp;searchType=all&amp;type=after&amp;page=1&quot;
 htxt &lt;- html(url)
 </code></pre>
 
@@ -720,7 +720,7 @@ print(paste(page_num, &quot;-th page&quot;, sep=&quot;&quot;))
 
 <slide class="dark segue nobackground" id="slide-29" style="background:;">
   <hgroup>
-    <h2>3. 웹크롤 예제</h2>
+    <h2>4. 키워드 파싱 및 추출</h2>
   </hgroup>
   <article data-timings="">
     
@@ -730,262 +730,7 @@ print(paste(page_num, &quot;-th page&quot;, sep=&quot;&quot;))
 
 <slide class="new-background" id="slide-30" style="background:;">
   <hgroup>
-    <h2>3. 웹크롤 예제</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>보배드림 - <a href="http://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K">http://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K</a></p>
-
-<pre><code class="r">url&lt;- &quot;http://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K&quot;
-htxt &lt;- html(url)
-title &lt;- html_text(html_nodes(htxt, &quot;.title a&quot;))
-title &lt;- title[title!=&quot;찜&quot;]
-price &lt;- html_text(html_nodes(htxt, &quot;.centeralign .redbold02&quot;))
-title.price &lt;- cbind(title, price)
-title.price
-</code></pre>
-
-<pre><code>##       title                                            price  
-##  [1,] &quot;현대 마이티2 3.5톤 윙바디 &quot;                     &quot;1,850&quot;
-##  [2,] &quot;기아 K5 2.0 LPi 럭셔리&quot;                         &quot;1,090&quot;
-##  [3,] &quot;현대 뉴 에쿠스 VS 380 프레스티지 VIP &quot;          &quot;2,490&quot;
-##  [4,] &quot;현대 베라크루즈 4WD 300VX 프리미엄&quot;             &quot;2,750&quot;
-##  [5,] &quot;현대 그랜져HG 240 럭셔리&quot;                       &quot;2,250&quot;
-##  [6,] &quot;기아 뉴 스포티지 TLX 2WD 고급형&quot;                &quot;690&quot;  
-##  [7,] &quot;현대 뉴 에쿠스 VS 380(12년) 프레스티지 V..&quot;     &quot;4,090&quot;
-##  [8,] &quot;현대 더 럭셔리 그랜져 Q240 디럭스&quot;              &quot;1,090&quot;
-##  [9,] &quot;현대 뉴아반떼XD 1.6 VVT 디럭스 기본형&quot;          &quot;350&quot;  
-## [10,] &quot;현대 그랜져HG 300 익스큐시브&quot;                   &quot;2,750&quot;
-## [11,] &quot;현대 싼타페 더스타일 2.0 e-VGT MLX 2WD &quot;        &quot;1,350&quot;
-## [12,] &quot;기아 올 뉴 모닝 스마트 &quot;                        &quot;690&quot;  
-## [13,] &quot;현대 그랜져HG 300 로얄&quot;                         &quot;2,450&quot;
-## [14,] &quot;현대 그랜져HG 240 모던&quot;                         &quot;2,390&quot;
-## [15,] &quot;현대 YF쏘나타 Y20 프리미어 최고급형&quot;            &quot;1,590&quot;
-## [16,] &quot;현대 YF쏘나타 Y20 프리미어 &quot;                    &quot;1,550&quot;
-## [17,] &quot;쌍용 뉴 체어맨W CW600 SVIP&quot;                     &quot;2,890&quot;
-## [18,] &quot;현대 제네시스 BH330 프리미엄 스페셜&quot;            &quot;2,950&quot;
-## [19,] &quot;기아 더 프레스티지 K7 3.0 LPi 럭셔리&quot;           &quot;1,490&quot;
-## [20,] &quot;현대 i40 살룬 1.7 VGT 디 스팩&quot;                  &quot;3,090&quot;
-## [21,] &quot;현대 뉴 에쿠스 VS 500 프레스티지&quot;               &quot;3,790&quot;
-## [22,] &quot;현대 뉴 에쿠스 VS 380 프라임&quot;                   &quot;3,590&quot;
-## [23,] &quot;현대 제네시스 BH330 프리미엄 스페셜&quot;            &quot;3,290&quot;
-## [24,] &quot;현대 뉴 에쿠스 VS 500 프레스티지&quot;               &quot;3,690&quot;
-## [25,] &quot;기아 레이 1.0 가솔린 프레스티지&quot;                &quot;890&quot;  
-## [26,] &quot;현대 엑센트 (신형) 1.6 GDi 탑&quot;                  &quot;990&quot;  
-## [27,] &quot;현대 갤로퍼2 숏바디 이노베이션 밴 터보 엑시드 &quot; &quot;390&quot;  
-## [28,] &quot;현대 쏘나타 더 브릴리언트 LPi 스마트&quot;           &quot;790&quot;  
-## [29,] &quot;현대 쏘나타 하이브리드 프리미엄 &quot;               &quot;2,080&quot;
-## [30,] &quot;현대 뉴 에쿠스 VS380(13년~) 모던&quot;               &quot;4,800&quot;
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-31" style="background:;">
-  <hgroup>
-    <h2>3. 웹크롤 예제</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>네이트 뉴스 - <a href="http://news.nate.com/section?mid=n0200">http://news.nate.com/section?mid=n0200</a></p>
-
-<pre><code class="r">url &lt;- &quot;http://news.nate.com/section?mid=n0200&quot;
-htxt &lt;- html(url)
-news_list &lt;- html_attr(html_nodes(htxt,&quot;.speechLink .f_clear a&quot;), &quot;href&quot;)
-html_text(html_nodes(html(news_list[1]), &quot;.mduSubjectContent strong&quot;))
-</code></pre>
-
-<pre><code>##  [1] &quot;[속보]공무원연금법 개정안, 국회 본회의 통과&quot;                                                          
-##  [2] &quot;&#39;시행령 수정권한&#39; 국회법, 운영위 소위 수정의결 &#39;지체없이&#39; 문구 삭제&quot;                                  
-##  [3] &quot;여 \&quot;세월호특별법 시행령 수정 절대 불가\&quot;…청 &#39;심기&#39; 때문?&quot;                                            
-##  [4] &quot;공무원연금 개혁안 또 무산 위기…&#39;세월호 조사1과장&#39; 민간에 못 맡기겠다는 여당&quot;                          
-##  [5] &quot;서기관 1명 때문에…100만 공무원 연금 하루종일 엎치락뒤치락&quot;                                            
-##  [6] &quot;&#39;유승민표 합의안&#39; 또 잡음&quot;                                                                            
-##  [7] &quot;정청래 &#39;후폭풍&#39;…조경태 징계에 쏠린 눈&quot;                                                                
-##  [8] &quot;&#39;김상곤 혁신위&#39;의 성공을 위한 3가지 조건&quot;                                                             
-##  [9] &quot;담뱃갑 경고그림 의무화, 군인 순직자 포괄적 인정…임시국회서 처리할 법안들&quot;                             
-## [10] &quot;일, &#39;강제징용 시설 유네스코 등재&#39; 한국과 타협 의사&quot;                                                   
-## [11] &quot;살아 있는 &#39;탄저균&#39; 오산 미군기지 배달&quot;                                                                
-## [12] &quot;황교안은 &#39;오전반 오후반&#39; &#39;낮 장관 밤 총리&#39; &#39;이중생활&#39;&quot;                                                
-## [13] &quot;문재인 \&quot;돌아와달라\&quot;···주승용 \&quot;정치인이 그럴 수 있겠나\&quot;&quot;                                           
-## [14] &quot;[속보] 여야 원내지도부, 세월호 시행령 등 내달 논의키로 합의…공무원연금은 오늘 처리…의원총회 추인 남아&quot;
-## [15] &quot;[속보] 여, 최고위 긴급 소집···공무원연금법 처리방안 논의&quot;                                             
-## [16] &quot;미군 군사화물로 반입되는 위험물질은 세관 검사 사실상 불가능&quot;                                          
-## [17] &quot;황희 정승 후손 \&quot;김진태 의원, 낙선운동 펼 것\&quot;&quot;                                                       
-## [18] &quot;[경향포토]난감한 유승민 이종걸 대표&quot;                                                                  
-## [19] &quot;[경향포토]머리 맞댄 막판 조율&quot;                                                                        
-## [20] &quot;[경향포토]어색한 여야 원내대표&quot;
-</code></pre>
-
-<pre><code class="r">html_text(html_nodes(html(news_list[2]), &quot;.mduSubjectContent strong&quot;))
-</code></pre>
-
-<pre><code>##  [1] &quot;&#39;더 내고 덜 받는&#39; 공무원연금법 내년 1월 1일 시행&quot;        
-##  [2] &quot;&#39;우여곡절&#39; 끝 공무원연금법 극적 통과&quot;                    
-##  [3] &quot;황교안-이완구, 부동산 투기 의혹 &#39;판박이&#39;&quot;                
-##  [4] &quot;답답한 새누리당…국회선진화법 재개정론 &#39;분출&#39;&quot;            
-##  [5] &quot;국회 운영위 전체회의 여야 원내대표의 대화&quot;               
-##  [6] &quot;손잡은 여야 원내대표&quot;                                    
-##  [7] &quot;국회 운영위 전체회의&quot;                                    
-##  [8] &quot;여야 심야 협상 타결, 국회 운영위 개회&quot;                   
-##  [9] &quot;여야 공무원연금 개혁 최종합의문 전문&quot;                    
-## [10] &quot;여야 연금개혁협상 최종 타결…與 &#39;시행령 수정권&#39; 요구 수용&quot;
-## [11] &quot;이재오 의원과 이야기하는 유승민 원내대표&quot;                
-## [12] &quot;5월 임시회 하루 연장, 논의하는 새누리당 김무성-유승민&quot;   
-## [13] &quot;국회 본회의 회기 연장하고 정회&quot;                          
-## [14] &quot;5월 임시회 하루 연장&quot;                                    
-## [15] &quot;하루 연장되는 5월 임시회&quot;                                
-## [16] &quot;5월 임시국회 하루 연장…공무원연금법 처리 진통&quot;           
-## [17] &quot;\&quot;선거 너무 잦다\&quot;…여야, 재보선 &#39;1년 한번&#39; 합의&quot;         
-## [18] &quot;여야, &#39;시행령 수정 요구권&#39; 강화에 합의&quot;                  
-## [19] &quot;김상곤, \&quot;새정치연합, 스텝꼬인 권투선수\&quot;&quot;               
-## [20] &quot;與, &#39;시행령 변경 요구권&#39; 강화 빼고 추인(1보)&quot;
-</code></pre>
-
-<pre><code class="r">#repair_encoding(html_text(html_nodes(html(news_list[1]), &quot;.mduSubjectContent strong&quot;)))
-#repair_encoding(html_text(html_nodes(html(news_list[2]), &quot;.mduSubjectContent strong&quot;)))
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-32" style="background:;">
-  <hgroup>
-    <h2>3. 웹크롤 예제</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>네이버 뉴스</p>
-
-<pre><code class="r">r &lt;- &quot;http://news.naver.com/main/ranking/popularDay.nhn?rankingType=popular_day&amp;sectionId=101&amp;date=20150526&quot;
-htxt &lt;- html(r)
-title &lt;- html_text(html_nodes(htxt,&quot;.ranking_top3 a&quot;))
-title &lt;- title[title!=&quot;&quot;]
-title &lt;- c(title, html_attr(html_nodes(htxt,&quot;.all_ranking li dl a&quot;), &quot;title&quot;))
-title
-</code></pre>
-
-<pre><code>##  [1] &quot;제일모직-삼성물산 합병결의…삼성그룹 재편 가속(종합2보)&quot;                   
-##  [2] &quot;\&quot;30년 넘게 연금받은 공무원만 지난해 3천232명\&quot;&quot;                          
-##  [3] &quot;제일모직-삼성물산, 9월1일자로 합병…합병사명은 &#39;삼성물산&#39; (상보)&quot;          
-##  [4] &quot;이주열 \&quot;옐런 &#39;금리인상&#39; 발언에 시장 불확실성 커져\&quot;(종합)&quot;               
-##  [5] &quot;부동산 대박은 없다, 예금 이자 넘으면 OK&quot;                                  
-##  [6] &quot;변동금리 대출 &#39;700조 시한폭탄&#39; 째깍째깍&quot;                                  
-##  [7] &quot;\&quot;데이터 요금제가 모두에게 요술방망이는 아냐\&quot;&quot;                           
-##  [8] &quot;제일모직-삼성물산 합병결의…삼성그룹 재편 가속(종합)&quot;                      
-##  [9] &quot;성큼 다가온 삼성 이재용시대&quot;                                              
-## [10] &quot;제일모직, 1년반새 두 번 합병 겪어…\&quot;지배구조 개편, 예상 수순\&quot;&quot;           
-## [11] &quot;[제일모직·삼성물산 합병] 출자구조 단순화로 오너 지배력 강화&quot;              
-## [12] &quot;정점찍은 삼성 지배구조·사업 재편…남은 수순은&quot;                             
-## [13] &quot;제일모직-삼성물산 합병…이재용 부회장 지배력 강화(종합3보)&quot;                
-## [14] &quot;[J Report] 위로 향한 옐런의 손 … ‘치킨집’은 떨고 있다&quot;                    
-## [15] &quot;층간소음 등 주민불편 커도 재건축 가능&quot;                                    
-## [16] &quot;남녀 임금격차, 가장 큰 이유는 ‘그냥’&quot;                                     
-## [17] &quot;\&quot;부실가계가 기업보다 구조조정 더 어려워\&quot;(종합3보)&quot;                      
-## [18] &quot;고등어·멸치 많이 잡히고 갈치 어획은 &#39;뚝&#39;&quot;                                 
-## [19] &quot;금호그룹, 모태 금호고속 3년만에 되찾는다(종합2보)&quot;                        
-## [20] &quot;[환율에 발목 잡힌 한국경제] (상) 글로벌 환율전쟁에 직격탄 맞은 한국기업들&quot;
-## [21] &quot;검찰, 중흥건설 1000억원대  비자금 수사 &#39;일단락&#39;…12명 기소&quot;                
-## [22] &quot; 스마트폰 케이스 메탈로 바꿨을 뿐인데…중소 협력업체들 ‘휘청’ &quot;            
-## [23] &quot;제일모직-삼성물산 이사회서 합병 결의(3보)&quot;                                
-## [24] &quot;제일모직-삼성물산 합병…이재용 부회장 그룹 지배력 강화(종합4보)&quot;           
-## [25] &quot;이주열 \&quot;옐런 &#39;금리인상 시사&#39;에 시장 모니터링 강화\&quot;(종합2보)&quot;            
-## [26] &quot;\&quot;노후밑천 굴려라\&quot;…퇴직연금 펀드 &#39;봇물&#39;&quot;                                 
-## [27] &quot;제일모직-삼성물산 합병 결의(2보)&quot;                                         
-## [28] &quot;한중 FTA안, 국무회의 통과…상반기 정식 서명&quot;                               
-## [29] &quot;&#39;백수오 불똥&#39; 국순당까지…백세주 자발적 회수&quot;                              
-## [30] &quot;금호아시아나 그룹 모태 금호고속 3년만에 되찾는다(종합)&quot;
-</code></pre>
-
-<pre><code class="r">#repair_encoding(title)  ##  for windows # iconv(x, &quot;UTF-8&quot;, &quot;CP949&quot;)
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-33" style="background:;">
-  <hgroup>
-    <h2>3. 웹크롤 예제</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>네이버 뉴스</p>
-
-<pre><code class="r">link &lt;- unique(html_attr(html_nodes(htxt,&quot;.ranking_top3 a&quot;), &quot;href&quot;))
-link &lt;- c(link, html_attr(html_nodes(htxt,&quot;.all_ranking li dl a&quot;), &quot;href&quot;))
-htxt &lt;- html(paste(&quot;http://news.naver.com/&quot;,link[1],sep=&quot;&quot;))
-html_text(html_nodes(htxt,&quot;.article_body div&quot;)[[1]])
-</code></pre>
-
-<pre><code>## [1] &quot;\r\n\t\r\n\t\r\n\t\n9월1일 합병완료 계획…합병 회사명은 삼성물산합병사 매출 2014년 34조원…2020년 60조 목표 신수종 바이오사업 최대주주로 참여…성장성 확보순환출자구조 단순화…합병사 오너지분 합계는 30.4%    (서울=연합뉴스) 옥철 기자 = 삼성그룹 계열사인 제일모직과 삼성물산이 26일 이사회를 열어 합병을 결의했다.    양사는 9월 1일 자로 합병을 완료할 계획이다.     제일모직이 기준주가에 따라 산출된 합병비율인 1대 0.35로 삼성물산을 합병하는 방식이다. 제일모직이 신주를 발행해 삼성물산 주주에게 교부할 예정이다.     양사는 오는 7월 임시 주주총회를 거쳐 합병을 마무리할 계획이다.     합병회사의 사명은 글로벌 브랜드 인지도를 고려하고 삼성그룹의 창업정신을 승계하는 차원에서 삼성물산을 사용하기로 결정했다. 1938년 삼성그룹 모태인 &#39;삼성상회&#39;로 설립된 삼성물산의 역사성을 고려한 것으로 보인다.    양사 합병 결의에 따라 삼성그룹의 재편 작업이 더욱 속도를 내게 됐다.    삼성그룹은 지난해 삼성SDI와 제일모직 소재부문을 합병하고 삼성SDS·제일모직을 상장하는 한편 화학·방산부문을 한화그룹으로 매각하는 &#39;빅딜&#39;을 단행하는 등 일련의 사업구조 재편 작업을 추진해왔다.    이번 합병을 통해 삼성그룹의 지배구조가 단순화하면서 기존의 순환출자 구조가 상당부분 해소될 것으로 예상된다.     삼성그룹의 순환출자 구조는 &#39;제일모직→삼성생명→삼성전자→삼성물산·삼성전기·삼성SDI→제일모직&#39;에서 &#39;삼성물산→삼성생명·삼성전자&#39;로 단순화된다.    이재용 삼성전자 부회장의 지분은 합병 전 제일모직 23.2%에서 합병 후 삼성물산 16.5%로, 이부진 호텔신라 사장과 이서현 제일모직 패션부문 사장의 지분은 합병 전 제일모직 7.8%에서 합병 후 삼성물산 5.5%로 바뀐다.    합병 후 삼성물산의 오너 일가 지분 합계는 30.4%로, 여전히 공정거래법상 내부거래의 규제 대상이 된다.    합병회사의 매출은 2014년 기준 34조원으로, 건설·상사·패션·리조트·식음료 등을 아우르는 종합 서비스 기업이 탄생하게 된다.    양사는 핵심 사업의 글로벌 경쟁력과 시너지를 강화해 2020년 매출 60조원을 목표로 하고 있다.    제일모직은 1963년 설립돼 부동산·테마파크 사업을 시작으로 건설·식음 서비스로 사업영역을 확장해 왔으며, 2013년에는 옛 제일모직으로부터 패션사업을 인수하고 2014년 말에는 상장했다.    삼성물산은 삼성그룹의 모태기업으로 1938년 설립된 이후 1975년 종합상사 1호로 지정됐다. 1995년 삼성건설 합병 후에는 건설과 상사부문으로 나뉘어 전세계 50여개국에서 글로벌 사업을 전개하고 있다.    제일모직과 삼성물산은 2011년 삼성의 바이오사업 출범에 함께 참여했고 지난해에는 레이크사이드 골프장을 공동으로 인수하기도 했다.    제일모직은 지난해 말 유가증권시장 상장 후 글로벌 기업으로 도약하기 위해 건설·패션 등 사업별 시장 확대를 적극 추진하는 과정에서 핵심사업 경쟁력과 해외영업 인프라를 강화할 수 있는 방안을 모색해 왔다.     건설·상사부문에서 글로벌 시장 진출 경험이 풍부한 삼성물산은 글로벌 경기 침체와 경쟁 심화 등으로 인한 사업 정체에서 벗어나고 새로운 성장동력 발굴을 위한 사업 다각화 방안을 검토해 왔다.    양사는 이번 합병을 통해 패션·식음·건설·레저·바이오 등 생활 전반에 걸쳐 프리미엄 서비스를 제공하는 글로벌 &#39;의식주휴(衣食住休)·바이오 선도기업&#39;으로 성장할 수 있는 기반을 마련했다고 삼성 측이 밝혔다.    두 회사는 각각 운영해 온 건설 부문을 통합함으로써 건설사업 경쟁력 제고 및 운영 시너지 창출이 가능해졌다고 평가했다.    또 상사 부문의 글로벌 운영 경험과 인프라를 활용해 패션·식음 사업의 해외진출을 가속화하고 새로운 사업기회를 발굴할 수 있게 됐다.    특히 삼성의 신수종 사업인 바이오 부문의 최대주주로 적극 참여할 수 있게 돼 향후 바이오 사업의 안정성과 성장성을 추구할 수 있게 된 것으로 평가된다.    제일모직과 삼성물산은 삼성바이오로직스 지분 46.3%, 4.9%를 각각 보유하고 있다. 양사의 삼성바이오로직스 지분 합계는 51%를 넘는다.    제일모직 윤주화 사장은 \&quot;이번 합병은 회사의 핵심 경쟁력을 조기에 확보해 글로벌 리딩 컴퍼니로 성장하기 위한 전략적 선택\&quot;이라며 \&quot;인간의 삶 전반에 걸친 토탈 프리미어 서비스를 제공하는 글로벌 초일류 기업으로 성장해 나갈 것\&quot;이라고 밝혔다.     삼성물산 최치훈 사장은 \&quot;패션, 바이오 등 사업 포트폴리오 다변화를 통해 성장동력을 확보하고 삼성물산이 보유한 글로벌 오퍼레이션 역량과 제일모직의 특화 역량을 결합해 사업 경쟁력을 더욱 강화할 계획\&quot;이라고 말했다.    oakchul@yna.co.kr▶ [현장영상] 4살 꼬마 \&quot;벽에 머리가 끼었어요\&quot;▶ [오늘의 핫 화보] 현역 제대 송중기 &#39;여전한 꽃미소&#39;&lt;저작권자(c) 연합뉴스, 무단 전재-재배포 금지&gt;&quot;
-</code></pre>
-
-<pre><code class="r">#repair_encoding(html_text(html_nodes(htxt,&quot;.article_body div&quot;)[[1]]))
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="dark segue nobackground" id="slide-34" style="background:;">
-  <hgroup>
-    <h2>4. 감정사전 불러오기</h2>
-  </hgroup>
-  <article data-timings="">
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-35" style="background:;">
-  <hgroup>
-    <h2>4. 감정사전 불러오기</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><h3b><font color="blue"><b> 학습 목표 </b></font></h3b><br>
-<h3b> - 파일 불러오기(read.csv)</h3b><br>
-<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-36" style="background:;">
-  <hgroup>
-    <h2>4. 감정사전 불러오기</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code class="r">emotion.dict &lt;- read.csv(&quot;emotion_dict.csv&quot;, 
-                         header = T, 
-                         fileEncoding = &quot;UTF-8&quot;,
-                         stringsAsFactors = F)
-</code></pre>
-
-<pre><code class="r">pos.word &lt;- subset(emotion.dict, pos_neg==&quot;pos&quot;)[,&quot;words&quot;]
-neg.word &lt;- subset(emotion.dict, pos_neg==&quot;neg&quot;)[,&quot;words&quot;]
-#emotion.dict[11:15,]; emotion.dict[1301:1305,];
-</code></pre>
-
-<h4><br></h4>
-
-<p><a href="https://www.dropbox.com/s/okv4mjiq0wlhgbl/emotion_dict.csv?dl=0">감정사전</a></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="dark segue nobackground" id="slide-37" style="background:;">
-  <hgroup>
-    <h2>5. 키워드 파싱 및 추출</h2>
-  </hgroup>
-  <article data-timings="">
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="new-background" id="slide-38" style="background:;">
-  <hgroup>
-    <h2>5. 키워드 파싱 및 추출</h2>
+    <h2>4. 키워드 파싱 및 추출</h2>
   </hgroup>
   <article data-timings="">
     <p><h3b><font color="blue"><b> 학습 목표 </b></font></h3b>  </p>
@@ -1002,7 +747,7 @@ neg.word &lt;- subset(emotion.dict, pos_neg==&quot;neg&quot;)[,&quot;words&quot;
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-39" style="background:;">
+<slide class="new-background" id="slide-31" style="background:;">
   <hgroup>
     <h2>R에서 자연어 처리 (KoNLP)</h2>
   </hgroup>
@@ -1034,9 +779,9 @@ extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-40" style="background:;">
+<slide class="dark segue nobackground" id="slide-32" style="background:;">
   <hgroup>
-    <h2>6. Co-occurrence Matrix</h2>
+    <h2>5. Co-occurrence Matrix</h2>
   </hgroup>
   <article data-timings="">
     
@@ -1044,9 +789,9 @@ extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-41" style="background:;">
+<slide class="new-background" id="slide-33" style="background:;">
   <hgroup>
-    <h2>6. Co-occurrence Matrix</h2>
+    <h2>5. Co-occurrence Matrix</h2>
   </hgroup>
   <article data-timings="">
     <p><h3b><font color="blue"><b> 학습 목표 </b></font></h3b><br>
@@ -1057,7 +802,7 @@ extractNoun(&quot;기대했던 것보다 좀 지루했음... 와이프는 재미
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-42" style="background:;">
+<slide class="new-background" id="slide-34" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1078,7 +823,7 @@ library(plyr)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-43" style="background:;">
+<slide class="new-background" id="slide-35" style="background:;">
   <article data-timings="">
     <pre><code class="r">ko.words &lt;- function(doc){
   d &lt;- as.character(doc)
@@ -1096,7 +841,7 @@ library(plyr)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-44" style="background:;">
+<slide class="new-background" id="slide-36" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1108,24 +853,23 @@ library(plyr)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-45" style="background:;">
+<slide class="new-background" id="slide-37" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
   <article data-timings="">
     <pre><code class="r">options(mc.cores=1)
 tdm &lt;- TermDocumentMatrix(cps,
-                              control=list(
-                              tokenize=ko.words,
-                              removeNumbers=TRUE,
-                              removePunctuation=TRUE))
+                          control=list(
+                          tokenize=ko.words,
+                          weighting=weightBin))
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-46" style="background:;">
+<slide class="new-background modal" id="slide-38" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1151,14 +895,14 @@ tdm &lt;- TermDocumentMatrix(cps,
 <pre><code class="r">rownames(tdm)[rownames(tdm)==&quot;ㅡ.ㅡ&quot;]
 </code></pre>
 
-<pre><code>## character(0)
+<pre><code>## [1] &quot;ㅡ.ㅡ&quot;
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-47" style="background:;">
+<slide class="new-background" id="slide-39" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1171,25 +915,75 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-48" style="background:;">
+<slide class="new-background" id="slide-40" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
   <article data-timings="">
     <pre><code class="r">options(mc.cores=1)
 tdm &lt;- TermDocumentMatrix(cps,
-                              control = list(
-                              tokenize=ko.words,    
-                              removeNumbers=TRUE,
-                              removePunctuation=TRUE,
-                              wordLengths=c(2,Inf)))
+                          control=list(
+                          tokenize=ko.words,    
+                          wordLengths=c(2,Inf),
+                          weighting=weightBin))
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-49" style="background:;">
+<slide class="new-background modal" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Term x Document Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">rownames(tdm)[rownames(tdm)==&quot;어벤져스&quot;]
+</code></pre>
+
+<pre><code>## [1] &quot;어벤져스&quot;
+</code></pre>
+
+<pre><code class="r">rownames(tdm)[rownames(tdm)==&quot;헐크&quot;]
+</code></pre>
+
+<pre><code>## [1] &quot;헐크&quot;
+</code></pre>
+
+<pre><code class="r">rownames(tdm)[rownames(tdm)==&quot;등등&quot;]
+</code></pre>
+
+<pre><code>## [1] &quot;등등&quot;
+</code></pre>
+
+<pre><code class="r">rownames(tdm)[rownames(tdm)==&quot;ㅡ.ㅡ&quot;]
+</code></pre>
+
+<pre><code>## [1] &quot;ㅡ.ㅡ&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>Term x Document Matrix</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">options(mc.cores=1)
+tdm &lt;- TermDocumentMatrix(cps,
+                          control=list(
+                          tokenize=ko.words,    
+                          wordLengths=c(2,Inf),
+                          weighting=weightBin,
+                          removePunctuation=T))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-43" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1222,7 +1016,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-50" style="background:;">
+<slide class="new-background" id="slide-44" style="background:;">
   <hgroup>
     <h2>불필요 단어제거</h2>
   </hgroup>
@@ -1271,7 +1065,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-51" style="background:;">
+<slide class="new-background" id="slide-45" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1280,33 +1074,33 @@ tdm &lt;- TermDocumentMatrix(cps,
 <li>해석이 힘든 단어들을 Term x Document Matrix 생성 시 제거</li>
 </ul>
 
-<pre><code class="r">delete_dic &lt;- c(&quot;그냥&quot;, &quot;등등&quot;, &quot;중간&quot;)
+<pre><code class="r">delete.dict &lt;- c(&quot;그냥&quot;, &quot;등등&quot;, &quot;중간&quot;)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-52" style="background:;">
+<slide class="new-background" id="slide-46" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
   <article data-timings="">
     <pre><code class="r">options(mc.cores=1)
 tdm &lt;- TermDocumentMatrix(cps,
-                              control = list(
-                              tokenize=ko.words, 
-                              removeNumbers = TRUE,
-                              removePunctuation = TRUE,
-                              wordLengths = c(2,Inf),
-                              stopwords = delete_dic))
+                          control=list(
+                          tokenize=ko.words, 
+                          wordLengths=c(2,Inf),
+                          weighting=weightBin,
+                          removePunctuation=T,
+                          stopwords=delete.dict))
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-53" style="background:;">
+<slide class="new-background modal" id="slide-47" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1339,7 +1133,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-54" style="background:;">
+<slide class="new-background" id="slide-48" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix</h2>
   </hgroup>
@@ -1362,7 +1156,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-55" style="background:;">
+<slide class="new-background" id="slide-49" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1386,7 +1180,7 @@ tdm &lt;- TermDocumentMatrix(cps,
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-56" style="background:;">
+<slide class="new-background modal" id="slide-50" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1395,7 +1189,7 @@ tdm &lt;- TermDocumentMatrix(cps,
 order(rowSums(tdm.m), decreasing = T)[1:5]
 </code></pre>
 
-<pre><code>## [1] 2902 3717 4161 2385  550
+<pre><code>## [1] 3001 3820 4254 2489  679
 </code></pre>
 
 <pre><code class="r">tdm.m &lt;- tdm.m[order(rowSums(tdm.m), decreasing = T),]
@@ -1405,7 +1199,7 @@ order(rowSums(tdm.m), decreasing = T)[1:5]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-57" style="background:;">
+<slide class="new-background" id="slide-51" style="background:;">
   <hgroup>
     <h2>Co-occurrence Matrix</h2>
   </hgroup>
@@ -1417,18 +1211,64 @@ co.mat[1:5,1:5]
 
 <pre><code>##           Terms
 ## Terms      어벤져스 재미 지루 스토리 기대
-##   어벤져스     1057  113   77    107   64
-##   재미          113  292   35     24   29
-##   지루           77   35  217     25   29
-##   스토리        107   24   25    196   11
-##   기대           64   29   29     11  205
+##   어벤져스      466   66   54     60   43
+##   재미           66  206   27     20   24
+##   지루           54   27  185     24   26
+##   스토리         60   20   24    160    8
+##   기대           43   24   26      8  154
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background modal" id="slide-58" style="background:;">
+<slide class="dark segue nobackground" id="slide-52" style="background:;">
+  <hgroup>
+    <h2>6. 감정사전 불러오기</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-53" style="background:;">
+  <hgroup>
+    <h2>6. 감정사전 불러오기</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><h3b><font color="blue"><b> 학습 목표 </b></font></h3b><br>
+<h3b> - 파일 불러오기(read.csv)</h3b><br>
+<h3b> - 긍정 사전과 부정 사전으로 분할(subset)</h3b></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background" id="slide-54" style="background:;">
+  <hgroup>
+    <h2>6. 감정사전 불러오기</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">emotion.dict &lt;- read.csv(&quot;emotion_dict_mac.csv&quot;, 
+                         header = T, 
+                         stringsAsFactors = F)
+</code></pre>
+
+<pre><code class="r">pos.word &lt;- subset(emotion.dict, pos_neg==&quot;pos&quot;)[,&quot;words&quot;]
+neg.word &lt;- subset(emotion.dict, pos_neg==&quot;neg&quot;)[,&quot;words&quot;]
+#emotion.dict[11:15,]; emotion.dict[1301:1305,];
+</code></pre>
+
+<h4><br></h4>
+
+<p><a href="https://www.dropbox.com/s/okv4mjiq0wlhgbl/emotion_dict_mac.csv?dl=0">감정사전</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="new-background modal" id="slide-55" style="background:;">
   <hgroup>
     <h2>Term x Document Matrix와 감정 사전</h2>
   </hgroup>
@@ -1446,13 +1286,13 @@ co.mat[1:5,1:5]
 </code></pre>
 
 <pre><code class="r">groups.list = list()
-groups.list$비호감단어 = which(rownames(co.mat) %in% neg.word)
-groups.list$호감단어 = which(rownames(co.mat) %in% pos.word)
+groups.list$비호감단어 &lt;- which(rownames(co.mat) %in% neg.word)
+groups.list$호감단어 &lt;- which(rownames(co.mat) %in% pos.word)
 groups.list
 </code></pre>
 
 <pre><code>## $비호감단어
-## [1]  3 17 20
+## [1]  3 15 19
 ## 
 ## $호감단어
 ## [1] 2 5
@@ -1462,7 +1302,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-59" style="background:;">
+<slide class="dark segue nobackground" id="slide-56" style="background:;">
   <hgroup>
     <h2>7. 시각화</h2>
   </hgroup>
@@ -1472,7 +1312,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-60" style="background:;">
+<slide class="new-background" id="slide-57" style="background:;">
   <hgroup>
     <h2>7. 시각화</h2>
   </hgroup>
@@ -1484,7 +1324,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-61" style="background:;">
+<slide class="new-background" id="slide-58" style="background:;">
   <hgroup>
     <h2>Graph</h2>
   </hgroup>
@@ -1499,7 +1339,7 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-62" style="background:;">
+<slide class="new-background" id="slide-59" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_00.png" height="600" width="700"></center></p>
 
@@ -1507,17 +1347,17 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-63" style="background:;">
+<slide class="new-background" id="slide-60" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout=&quot;spring&quot;)
+       layout=&quot;spring&quot;)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-64" style="background:;">
+<slide class="new-background" id="slide-61" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_01.png" height="600" width="700"></center></p>
 
@@ -1525,18 +1365,18 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-65" style="background:;">
+<slide class="new-background" id="slide-62" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout=&quot;spring&quot;, 
-      edge.color = &quot;darkblue&quot;)
+       layout=&quot;spring&quot;, 
+       edge.color = &quot;darkblue&quot;)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-66" style="background:;">
+<slide class="new-background" id="slide-63" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_02.png" height="600" width="700"></center></p>
 
@@ -1544,19 +1384,19 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-67" style="background:;">
+<slide class="new-background" id="slide-64" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout=&quot;spring&quot;, 
-      edge.color = &quot;darkblue&quot;,
-      groups = groups.list)
+       layout=&quot;spring&quot;, 
+       edge.color = &quot;darkblue&quot;,
+       groups = groups.list)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-68" style="background:;">
+<slide class="new-background" id="slide-65" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_03.png" height="600" width="700"></center></p>
 
@@ -1564,14 +1404,14 @@ groups.list
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-69" style="background:;">
+<slide class="new-background" id="slide-66" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout = &quot;spring&quot;, 
-      edge.color = &quot;darkblue&quot;,
-      groups = groups.list,
-      vsize = 5,
-      legend.cex = .7)
+       layout = &quot;spring&quot;, 
+       edge.color = &quot;darkblue&quot;,
+       groups = groups.list,
+       vsize = 5,
+       legend.cex = .7)
 
 title(movie_name, line = 3)
 </code></pre>
@@ -1580,7 +1420,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-70" style="background:;">
+<slide class="new-background" id="slide-67" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph.png" height="600" width="700"></center></p>
 
@@ -1588,14 +1428,14 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-71" style="background:;">
+<slide class="new-background" id="slide-68" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout = &quot;spring&quot;, 
-      edge.color = &quot;darkblue&quot;,
-      groups = groups.list,
-      vsize = log(diag(co.mat)),
-      legend.cex = .7)
+       layout = &quot;spring&quot;, 
+       edge.color = &quot;darkblue&quot;,
+       groups = groups.list,
+       vsize = log(diag(co.mat)),
+       legend.cex = .7)
 
 title(movie_name, line = 3)
 </code></pre>
@@ -1604,7 +1444,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-72" style="background:;">
+<slide class="new-background" id="slide-69" style="background:;">
   <article data-timings="">
     <p><center><img src="assets/img/result_graph_2.png" height="600" width="700"></center></p>
 
@@ -1612,22 +1452,22 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-73" style="background:;">
+<slide class="new-background" id="slide-70" style="background:;">
   <article data-timings="">
     <pre><code class="r">qgraph(co.mat, labels = rownames(co.mat), diag=F,
-      layout = &quot;spring&quot;, 
-      edge.color = &quot;darkblue&quot;,
-      groups = groups.list,
-      vsize = log(diag(co.mat)),
-      legend.cex = .7,
-      color=c(&quot;gold&quot;, &quot;lightblue&quot;))
+       layout = &quot;spring&quot;, 
+       edge.color = &quot;darkblue&quot;,
+       groups = groups.list,
+       vsize = log(diag(co.mat)),
+       legend.cex = .7,
+       color=c(&quot;gold&quot;, &quot;lightblue&quot;))
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-74" style="background:;">
+<slide class="new-background" id="slide-71" style="background:;">
   <article data-timings="">
     <p><a href="https://www.nceas.ucsb.edu/%7Efrazier/RSpatialGuides/colorPaletteCheatsheet.pdf">Tips</a></p>
 
@@ -1637,7 +1477,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-75" style="background:;">
+<slide class="new-background" id="slide-72" style="background:;">
   <hgroup>
     <h2>의문 단어 찾아보기(상관관계)</h2>
   </hgroup>
@@ -1645,20 +1485,20 @@ title(movie_name, line = 3)
     <pre><code class="r">head(findAssocs(tdm, &quot;서울&quot;, 0))
 </code></pre>
 
-<pre><code>##          서울
-## 후진국   0.31
-## 배경     0.28
-## 이미지가 0.27
-## 건물외관 0.25
-## 뉴스방송 0.25
-## 당근     0.25
+<pre><code>##                서울
+## 배경           0.30
+## 후진국         0.27
+## 모습           0.21
+## 이미지가       0.19
+## 히어로액션물을 0.19
+## 누구           0.16
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="new-background" id="slide-76" style="background:;">
+<slide class="new-background" id="slide-73" style="background:;">
   <hgroup>
     <h2>의문 단어 찾아보기(상관관계)</h2>
   </hgroup>
@@ -1679,7 +1519,7 @@ title(movie_name, line = 3)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark segue nobackground" id="slide-77" style="background:;">
+<slide class="dark segue nobackground" id="slide-74" style="background:;">
   <hgroup>
     <h2>감사합니다</h2>
   </hgroup>
@@ -1863,79 +1703,79 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=29 title='3. 웹크롤 예제'>
+        data-slide=29 title='4. 키워드 파싱 및 추출'>
          29
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=30 title='3. 웹크롤 예제'>
+        data-slide=30 title='4. 키워드 파싱 및 추출'>
          30
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=31 title='3. 웹크롤 예제'>
+        data-slide=31 title='R에서 자연어 처리 (KoNLP)'>
          31
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=32 title='3. 웹크롤 예제'>
+        data-slide=32 title='5. Co-occurrence Matrix'>
          32
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=33 title='3. 웹크롤 예제'>
+        data-slide=33 title='5. Co-occurrence Matrix'>
          33
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=34 title='4. 감정사전 불러오기'>
+        data-slide=34 title='Term x Document Matrix'>
          34
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=35 title='4. 감정사전 불러오기'>
+        data-slide=35 title=''>
          35
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=36 title='4. 감정사전 불러오기'>
+        data-slide=36 title='Term x Document Matrix'>
          36
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=37 title='5. 키워드 파싱 및 추출'>
+        data-slide=37 title='Term x Document Matrix'>
          37
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=38 title='5. 키워드 파싱 및 추출'>
+        data-slide=38 title='Term x Document Matrix'>
          38
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=39 title='R에서 자연어 처리 (KoNLP)'>
+        data-slide=39 title='Term x Document Matrix'>
          39
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=40 title='6. Co-occurrence Matrix'>
+        data-slide=40 title='Term x Document Matrix'>
          40
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=41 title='6. Co-occurrence Matrix'>
+        data-slide=41 title='Term x Document Matrix'>
          41
       </a>
     </li>
@@ -1947,13 +1787,13 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=43 title=''>
+        data-slide=43 title='Term x Document Matrix'>
          43
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=44 title='Term x Document Matrix'>
+        data-slide=44 title='불필요 단어제거'>
          44
       </a>
     </li>
@@ -1983,79 +1823,79 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=49 title='Term x Document Matrix'>
+        data-slide=49 title='Co-occurrence Matrix'>
          49
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=50 title='불필요 단어제거'>
+        data-slide=50 title='Co-occurrence Matrix'>
          50
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=51 title='Term x Document Matrix'>
+        data-slide=51 title='Co-occurrence Matrix'>
          51
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=52 title='Term x Document Matrix'>
+        data-slide=52 title='6. 감정사전 불러오기'>
          52
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=53 title='Term x Document Matrix'>
+        data-slide=53 title='6. 감정사전 불러오기'>
          53
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=54 title='Term x Document Matrix'>
+        data-slide=54 title='6. 감정사전 불러오기'>
          54
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=55 title='Co-occurrence Matrix'>
+        data-slide=55 title='Term x Document Matrix와 감정 사전'>
          55
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=56 title='Co-occurrence Matrix'>
+        data-slide=56 title='7. 시각화'>
          56
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=57 title='Co-occurrence Matrix'>
+        data-slide=57 title='7. 시각화'>
          57
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=58 title='Term x Document Matrix와 감정 사전'>
+        data-slide=58 title='Graph'>
          58
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=59 title='7. 시각화'>
+        data-slide=59 title=''>
          59
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=60 title='7. 시각화'>
+        data-slide=60 title=''>
          60
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=61 title='Graph'>
+        data-slide=61 title=''>
          61
       </a>
     </li>
@@ -2121,38 +1961,20 @@ title(movie_name, line = 3)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=72 title=''>
+        data-slide=72 title='의문 단어 찾아보기(상관관계)'>
          72
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=73 title=''>
+        data-slide=73 title='의문 단어 찾아보기(상관관계)'>
          73
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=74 title=''>
+        data-slide=74 title='감사합니다'>
          74
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=75 title='의문 단어 찾아보기(상관관계)'>
-         75
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=76 title='의문 단어 찾아보기(상관관계)'>
-         76
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=77 title='감사합니다'>
-         77
       </a>
     </li>
   </ul>
