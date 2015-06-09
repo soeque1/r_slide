@@ -1,6 +1,6 @@
 ---
-title       : "Kaggle 뽀개기"
-subtitle    : "통계 & 기계학습 사전지식"
+title       : "Predictive Analysis"
+subtitle    : "통계 & 기계학습 기본 개념"
 author      : "(주)퀀트랩 Analytic Director"
 job         : "김형준"
 fframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
