@@ -181,6 +181,7 @@ legend("topright", c("Nation Black", "Nation Red"), col=c("black", "red"), lty=1
 plot(rep(0,length(men_A)), men_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
 points(rep(1,length(women_A)), women_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
 abline(h=170, col="black")
+legend("topright", c("Nation Black", "Nation Red"), col=c("black", "red"), lty=1)
 ```
 
 ---
