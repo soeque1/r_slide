@@ -1,0 +1,354 @@
+---
+title       : "Kaggle 뽀개기"
+subtitle    : "통계 & 기계학습 사전지식"
+author      : "(주)퀀트랩 Analytic Director"
+job         : "김형준"
+fframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets    : [mathjax]
+#ext_widgets: {rCharts: [libraries/nvd3]}           # {mathjax, quiz,bootstra}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Contents
+
+1. Why Model?
+2. How Model?
+3. Which Model?
+
+--- .class #id
+
+## Why?
+
+---
+
+## Why?
+
+### 설명 : 선형 모형(Linear Model) 선호  
+키가 170이상이면 남자 
+키가 1cm 증가할 때마다 몸무게가 1kg 증가  
+월 소득이 100만원 증가할 때마다 몸무게가 1kg 감소  
+월 소득이 1000만원이상이면 몸무게 증가없음(선형 VS 비선형)    
+
+### 예측 : 비선형 모형(Non-Linear Model) 선호  
+몸무게는 (log(키) + log(나이 - 50))*(소득수준의 제곱)  
+키와 나이의 Gaussian Kernel에서 .3이 높아지면 몸무게는 1kg이 증가한다  
+[Kernel](http://www.eric-kim.net/eric-kim-net/posts/1/kernel_trick.html)  
+
+### 설명 + 예측 : 풀어야 할 숙제
+
+
+---
+
+## 키와 성별
+
+```{r, echo=F}
+set.seed(12345)
+men_A <- rnorm(50, 180, 5)
+women_A <- rnorm(50, 160, 5)
+men_B <- rnorm(50, 170, 5)
+women_B <- rnorm(50, 150, 5)
+men <- c(men_A, men_B)
+women <- c(women_A, women_B)
+hist(men, xlim=c(140,200), ylim=c(0,35), border="blue", main="Histogram", xlab="Height")
+hist(women, xlim=c(140,200), ylim=c(0,35), border="red", add=T)
+```
+
+---
+
+## 키와 성별
+
+```{r, echo=F}
+hist(men, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=10, main="Histogram", xlab="Height")
+hist(women, xlim=c(140,200), ylim=c(0,35), border="red", breaks=10, add=T)
+abline(v=165, lwd=2)
+```
+
+---
+
+## 키와 성별
+
+```{r, echo=F}
+hist(men, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=10, main="Histogram", xlab="Height")
+hist(women, xlim=c(140,200), ylim=c(0,35), border="red", breaks=10, add=T)
+abline(v=165, lwd=2)
+hist(c(rep(130, length(men[men>=165])), men[men<165]), xlim=c(140,200), ylim=c(0,35), col="blue", breaks=10, add=T)
+hist(c(rep(130, length(women[women<=165])), women[women>165]), xlim=c(140,200), ylim=c(0,35), col="red", breaks=10, add=T)
+```
+
+--- &twocol
+
+## 키와 성별, 국가
+
+*** =left
+
+```{r, echo=F, fig.width=6}
+hist(men_A, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=5, main="Histogram  of Nation Black", xlab="Height")
+hist(women_A, xlim=c(140,200), ylim=c(0,35), border="red", breaks=5, add=T)
+abline(v=170, col="black", lwd=2)
+```
+
+*** =right
+
+```{r, echo=F, fig.width=6}
+hist(men_B, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=5, main="Histogram  of Nation Red", xlab="Height")
+hist(women_B, xlim=c(140,200), ylim=c(0,35), border="red", breaks=5, add=T)
+abline(v=160, col="red", lwd=2)
+```
+
+--- &twocol
+
+## 키와 성별, 국가
+
+*** =left
+
+```{r, echo=F, fig.width=6}
+hist(men_A, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=5, main="Histogram  of Nation Black", xlab="Height")
+hist(women_A, xlim=c(140,200), ylim=c(0,35), border="red", breaks=5, add=T)
+abline(v=170, col="black", lwd=2)
+hist(c(rep(130, length(men_A[men_A>=170])), men_A[men_A<170]), xlim=c(140,200), ylim=c(0,35), col="blue", breaks=10, add=T)
+hist(c(rep(130, length(women_A[women_A<=170])), women_A[women_A>170]), xlim=c(140,200), ylim=c(0,35), col="red", breaks=10, add=T)
+```
+
+*** =right
+
+```{r, echo=F, fig.width=6}
+hist(men_B, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=5, main="Histogram  of Nation Red", xlab="Height")
+hist(women_B, xlim=c(140,200), ylim=c(0,35), border="red", breaks=5, add=T)
+abline(v=160, col="red", lwd=2)
+hist(c(rep(130, length(men_B[men_B>=160])), men_B[men_B<160]), xlim=c(140,200), ylim=c(0,35), col="blue", breaks=10, add=T)
+hist(c(rep(130, length(women_B[women_B<=160])), women_B[women_B>160]), xlim=c(140,200), ylim=c(0,35), col="red", breaks=10, add=T)
+
+```
+
+--- &twocol
+
+## 키와 성별, 국가
+
+
+*** =left
+
+```{r, echo=F, fig.width=6}
+hist(men, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=10, main="Histogram of SEX", xlab="Height")
+hist(women, xlim=c(140,200), ylim=c(0,35), border="red", breaks=10, add=T)
+abline(v=165, lwd=2)
+hist(c(rep(130, length(men[men>=165])), men[men<165]), xlim=c(140,200), ylim=c(0,35), col="blue", breaks=10, add=T)
+hist(c(rep(130, length(women[women<=165])), women[women>165]), xlim=c(140,200), ylim=c(0,35), col="red", breaks=10, add=T)
+```
+
+*** =right
+
+```{r, echo=F, fig.width=6}
+hist(men_A, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=5, lty=2, main="Histogram of SEX & Nation", xlab="Height")
+hist(women_A, xlim=c(140,200), ylim=c(0,35), border="red", breaks=5, lty=2, add=T)
+abline(v=170, col="black", lwd=2, lty=2)
+hist(men_B, xlim=c(140,200), ylim=c(0,35), border="blue", breaks=5, lty=1, add=T)
+hist(women_B, xlim=c(140,200), ylim=c(0,35), border="red", breaks=5, lty=1, add=T)
+abline(v=160, col="red", lwd=2, lty=1)
+hist(c(rep(130, length(men_A[men_A>=170])), men_A[men_A<170]), xlim=c(140,200), ylim=c(0,35), col="blue", breaks=10, add=T)
+hist(c(rep(130, length(women_A[women_A<=170])), women_A[women_A>170]), xlim=c(140,200), ylim=c(0,35), col="red", breaks=10, add=T)
+hist(c(rep(130, length(men_B[men_B>=160])), men_B[men_B<160]), xlim=c(140,200), ylim=c(0,35), col="blue", breaks=10, add=T)
+hist(c(rep(130, length(women_B[women_B<=160])), women_B[women_B>160]), xlim=c(140,200), ylim=c(0,35), col="red", breaks=10, add=T)
+```
+
+---
+
+## 키와 성별
+
+```{r, echo=F}
+plot(c(rep(0,length(men)), rep(1,length(women))), c(men, women), xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190))
+```
+
+---
+
+## 키와 성별, 국가
+
+```{r, echo=F}
+plot(rep(0,length(men_A)), men_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
+points(rep(1,length(women_A)), women_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
+points(rep(0,length(men_B)), men_B, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="red")
+points(rep(1,length(women_B)), women_B, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="red")
+legend("topright", c("Nation Black", "Nation Red"), col=c("black", "red"), lty=1)
+```
+
+---
+
+## 키와 성별, 국가
+
+```{r, echo=F}
+plot(rep(0,length(men_A)), men_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
+points(rep(1,length(women_A)), women_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
+abline(h=170, col="black")
+```
+
+---
+
+## 키와 성별, 국가
+
+```{r, echo=F}
+plot(rep(0,length(men_B)), men_B, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="red")
+points(rep(1,length(women_B)), women_B, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="red")
+abline(h=160, col="red")
+legend("topright", c("Nation Black", "Nation Red"), col=c("black", "red"), lty=1)
+```
+
+---
+
+## 키와 성별, 국가
+
+```{r, echo=F}
+plot(rep(0,length(men_A)), men_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
+points(rep(1,length(women_A)), women_A, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="black")
+abline(h=170, col="black")
+points(rep(0,length(men_B)), men_B, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="red")
+points(rep(1,length(women_B)), women_B, xlab="men = 0, women = 1", ylab="height", xlim=c(0,1),ylim=c(140,190), col="red")
+abline(h=160, col="red")
+legend("topright", c("Nation Black", "Nation Red"), col=c("black", "red"), lty=1)
+```
+
+---
+
+## 공분산(Covariacne)과 상관관계(Correlation) 
+- 두 변수의 변화 사이의 관계, 한 변수가 변화함에 따라 다른 변수가 변화하는 경향성  
+- 일반적으로 선형관계를 나타냄  
+
+```{r include=T, echo=F}
+set.seed(1)
+heights = rnorm(30,180,5)
+heights = sort(heights, decreasing = F)
+weights =  -10 + heights*.5 + rnorm(30,0,2)
+#hist(weights);hist(heights)
+cor(weights, heights)
+```
+
+---
+
+## 더 생각해 볼 문제들
+
+### 상호작용  
+
+Black Nation에서는 키가 남 > 여  
+  
+Red Nation에서는 키가 여 > 남  
+  
+-> 성별과 국가 상호작용 추가  
+
+### 선형관계  
+
+-> 문제는 항상 선형관계를 만족하는가?
+
+-> 나이와 키는 비선형관계  
+
+### Curse of Dimensionality
+
+-> 많은 변수로 예측하는 것이 항상 좋은 것인가?
+
+--- &twocol
+
+## Model Complexity
+
+*** =left
+
+```{r, echo=F,warning=F, fig.width=6}
+plot(heights, weights, pch=16)
+#abline(a=-20,b=.5,col="red")
+abline(lm(weights ~ heights), col="red")
+a <- apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+```
+
+*** =right
+
+```{r xtable2_1, results="asis", echo=F, fig.width=6}
+library("xtable")
+print(xtable(coef(summary(lm(weights ~ heights)))),type="html")
+```
+
+---
+
+```{r lmplot2_2, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+a <- apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+legend("topleft",legend=c("True","Estimated"),col=c("black","red"),lty=1)
+
+```
+
+---
+
+## Over-Fitting(과적합)
+
+```{r lmplot2_3, echo=F, eval=T, warning=F}
+plot(heights, weights, pch=16)
+abline(a=-10,b=.5,col="black")
+abline(lm(weights ~ heights), col="red")
+a <- apply(cbind(heights, heights, weights, predict(lm(weights~heights))),1,
+      function(coords){lines(coords[1:2],coords[3:4],lty=2)})
+
+lm_mse = sum((weights - predict(lm(weights ~ heights)))^2)
+true_mse = sum((weights - (-10 + .5*heights))^2)
+
+poly_lm<-lm(weights ~ poly(heights, 16))
+points(heights,predict(poly_lm),type="l",col="blue")
+poly_mse = sum((weights - predict(poly_lm))^2)
+
+legend("topleft",legend=c(paste("True MSE:",round(true_mse,2)),
+                       paste("LM MSE:",round(lm_mse,2)), 
+                       paste("Poly MSE:",round(poly_mse,2))),
+                         col=c("black","red","blue"),lty=1)
+```
+
+---
+
+## How? Model Evaluation
+
+---
+
+## How? Model Evaluation
+
+### Cross-Validtion
+- Training Set, Validation Set, Test Set
+- K-fold
+
+### How to avoid Over-fitting
+- Penality of Model Complexity (MSE 보정)
+- Regulization (Lasso, Ridge, Elastic Net)
+- Bayesian
+- Drop Out, Bagging, Feature Bagging
+
+---
+
+## Which Model?
+
+### Supervised Learning
+- Y를 알 때 
+- P(Y|X) : Discriminative Model
+
+### Unsupervised Learning
+- Y를 모를 때  
+- P(X)  
+- P(Y,X) : Generative Model   
+[참고](http://www.quora.com/Is-it-possible-for-unsupervised-learning-algorithms-to-outperform-supervised-ones)  
+
+### Semi-Supervised Learning  
+### Reinforce Learning
+
+---
+
+## Random Forest
+
+
+[Random Forest](http://www.math.usu.edu/adele/randomforests/ovronnaz.pdf)  
+  
+
+[How to work](http://pubs.rsc.org/en/content/articlehtml/2009/mb/b907946g)  
+  
+  
+[How to avoid over-fiting](http://www.quora.com/How-bagging-can-avoid-over-fitting-in-Random-Forest-classification)  
+  
+  
+[Titanic example](http://trevorstephens.com/post/73770963794/titanic-getting-started-with-r-part-5-random)  
