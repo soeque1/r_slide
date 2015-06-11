@@ -127,7 +127,7 @@ knit        : slidify::knit2slides
 
 ---
 
-## 공분산(Covariacne)과 상관관계(Correlation) 
+## 공분산(Covariance)과 상관관계(Correlation) 
 - 두 변수의 변화 사이의 관계, 한 변수가 변화함에 따라 다른 변수가 변화하는 경향성  
 - 일반적으로 선형관계를 나타냄  
 
