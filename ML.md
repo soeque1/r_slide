@@ -12,6 +12,10 @@ mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 ---
 
+<center><img src="daum_crawling/html/assets/img/quantlab_2.jpg" height=600px width=800px></center>
+
+---
+
 ## Contents
 
 1. Why Model?
