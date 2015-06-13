@@ -16,6 +16,12 @@ knit        : slidify::knit2slides
 
 ---
 
+### [개인 홈페이지](http://soeque1.github.io/r_slide/)
+<left><img src="assets/fig/intro_hj.jpg" height=600px width=800px></left>
+
+
+---
+
 ## Contents
 
 1. Why Model?
